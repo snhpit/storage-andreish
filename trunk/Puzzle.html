@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title>Puzzle</title>
+    <script type="text/javascript" src="Scripts/jquery-1.7.2.js"></script>
+    <script type="text/javascript" src="Scripts/jquery.tmpl.js"></script>
+    <script type="text/javascript">
+        var movies = [
+            { Name: "The Red Violin", ReleaseYear: "1998" },
+            { Name: "Eyes Wide Shut", ReleaseYear: "1999" },
+            { Name: "The Inheritance", ReleaseYear: "1976" }
+        ];
+
+        $( "#movieTemplate" ).tmpl( movies )
+                .appendTo( "#movieList" );
+    </script>
+    <script id="movieTemplate" type="text/x-jquery-tmpl">
+        <li><b>${Name}</b> (${ReleaseYear})</li>
+    </script>
+</head>
+
+<body>
+    <!--<ul id="movieList"></ul>-->
+    <div id="textInput"></div>
+    <div id="puzzle-box"></div>
+    <button id="reset">New Game</button>
+</body>
+
+</html>
