@@ -5,6 +5,7 @@
     <title>Puzzle</title>
     <script type="text/javascript" src="Scripts/jquery-1.7.2.js"></script>
     <script type="text/javascript" src="Scripts/jquery.tmpl.js"></script>
+    <link rel="stylesheet" href="Styles/puzzle.css" type="text/css">
 
     <script id="squareTemplate" type="text/x-jquery-tmpl">
         {{each indexes}}
@@ -13,54 +14,61 @@
             </div>
         {{/each}}
     </script>
+
     <script type="text/javascript">
-        $("#compile").click(function () {
-            if (verifyInputData(inputData) !== NaN) {
-                numbering();
-                compilePuzzleBox();
-                $("#squareTemplate").tmpl(data).appendTo(".centerwrapper");
+        (function() {
+            context = this;
+            $("#compile").click(function () { context.click(); });
+
+            //var inputData;
+            //var numberOfSquares;
+            var data = { indexes: [] };
+
+            function getNumber(inputData) {
+                return Math.pow(inputData, 2);
             }
-        });
 
-        var inputData = $("#textInput").value;
-        var numberOfSquares = getNumber();
-        var data = { indexes: [] };
-
-        function getNumber() {
-            return Math.pow(inputData, 2);
-        }
-
-        function verifyInputData(value) {
-            if (isNaN(+value) && value > 1) {
-                inputData = value;
+            function verifyInputData(value) {
+                if (isNaN(+value) && value > 1) {
+                    inputData = value;
+                }
             }
-        }
 
-        function numbering() {
-            var X = numberOfSquares - 1;
-            for (var i = 0; i <= X; i++) {
-                data.indexes[i] = i + 1;
+            function numbering(numberOfSquares) {
+                var X = numberOfSquares - 1;
+                for (var i = 0; i <= X; i++) {
+                    data.indexes[i] = i + 1;
+                }
+                //data.indexes[numberOfSquares] = 0;
             }
-            data.indexes[numberOfSquares] = 0;
-        }
 
-        function compilePuzzleBox() {
-            var width = $("div.square").css("width");
-            $("#puzzle-box").css("width", width * numberOfSquares);
-            $("#puzzle-box").css("height", width * numberOfSquares);
-        }
+            function compilePuzzleBox(numberOfSquares) {
+                var width = $("div.square").css("width");
+                $("#puzzle-box").css("width", width * numberOfSquares);
+                $("#puzzle-box").css("height", width * numberOfSquares);
+            }
+
+            function click() {
+                var inputData = $("#textInput").value;
+                if (verifyInputData(inputData) !== NaN) {
+                    numberOfSquares = getNumber(inputData);
+                    numbering(numberOfSquares);
+                    compilePuzzleBox(numberOfSquares);
+                    $("#squareTemplate").tmpl(data).appendTo(".centerwrapper");
+                }
+            }
+        })();
 
     </script>
-    <link rel="stylesheet" href="Styles/puzzle.css" type="text/css">
 </head>
 <body>
 
-<input type="text" id="textInput"></div>
-<input type="button" id="compile" name="compileGame" value="assemble">
+<input type="text" id="textInput">
+<input type="button" id="compile" value="new game">
 <div id="puzzle-box">
     <div class="centerwrapper"></div>
 </div>
-<input type="button" id="reset" name="restartGame" value="New game"></button>
+<input type="button" id="reset" value="restart game"></button>
 
 </body>
 </html>
