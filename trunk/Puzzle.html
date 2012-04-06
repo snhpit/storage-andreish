@@ -5,7 +5,7 @@
     <title>Puzzle</title>
     <script type="text/javascript" src="Scripts/jquery-1.7.2.js"></script>
     <script type="text/javascript" src="Scripts/jquery.tmpl.js"></script>
-    <link rel="stylesheet" href="Styles/puzzle.css" type="text/css">
+
     <script id="squareTemplate" type="text/x-jquery-tmpl">
         {{each indexes}}
             <div class="square">
@@ -14,17 +14,44 @@
         {{/each}}
     </script>
     <script type="text/javascript">
-        var X = 15;
-        var data = {indexes : []};
+        $("#compile").click(function () {
+            if (verifyInputData(inputData) !== NaN) {
+                numbering();
+                compilePuzzleBox();
+                $("#squareTemplate").tmpl(data).appendTo(".centerwrapper");
+            }
+        });
 
-        for (var i = 0; i <= X; i++) {
-            data.indexes[i] = i;
+        var inputData = $("#textInput").value;
+        var numberOfSquares = getNumber();
+        var data = { indexes: [] };
+
+        function getNumber() {
+            return Math.pow(inputData, 2);
         }
 
-        $(function() {
-            $("#squareTemplate").tmpl(data).appendTo(".centerwrapper");
-        });
+        function verifyInputData(value) {
+            if (isNaN(+value) && value > 1) {
+                inputData = value;
+            }
+        }
+
+        function numbering() {
+            var X = numberOfSquares - 1;
+            for (var i = 0; i <= X; i++) {
+                data.indexes[i] = i + 1;
+            }
+            data.indexes[numberOfSquares] = 0;
+        }
+
+        function compilePuzzleBox() {
+            var width = $("div.square").css("width");
+            $("#puzzle-box").css("width", width * numberOfSquares);
+            $("#puzzle-box").css("height", width * numberOfSquares);
+        }
+
     </script>
+    <link rel="stylesheet" href="Styles/puzzle.css" type="text/css">
 </head>
 <body>
 
