@@ -1,0 +1,33 @@
+#game {
+    border: 1px solid black;
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto;
+
+}
+
+#puzzle-box {
+    /*width: 200px;
+    height: 200px;*/
+    border: 1px solid #adff2f;
+}
+
+.centerwrapper {
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    border: 1px solid red;
+}
+
+.square {
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #000;
+    float: left;
+}
+
+span .square {
+
+}​
+
