@@ -19,7 +19,7 @@
         $(document).ready(function() {
             //var context = this;
             $("#compile").click(function () { clickCompile(); });
-            $("#reset").click(function() { clickReset(); });
+            $("#reset").click(clickReset);
             //$(".square").click(function() { alert("dsds"); });
             $("#puzzle-box").on("click", "div", clickSquare);
 
@@ -32,7 +32,6 @@
             }
 
             function verifyInputData(value) {
-                //var inputData;
                 if (!isNaN(+value) && value > 1) {
                     return value;
                 }
@@ -40,7 +39,7 @@
             }
 
             function numbering(numberOfSquares) {
-                //var X = numberOfSquares - 1;
+                data.indexes.length = 0;
                 for (var i = 0; i < numberOfSquares; i++) {
                     data.indexes[i] = i + 1;
                 }
@@ -59,18 +58,14 @@
                 var value = $(this).text();
                 if (+value !== 0) {
                     // обработка
-                    alert("alal");
+                    alert("ololo");
                 }
                 //var
             }
 
-            function clearSquares() {
-                return $("#puzzle-box").empty();
-            }
-
             //
             function mixing() {
-                return Math.round(Math.random() * 3 + 1);
+                //return Math.round(Math.random() * 2 + 1);
             }
 
             //
@@ -86,9 +81,32 @@
             /**
              * перемещение/замена квадратов
              */
-            /**
-             * проверка выигрышной ситуации
-             */
+
+            function verifyWinningSituation() {
+                var array = data.indexes;
+                var lastElement = $(".square").last().text();
+                if (+array[array.length - 1] === +lastElement) {
+                    $(".square").each(function(i, value) {
+                        if (array[i] === +$(this).text() || value === "") {
+                            console.log("123");
+                        }
+                    });
+                }
+                /*
+                da = { ind : [1,2,3,""] };
+
+                 var array = da.ind;
+                 var lastElement = $(".square").last().text();
+                 if (+array[array.length - 1] === +lastElement) {
+                 $(".square").each(function(i, value) {
+                 if (array[i] === +$(this).text() || value === "") {
+                 console.log("123");
+                 }
+                 });
+                 }
+                 */
+            }
+
             /**
              * анимация
              */
@@ -102,7 +120,7 @@
 
                 var sidesNumber = $("#textInput").val(); //if тоже число, то и не строить
                 if (verifyInputData(sidesNumber) !== "undefined") {
-                    var empty = clearSquares();
+                    var empty = $("#puzzle-box").empty();
                     var numberOfSquares = getNumber(sidesNumber);
                     numbering(numberOfSquares);
                     compilePuzzleBox(sidesNumber);
@@ -116,10 +134,10 @@
 <body>
 <div id="form">
     <div id="game">
-        <input type="text" id="textInput">
-        <input type="button" id="compile" value="new game">
+        <input type="text" id="textInput"/>
+        <input type="button" id="compile" value="new game"/>
         <div id="puzzle-box"></div>
-        <input type="button" id="reset" value="restart game">
+        <input type="button" id="reset" value="restart game"/>
     </div>
 </div>
 </body>
