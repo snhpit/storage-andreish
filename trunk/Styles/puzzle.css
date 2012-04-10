@@ -1,0 +1,33 @@
+#form {
+    text-align: center;
+}
+
+#game {
+    /*border: 1px solid black;*/
+    display: inline-block;
+    text-align: center;
+}
+
+#puzzle-box {
+    border: 1px solid #000;
+    margin: 0 auto;
+    visibility: hidden;
+}
+
+.centerwrapper {
+    margin: auto;
+    border: 1px solid red;
+}
+
+.square {
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #000;
+    float: left;
+}
+
+div.square span{
+
+}​
+
