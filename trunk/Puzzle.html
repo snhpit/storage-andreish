@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="Styles/puzzle.css" type="text/css">
 
     <script id="squareTemplate" type="text/x-jquery-tmpl">
-        {{each indexes}}
+        {{each values}}
             <div class="square" data-value="${$value}">
                 <span>${$value}</span>
             </div>
@@ -25,7 +25,8 @@
 
             //var inputData;
             //var numberOfSquares;
-            var data = { indexes: [] };
+            var data = { values: [] };
+            var values = [];
 
             function getNumber(inputData) {
                 return Math.pow(inputData, 2);
@@ -39,11 +40,11 @@
             }
 
             function numbering(numberOfSquares) {
-                data.indexes.length = 0;
+                data.values.length = 0;
                 for (var i = 0; i < numberOfSquares; i++) {
-                    data.indexes[i] = i + 1;
+                    data.values[i] = i + 1;
                 }
-                data.indexes[numberOfSquares - 1] = "";
+                data.values[numberOfSquares - 1] = "";
             }
 
             function compilePuzzleBox(sidesNumber) {
@@ -57,10 +58,13 @@
             function clickSquare() {
                 var value = $(this).text();
                 if (+value !== 0) {
-                    // обработка
-                    alert("ololo");
+                    $(this).insertAfter($(this).next())
+
+                    //$(this).replaceWith($(this).next());
+                    //$(this).next().add($(this));
+                    //$(this).siblings().
+                    //alert("ololo");
                 }
-                //var
             }
 
             //
@@ -83,28 +87,18 @@
              */
 
             function verifyWinningSituation() {
-                var array = data.indexes;
-                var lastElement = $(".square").last().text();
+                var array = data.values;
+                var lastElement = $(values[values.length - 1]).text();
+                var counter = 0;
                 if (+array[array.length - 1] === +lastElement) {
-                    $(".square").each(function(i, value) {
-                        if (array[i] === +$(this).text() || value === "") {
-                            console.log("123");
+                    $.each(values, function(i) {
+                        if (+array[i] === +$(this).text()) {
+                            counter++;
+                            //console.log($(this).text());
                         }
                     });
                 }
-                /*
-                da = { ind : [1,2,3,""] };
-
-                 var array = da.ind;
-                 var lastElement = $(".square").last().text();
-                 if (+array[array.length - 1] === +lastElement) {
-                 $(".square").each(function(i, value) {
-                 if (array[i] === +$(this).text() || value === "") {
-                 console.log("123");
-                 }
-                 });
-                 }
-                 */
+                return counter === array.length;
             }
 
             /**
@@ -117,14 +111,15 @@
             }
 
             function clickCompile() {
-
-                var sidesNumber = $("#textInput").val(); //if тоже число, то и не строить
+                var sidesNumber = $("#textInput").val(); //todo if тоже число, то и не строить
                 if (verifyInputData(sidesNumber) !== "undefined") {
                     var empty = $("#puzzle-box").empty();
                     var numberOfSquares = getNumber(sidesNumber);
                     numbering(numberOfSquares);
                     compilePuzzleBox(sidesNumber);
                     $("#squareTemplate").tmpl(data).appendTo("#puzzle-box");
+                    values = $(".square").get();
+                    verifyWinningSituation();
                 }
             }
         });
