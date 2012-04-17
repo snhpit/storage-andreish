@@ -26,14 +26,15 @@
             //var inputData;
             //var numberOfSquares;
             var data = { values: [] };
-            var values = [];
+            var squares = [];
+            var sidesNumber;
 
             function getNumber(inputData) {
                 return Math.pow(inputData, 2);
             }
 
             function verifyInputData(value) {
-                if (!isNaN(+value) && value > 1) {
+                if (!isNaN(value) && value > 1) {
                     return value;
                 }
                 return "undefined";
@@ -56,15 +57,27 @@
             }
 
             function clickSquare() {
-                var value = $(this).text();
-                if (+value !== 0) {
-                    $(this).insertAfter($(this).next())
+                var value = +$(this).text();
 
+                if (value !== 0) {
+                    //$(this).insertAfter($(this).next());
+                    replaceSquare();
+
+                    var gameEnabled = verifyWinningSituation(); // todo: callback here
                     //$(this).replaceWith($(this).next());
                     //$(this).next().add($(this));
                     //$(this).siblings().
                     //alert("ololo");
                 }
+            }
+
+            function replaceSquare() {
+                //index % sidesNumber === 0 || (index + 1) % sidesNumber === 0
+                //замена значений в массиве squares[]
+                //$(squares[5]).insertAfter($(squares[5+sidesNumber])) перемещаем 6 вместо нуля - ноль смещается влево
+                //$(squares[8]).insertAfter($(squares[5-1])) перемещаем 0 на бывшее место 6
+                //var temp = squares[5]; squares[5]=squares[8]; squares[8] = temp;
+                console.log("test");
             }
 
             //
@@ -82,19 +95,15 @@
 
             }
 
-            /**
-             * перемещение/замена квадратов
-             */
-
             function verifyWinningSituation() {
                 var array = data.values;
-                var lastElement = $(values[values.length - 1]).text();
+                var lastElement = $(squares[squares.length - 1]).text();
                 var counter = 0;
                 if (+array[array.length - 1] === +lastElement) {
-                    $.each(values, function(i) {
+                    $.each(squares, function(i) {
                         if (+array[i] === +$(this).text()) {
                             counter++;
-                            //console.log($(this).text());
+                            console.log($(this).text());
                         }
                     });
                 }
@@ -111,15 +120,15 @@
             }
 
             function clickCompile() {
-                var sidesNumber = $("#textInput").val(); //todo if тоже число, то и не строить
+                sidesNumber = +$("#textInput").val(); //todo if тоже число, то и не строить / optimization
                 if (verifyInputData(sidesNumber) !== "undefined") {
                     var empty = $("#puzzle-box").empty();
                     var numberOfSquares = getNumber(sidesNumber);
                     numbering(numberOfSquares);
                     compilePuzzleBox(sidesNumber);
                     $("#squareTemplate").tmpl(data).appendTo("#puzzle-box");
-                    values = $(".square").get();
-                    verifyWinningSituation();
+                    squares = $(".square").get();
+
                 }
             }
         });
