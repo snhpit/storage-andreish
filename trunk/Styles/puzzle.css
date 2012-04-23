@@ -10,8 +10,20 @@
 
 #puzzle-box {
     border: 1px solid #000;
-    margin: 0 auto;
+    margin: 1px auto;
     visibility: hidden;
+}
+
+#reset {
+    border: 1px solid #000000;
+}
+
+#compile {
+     border: 1px solid #000000;
+}
+
+#textInput {
+    border: 1px solid #000000;
 }
 
 .centerwrapper {
@@ -25,9 +37,17 @@
     height: 50px;
     border: 1px solid #000;
     float: left;
+    position: relative;
+    display: table;
 }
 
-div.square span{
+.hover {
+    border: 1px dashed #778899;
+}
 
-}​
-
+.fixing-vertical-align {
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 22px;
+    font-family: Times New Roman;
+}

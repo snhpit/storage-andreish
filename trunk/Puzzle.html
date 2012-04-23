@@ -5,134 +5,15 @@
     <title>Puzzle</title>
     <script type="text/javascript" src="Scripts/jquery-1.7.2.js"></script>
     <script type="text/javascript" src="Scripts/jquery.tmpl.js"></script>
+    <script type="text/javascript" src="Scripts/puzzle.js"></script>
     <link rel="stylesheet" href="Styles/puzzle.css" type="text/css">
 
     <script id="squareTemplate" type="text/x-jquery-tmpl">
         {{each values}}
             <div class="square" data-value="${$value}">
-                <span>${$value}</span>
+                <span class="fixing-vertical-align">${$value}</span>
             </div>
         {{/each}}
-    </script>
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            //var context = this;
-            $("#compile").click(function () { clickCompile(); });
-            $("#reset").click(clickReset);
-            //$(".square").click(function() { alert("dsds"); });
-            $("#puzzle-box").on("click", "div", clickSquare);
-
-            //var inputData;
-            //var numberOfSquares;
-            var data = { values: [] };
-            var squares = [];
-            var sidesNumber;
-
-            function getNumber(inputData) {
-                return Math.pow(inputData, 2);
-            }
-
-            function verifyInputData(value) {
-                if (!isNaN(value) && value > 1) {
-                    return value;
-                }
-                return "undefined";
-            }
-
-            function numbering(numberOfSquares) {
-                data.values.length = 0;
-                for (var i = 0; i < numberOfSquares; i++) {
-                    data.values[i] = i + 1;
-                }
-                data.values[numberOfSquares - 1] = "";
-            }
-
-            function compilePuzzleBox(sidesNumber) {
-                var sizeSideSquare = 50; //$(".square").css("width"); //ещё не созданные элементы
-                var borderSquareLength = 1; //$(".square").css("border-width");
-                $("#puzzle-box").css("visibility", "visible");
-                $("#puzzle-box").css("width", sizeSideSquare * sidesNumber + sidesNumber * borderSquareLength * 2);
-                $("#puzzle-box").css("height", sizeSideSquare * sidesNumber + sidesNumber * borderSquareLength * 2);
-            }
-
-            function clickSquare() {
-                var value = +$(this).text();
-
-                if (value !== 0) {
-                    //$(this).insertAfter($(this).next());
-                    replaceSquare();
-
-                    var gameEnabled = verifyWinningSituation(); // todo: callback here
-                    //$(this).replaceWith($(this).next());
-                    //$(this).next().add($(this));
-                    //$(this).siblings().
-                    //alert("ololo");
-                }
-            }
-
-            function replaceSquare() {
-                //index % sidesNumber === 0 || (index + 1) % sidesNumber === 0
-                //замена значений в массиве squares[]
-                //$(squares[5]).insertAfter($(squares[5+sidesNumber])) перемещаем 6 вместо нуля - ноль смещается влево
-                //$(squares[8]).insertAfter($(squares[5-1])) перемещаем 0 на бывшее место 6
-                //var temp = squares[5]; squares[5]=squares[8]; squares[8] = temp;
-                console.log("test");
-            }
-
-            //
-            function mixing() {
-                //return Math.round(Math.random() * 2 + 1);
-            }
-
-            //
-            function checkEmptySquare() {
-                // проверка вверху/справа/снизу/слева ?
-            }
-
-            //
-            function checkOutOfRange() {
-
-            }
-
-            function verifyWinningSituation() {
-                var array = data.values;
-                var lastElement = $(squares[squares.length - 1]).text();
-                var counter = 0;
-                if (+array[array.length - 1] === +lastElement) {
-                    $.each(squares, function(i) {
-                        if (+array[i] === +$(this).text()) {
-                            counter++;
-                            console.log($(this).text());
-                        }
-                    });
-                }
-                return counter === array.length;
-            }
-
-            /**
-             * анимация
-             */
-            
-            function clickReset() {
-                $("#reset")
-                    //перемешивание
-            }
-
-            function clickCompile() {
-                sidesNumber = +$("#textInput").val(); //todo if тоже число, то и не строить / optimization
-                if (verifyInputData(sidesNumber) !== "undefined") {
-                    var empty = $("#puzzle-box").empty();
-                    var numberOfSquares = getNumber(sidesNumber);
-                    numbering(numberOfSquares);
-                    compilePuzzleBox(sidesNumber);
-                    $("#squareTemplate").tmpl(data).appendTo("#puzzle-box");
-                    squares = $(".square").get();
-
-                }
-            }
-        });
-
     </script>
 </head>
 <body>
@@ -141,6 +22,8 @@
         <input type="text" id="textInput"/>
         <input type="button" id="compile" value="new game"/>
         <div id="puzzle-box"></div>
+        <label id="clicksCounter" title="number of clicks"></label>
+        <label id="timeCounter" title="time"></label>
         <input type="button" id="reset" value="restart game"/>
     </div>
 </div>
