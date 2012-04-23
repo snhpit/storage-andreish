@@ -18,9 +18,6 @@ $(document).ready(function() {
         })();
     }
 
-    function getNumber(inputData) {
-    }
-
     function verifyInputData(value) {
         if (!isNaN(value) && value > 1) {
             return value;
@@ -157,7 +154,7 @@ $(document).ready(function() {
                 }
             }
 
-            if (parameters !== undefined) {
+            if (parameters) {
                 var coordinate = parameters[2] /*'left'*/;
                 var firstOperator = parameters[3] /*'minus'*/;
                 var squareEmpty = $(squares[parameters[0]]);
