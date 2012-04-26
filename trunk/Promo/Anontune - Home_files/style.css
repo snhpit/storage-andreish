@@ -1,0 +1,125 @@
+/* Main styles */
+
+html, body
+{
+	height: 100%;
+	min-height: 100%;
+	font-family: "PT Sans Caption", sans-serif;
+}
+
+body
+{
+	padding: 0px;
+	margin: 0px;
+	background: -moz-linear-gradient(top, rgba(229,229,229,1) 0%, rgba(255,255,255,1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(229,229,229,1)), color-stop(100%,rgba(255,255,255,1))); 
+	background: -webkit-linear-gradient(top, rgba(229,229,229,1) 0%,rgba(255,255,255,1) 100%);
+	background: -o-linear-gradient(top, rgba(229,229,229,1) 0%,rgba(255,255,255,1) 100%);
+	background: -ms-linear-gradient(top, rgba(229,229,229,1) 0%,rgba(255,255,255,1) 100%);
+	background: linear-gradient(top, rgba(229,229,229,1) 0%,rgba(255,255,255,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5e5e5', endColorstr='#ffffff',GradientType=0 );
+}
+
+a
+{
+	color: #000269;
+}
+
+a:hover
+{
+	color: #0002A3;
+}
+
+h3
+{
+	font-size: 40px;
+}
+
+/* Layout */
+
+.wrapper
+{
+	width: 960px;
+	margin: 0px auto;
+}
+
+/* Ribbon styles */
+
+.ribbon, .top
+{
+	font-family: "PT Sans Caption", sans-serif;
+}
+
+.ribbon
+{
+	padding: 24px;
+	padding-top: 10px;
+	color: white;
+}
+
+.ribbon, .menu li.current > a, .menu li.current > a:hover, .menu li.current.hover > a
+{
+	background: rgb(69,72,77); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(69,72,77,1) 0%, rgba(0,0,0,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(69,72,77,1)), color-stop(100%,rgba(0,0,0,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%); /* IE10+ */
+	background: linear-gradient(top, rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+}
+
+.ribbon p
+{
+	color: #DEDEDE;
+}
+
+.ribbon p
+{
+	margin-top: 0px;
+}
+
+.ribbon .important
+{
+	font-weight: bold;
+	color: #FF2929;
+}
+
+.ribbon .article h3
+{
+	margin-top: 22px;
+}
+
+.slideshow-inner, .slideshow-buttons li a
+{
+	border: none;
+}
+
+
+#slideshow_main, #slideshow_main li
+{
+	width: 960px;
+	height: 558px;
+}
+
+#slideshow_ipod
+{
+	float: right;
+	margin: 24px;
+}
+
+#slideshow_lightning, #slideshow_free
+{
+	float: left;
+	margin: 24px;
+}
+
+.slideshow-buttons li a
+{
+	color: white;
+}
+
+.slideshow-buttons li.current a
+{
+	background-color: #282828;
+}
