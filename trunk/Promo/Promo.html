@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Promo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="scripts/jquery-1.7.2.js"></script>
+    <script type="text/javascript" src="scripts/jquery.tmpl.js"></script>
+    <link rel="stylesheet" type="text/css" href="Anontune%20-%20Home_files/kickstart.css">
+    <link rel="stylesheet" type="text/css" href="Anontune%20-%20Home_files/style.css">
+
+    <script id="promoTemplate" type="text/x-jquery-tmpl">
+        <li>
+            <img src="Anontune%20-%20Home_files/${picture}" class=""/>
+            <div class="padder">
+                <h3>${title}</h3>
+                <p>${info}</p>
+            </div>
+        </li>
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var news = [
+                { title: "O_O", picture: "free.png", info: "fish" },
+                { title: "O_O", picture: "ipod.png", info: "fish" },
+                { title: "O_O", picture: "lightning.png", info: "fish" },
+                { title: "O_O", picture: "ipod.png", info: "fish" },
+                { title: "O_O", picture: "free.png", info: "fish" }
+            ];
+
+            $("#promoTemplate").tmpl(news).appendTo("#promoContainer");
+        });
+    </script>
+</head>
+<body>
+<div class="ribbon">
+    <div class="wrapper">
+        <div class="slideshow-wrap">
+            <div class="slideshow-inner">
+                <ul class="slideshow" style="width: 9999px;" class="slideshow_main" id="promoContainer">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
