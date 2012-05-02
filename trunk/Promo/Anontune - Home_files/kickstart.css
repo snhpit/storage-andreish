@@ -1,12 +1,9 @@
 h3{
 margin:10px 0 10px 0;
-line-height:130%;
+/*line-height:130%;*/
 }
 
-/*---------------------------------
-	SLIDESHOW2
------------------------------------*/
-.slideshow-wrap{
+/*.slideshow-wrap{
 clear:both;
 margin:0;
 padding:0;
@@ -15,35 +12,35 @@ top:0;
 left:0;
 overflow:hidden;
 clear:both;
-}
+}*/
 
 	.slideshow-inner{
 	overflow:hidden;
-	clear:both;
+	/*clear:both;
 	position:relative;
 	top:0;
 	left:0;
-	border:1px solid #efefef;
+	border:1px solid #efefef;*/
 	}
 	
 	.slideshow{
-	clear:both;
-	margin:0;
-	padding:0;
-	width:auto;
-	height:auto;
-	overflow:hidden;
+        margin:0;
+        padding:0;
+        /*clear:both;
+        width:auto;
+        height:auto;
+        overflow:hidden;*/
 	}
 	
-		.slideshow li{
-		list-style-type:none;
-		margin:0;
-		padding:0;
-		float:left;
-		display:block;
-		}
+	.slideshow li{
+            list-style-type:none;
+            float:left;
+            /*margin:0;
+            padding:0;
+            display:block;*/
+	}
 		
-			.slideshow img{vertical-align: bottom;}
+		/*.slideshow img{vertical-align: bottom;}*/
 			
 	.slideshow-buttons{
 	text-align:right;
@@ -51,18 +48,27 @@ clear:both;
 	padding:0;
 	}
 	
-		.slideshow-buttons li{display:inline;position:relative;top:0;left:0;line-height:100%;margin:0;padding:0;}
+		.slideshow-buttons li{
+            display:inline;
+            line-height:100%;
+            /*position:relative;
+            top:0;
+            left:0;
+            margin:0;
+            padding:0;*/
+        }
 		.slideshow-buttons li.current a{background:#ddd;}
 		
 		.slideshow-buttons a{
-		display:inline;
+		/*display:inline;
 		position:relative;
 		top:0;
 		left:0;
+            line-height:100%;
+            border:1px solid #efefef;*/
 		padding:1px 3px;
 		margin:0 1px;
-		line-height:100%;
-		border:1px solid #efefef;
-		text-decoration:none;
-		font-size:0.8em;
+        text-decoration:none;
+        font-size:0.8em;
+
 		}
