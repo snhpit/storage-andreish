@@ -96,21 +96,15 @@ h3
 }
 
 
-#slideshow_main, #slideshow_main li
+.slideshow_main, .slideshow_main li
 {
 	width: 960px;
 	height: 558px;
 }
 
-#slideshow_ipod
+.slideshow img
 {
 	float: right;
-	margin: 24px;
-}
-
-#slideshow_lightning, #slideshow_free
-{
-	float: left;
 	margin: 24px;
 }
 
