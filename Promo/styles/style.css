@@ -1,0 +1,110 @@
+/* Main styles */
+
+html, body
+{
+	height: 100%;
+	min-height: 100%;
+	font-family: "PT Sans Caption", sans-serif;
+}
+
+body
+{
+	padding: 0px;
+	margin: 0px;
+}
+
+a
+{
+	color: #000269;
+}
+
+a:hover
+{
+	color: #0002A3;
+}
+
+h3
+{
+	font-size: 40px;
+}
+
+/* Layout */
+
+.wrapper
+{
+	width: 960px;
+	margin: 0px auto;
+}
+
+/* Ribbon */
+
+/*.ribbon, .top
+{
+	font-family: "PT Sans Caption", sans-serif;
+}*/
+
+.ribbon
+{
+	padding: 24px;
+	padding-top: 10px;
+	color: white;
+}
+
+.ribbon, .menu li.current > a, .menu li.current > a:hover, .menu li.current.hover > a
+{
+	background: rgb(69,72,77); /* Old browsers */
+}
+
+/*.ribbon p
+{
+	color: #DEDEDE;
+}*/
+
+.ribbon p
+{
+	margin-top: 0px;
+}
+
+/*.ribbon .important
+{
+	font-weight: bold;
+	color: #FF2929;
+}*/
+
+/*.ribbon .article h3
+{
+	margin-top: 22px;
+}
+
+.slideshow-inner, .slideshow-buttons li a
+{
+	border: none;
+}
+
+
+.slideshow_main, .slideshow_main li
+{
+	width: 960px;
+	height: 558px;
+}*/
+
+.slideshow img
+{
+	float: right;
+	margin: 24px;
+}
+
+/*.padder {
+    float: right;
+    margin: 20xp;
+}*/
+
+.slideshow-buttons li a
+{
+	color: white;
+}
+
+.slideshow-buttons li.current a
+{
+	background-color: #282828;
+}
