@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using LabOne.Cinema.DataAccess.Database;
 
 namespace LabOne.Cinema.DataAccess.Repository
@@ -17,12 +15,12 @@ namespace LabOne.Cinema.DataAccess.Repository
 
         public TItem Get<TItem>(string id)
         {
-            return _database.Read<TItem>(id);
+            return _database.ReadFile<TItem>(id);
         }
 
-        public TItem[] GetAll<TItem>()
+        public IEnumerable<TItem> GetAll<TItem>()
         {
-            return _database.Read<TItem>();
+            return _database.ReadAllFiles<TItem>();
         }
 
         public void Save<TItem>(TItem item, string id)

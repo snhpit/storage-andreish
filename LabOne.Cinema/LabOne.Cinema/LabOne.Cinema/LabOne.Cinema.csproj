@@ -6,13 +6,15 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{96073AA9-90D7-4E8C-9D95-7EB688F9A5AD}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LabOne.Cinema</RootNamespace>
     <AssemblyName>LabOne.Cinema</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -25,7 +27,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -62,22 +63,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess\Database\Database.cs" />
-    <Compile Include="DataAccess\Repository\FileRepository.cs" />
     <Compile Include="DataAccess\Repository\IRepository.cs" />
     <Compile Include="DataAccess\Repository\XmlRepository.cs" />
     <Compile Include="DataAccess\Database\XMLDatabase.cs" />
     <Compile Include="Entities\Cashier.cs" />
     <Compile Include="Entities\Film.cs" />
-    <Compile Include="Entities\ItemBase.cs" />
-    <Compile Include="Entities\Row.cs" />
-    <Compile Include="Entities\Sale.cs" />
-    <Compile Include="Entities\Timetable.cs" />
+    <Compile Include="Entities\EntityBase.cs" />
+    <Compile Include="Entities\Order.cs" />
+    <Compile Include="Entities\Seat.cs" />
     <Compile Include="Entities\Visitor.cs" />
     <Compile Include="Presentation\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BusinessLogic\" />
+    <Folder Include="Data\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -100,6 +100,9 @@
       <ProductName>Установщик Windows 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
