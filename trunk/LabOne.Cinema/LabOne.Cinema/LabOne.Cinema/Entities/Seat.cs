@@ -5,7 +5,10 @@ using System.Text;
 
 namespace LabOne.Cinema.Entities
 {
-    class Sale
+    public class Seat
     {
+        public Order Order { get; set; }
+
+        public int SeatNumber { get; set; }
     }
 }

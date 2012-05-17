@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
@@ -15,7 +16,7 @@ namespace LabOne.Cinema.DataAccess.Database
 
         public override string Write<T>(T row, string id)
         {
-            string filename = CreateFilename(typeof(T), id);
+            string filename = GenerateFilename(typeof(T), id);
             var serializer = new XmlSerializer(typeof(T));
 
             //Stream writer = new FileStream(filename, FileMode.Append);
@@ -26,9 +27,9 @@ namespace LabOne.Cinema.DataAccess.Database
             return filename;
         }
 
-        public override T Read<T>(string id)
+        public override T ReadFile<T>(string id)
         {
-            string filename = CreateFilename(typeof(T), id);
+            string filename = GenerateFilename(typeof(T), id);
             return InternalRead<T>(filename);
         }
 
@@ -37,31 +38,35 @@ namespace LabOne.Cinema.DataAccess.Database
             if (File.Exists(filename))
             {
                 var serializer = new XmlSerializer(typeof(T));
-                //Stream reader = new FileStream(filename, FileMode.Open);
-                TextReader reader = new StreamReader(filename);
-                var value = (T)serializer.Deserialize(reader);
-                reader.Close();
-
-                return value;
+                using (TextReader reader = new StreamReader(filename))
+                {
+                    return (T)serializer.Deserialize(reader);
+                }
+                //var serializer = new XmlSerializer(typeof(T));
+                ////Stream reader = new FileStream(filename, FileMode.Open);
+                //TextReader reader = new StreamReader(filename);
+                //var value = (T)serializer.Deserialize(reader);
+                //reader.Close();
+                //return value;
             }
             return default(T);
         }
 
-        public override T[] Read<T>()
+        public override IEnumerable<T> ReadAllFiles<T>()
         {
-            string filePattern = string.Format("{0}-*.{1}", typeof(T).Name, FileExtension);
+            string filePattern = string.Format("{0}.{1}", typeof(T), FileExtension);
             string[] files = Directory.GetFiles(BasePath, filePattern, SearchOption.TopDirectoryOnly);
-            return files.Select(InternalRead<T>).ToArray();
+            return files.Select(InternalRead<T>);
         }
 
-        public override void Delete<T>(string id)
+        public void Delete<T>(string id)
         {
             Delete(typeof(T), id);
         }
 
-        public override void Delete(Type type, string id)
+        public void Delete(Type type, string id)
         {
-            string filename = CreateFilename(type, id);
+            string filename = GenerateFilename(type, id);
             if (File.Exists(filename))
             {
                 File.Delete(filename);

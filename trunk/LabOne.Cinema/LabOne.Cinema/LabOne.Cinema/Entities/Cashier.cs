@@ -5,17 +5,10 @@ using System.Text;
 
 namespace LabOne.Cinema.Entities
 {
-    public class Cashier : ItemBase
+    public class Cashier : EntityBase
     {
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
-
-        //public Cashier(int id, string firstName, string lastName)
-        //{
-        //    ID = id;
-        //    FirstName = firstName;
-        //    LastName = lastName;
-        //}
     }
 }
