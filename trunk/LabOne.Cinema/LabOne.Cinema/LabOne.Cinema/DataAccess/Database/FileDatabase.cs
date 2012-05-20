@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
-using System.Management.Instrumentation;
-using System.Xml;
-using System.Xml.Linq;
-using System.Xml.Serialization;
+using System.Reflection;
+using System.Runtime.Serialization.Formatters.Binary;
 using LabOne.Cinema.Entities;
 
 namespace LabOne.Cinema.DataAccess.Database
 {
-    public class XmlDataBase : DataBase
+    public class FileDataBase : DataBase
     {
-        public XmlDataBase(string basePath, string fileExtension)
+        public FileDataBase(string basePath, string fileExtension)
         {
             BasePath = basePath;
             FileExtension = fileExtension;
@@ -22,13 +19,13 @@ namespace LabOne.Cinema.DataAccess.Database
 
         public override string WriteData<T>(T data)
         {
-            string filename = GenerateFileName(((dynamic)data).ToArray().GetType());
-            var serializer = new XmlSerializer(typeof(T));
+            object[] items = ((dynamic)data).ToArray();
+            string filename = GenerateFileName(items.GetType());
+            var formatter = new BinaryFormatter();
 
-            //XmlWriter writer = XmlWriter.Create(filename);
-            using (TextWriter writer = new StreamWriter(filename))
+            using (var writer = File.OpenWrite(filename))
             {
-                serializer.Serialize(writer, data);
+                formatter.Serialize(writer, data);
             }
 
             return filename;
@@ -49,17 +46,10 @@ namespace LabOne.Cinema.DataAccess.Database
         {
             if (File.Exists(filename))
             {
-                var list = new List<T>();
-                var serializer = new XmlSerializer(typeof(T));
-
-                using (XmlReader reader = XmlReader.Create(filename))
+                var formatter = new BinaryFormatter();
+                using (var reader = File.OpenRead(filename))
                 {
-                    while (reader.ReadToFollowing(typeof(T).Name))
-                    {
-                        list.Add((T)serializer.Deserialize(reader));
-                    }
-
-                    return list;
+                    return (List<T>)formatter.Deserialize(reader);
                 }
             }
             return null;

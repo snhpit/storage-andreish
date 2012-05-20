@@ -31,7 +31,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -62,22 +62,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataAccess\Database\Database.cs" />
-    <Compile Include="DataAccess\Repository\IRepository.cs" />
-    <Compile Include="DataAccess\Repository\XmlRepository.cs" />
+    <Compile Include="DataAccess\Database\DataBase.cs" />
+    <Compile Include="DataAccess\Database\FileDatabase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataAccess\Database\IDatabase.cs" />
     <Compile Include="DataAccess\Database\XMLDatabase.cs" />
+    <Compile Include="DataAccess\Repository\Repository.cs" />
     <Compile Include="Entities\Cashier.cs" />
     <Compile Include="Entities\Film.cs" />
     <Compile Include="Entities\EntityBase.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\Seat.cs" />
     <Compile Include="Entities\Visitor.cs" />
+    <Compile Include="Presentation\Initializer.cs" />
     <Compile Include="Presentation\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BusinessLogic\" />
-    <Folder Include="Data\" />
+    <Folder Include="Data\TxtDB\" />
+    <Folder Include="Data\XmlDB\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
