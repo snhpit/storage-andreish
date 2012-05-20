@@ -1,41 +1,47 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 
 namespace LabOne.Cinema.DataAccess.Database
 {
-    public abstract class Database
+    public abstract class DataBase
     {
-        protected Database(string basePath)
+        public string BasePath { get; protected set; }
+
+        public string FileExtension { get; protected set; }
+
+        public abstract string WriteData<T>(T data);
+
+        public abstract IEnumerable<T> ReadFile<T>();
+
+        protected abstract IEnumerable<T> InternalRead<T>(string filename);
+
+        protected string GenerateFileName(Type type)
         {
-            BasePath = basePath;
+            string fileName = type.IsArray ? type.Name.Remove(type.Name.IndexOf('[')) + "s" : type.Name + "s";
+
+            return Path.GetFullPath(Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                @"..\..\",
+                @BasePath,
+                string.Format("{0}.{1}", fileName, FileExtension)));
         }
 
-        public string BasePath { get; private set; }
-
-        public string FileExtension { get; set; }
-
-        public abstract string Write<T>(T row, string id);
-
-        public abstract T ReadFile<T>(string id);
-
-        protected abstract T InternalRead<T>(string filename);
-
-        public abstract IEnumerable<T> ReadAllFiles<T>();
-
-        //public abstract void Delete<T>(string id);
-
-        //public abstract void Delete(Type type, string id);
-
-        //public virtual string CreateID()
-        //{
-        //    return Guid.NewGuid().ToString();
-        //}
-
-        protected string GenerateFilename(Type type, string id)
+        public bool Delete<T>()
         {
-            var fileName = type.Name.Remove(type.Name.IndexOf('[')) + "s";
-            return Path.Combine(BasePath, string.Format("{0}.{1}", fileName, FileExtension));
+            return Delete(typeof(T));
+        }
+
+        protected bool Delete(Type type)
+        {
+            string filename = GenerateFileName(type);
+            if (File.Exists(filename))
+            {
+                File.Delete(filename);
+                return true;
+            }
+            return false;
         }
     }
 }
