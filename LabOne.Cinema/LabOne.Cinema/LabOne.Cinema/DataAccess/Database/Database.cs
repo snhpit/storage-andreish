@@ -5,13 +5,20 @@ using System.IO;
 
 namespace LabOne.Cinema.DataAccess.Database
 {
-    public abstract class DataBase
+    public abstract class DataBase : IDataBase
     {
+        protected DataBase() { }
+
+        protected DataBase(string basePath)
+        {
+            BasePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\", basePath));
+        }
+
         public string BasePath { get; protected set; }
 
         public string FileExtension { get; protected set; }
 
-        public abstract string WriteData<T>(T data);
+        public abstract bool WriteData<T>(T data);
 
         public abstract IEnumerable<T> ReadFile<T>();
 
@@ -21,11 +28,12 @@ namespace LabOne.Cinema.DataAccess.Database
         {
             string fileName = type.IsArray ? type.Name.Remove(type.Name.IndexOf('[')) + "s" : type.Name + "s";
 
-            return Path.GetFullPath(Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,
-                @"..\..\",
-                @BasePath,
-                string.Format("{0}.{1}", fileName, FileExtension)));
+            return Path.Combine(BasePath, string.Format("{0}.{1}", fileName, FileExtension));
+            //return Path.GetFullPath(Path.Combine(
+            //    AppDomain.CurrentDomain.BaseDirectory,
+            //    @"..\..\",
+            //    @BasePath,
+            //    string.Format("{0}.{1}", fileName, FileExtension)));
         }
 
         public bool Delete<T>()

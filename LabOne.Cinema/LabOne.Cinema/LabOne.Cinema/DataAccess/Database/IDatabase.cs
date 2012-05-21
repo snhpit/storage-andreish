@@ -5,7 +5,10 @@ using System.Text;
 
 namespace LabOne.Cinema.DataAccess.Database
 {
-    interface IDatabase
+    public interface IDataBase
     {
+        bool WriteData<T>(T data);
+
+        IEnumerable<T> ReadFile<T>();
     }
 }

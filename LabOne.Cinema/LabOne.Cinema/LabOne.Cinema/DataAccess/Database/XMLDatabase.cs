@@ -12,26 +12,31 @@ using LabOne.Cinema.Entities;
 
 namespace LabOne.Cinema.DataAccess.Database
 {
-    public class XmlDataBase : DataBase
+    internal class XmlDataBase : DataBase
     {
-        public XmlDataBase(string basePath, string fileExtension)
+        public XmlDataBase(string basePath)
+            : base(basePath)
         {
-            BasePath = basePath;
-            FileExtension = fileExtension;
+            FileExtension = "xml";
         }
 
-        public override string WriteData<T>(T data)
+        public override bool WriteData<T>(T data)
         {
-            string filename = GenerateFileName(((dynamic)data).ToArray().GetType());
-            var serializer = new XmlSerializer(typeof(T));
-
-            //XmlWriter writer = XmlWriter.Create(filename);
-            using (TextWriter writer = new StreamWriter(filename))
+            if (data.GetType().IsValueType)
             {
-                serializer.Serialize(writer, data);
+                throw new IsValueTypeException();
             }
 
-            return filename;
+            var typeofData = ((dynamic)data).ToArray().GetType();
+            string filename = GenerateFileName(typeofData);
+            var serializer = new XmlSerializer(typeofData);
+
+            using (TextWriter writer = new StreamWriter(filename))
+            {
+                serializer.Serialize(writer, ((dynamic)data).ToArray());
+            }
+
+            return true;
         }
 
         public override IEnumerable<T> ReadFile<T>()
