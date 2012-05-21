@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using LabOne.Cinema.DataAccess.Database;
 using LabOne.Cinema.Entities;
@@ -47,68 +49,69 @@ namespace LabOne.Cinema.DataAccess.Repository
                 };
         }
 
-        //public Person[] GetAllPeople()
-        //{
-        //    return GetAll<Person>();
-        //}
-
-        //public Unit[] GetAllUnits()
-        //{
-        //    return GetAll<Unit>();
-        //}
-
-        //public Person GetPerson(string id)
-        //{
-        //    return Get<Person>(id);
-        //}
-
-        //public Unit GetUnit(string id)
-        //{
-        //    return Get<Unit>(id);
-        //}
-
-        //public void Save<TItem>(TItem item) where TItem : ModelBase
-        //{
-        //    Save(item, item.ID);
-        //}
-
-        public T Get<T>(string id)
+        public T Get<T>(string id) where T : EntityBase
         {
-            return GetAll<T>().FirstOrDefault(elem => ((dynamic)elem).ID == id);
+            var data = GetAll<T>();
+            return data == null ? null : data.FirstOrDefault(elem => elem.ID == id);
+        }
+
+        public void Remove<T>(T item)
+        {
+            GetAll<T>().ToList().Remove(item);
+        }
+
+        public void Remove<T>(string id) where T : EntityBase
+        {
+            Remove(Get<T>(id));
         }
 
         public IEnumerable<T> GetAll<T>()
         {
-            return _dataBase.ReadFile<T>();
+            IEnumerable<T> items;
+            try
+            {
+                items = _dataBase.ReadFile<T>();
+            }
+            catch (ItemNotFoundException exception)
+            {
+                Console.WriteLine(string.Format("Item with type {1} not found.\n{0}", exception.Message, typeof(T).Name));
+                return null;
+            }
+            catch (FileNotFoundException exception)
+            {
+                Console.WriteLine(exception.Message, exception.Source, exception.FusionLog);
+                return null;
+            }
+            catch (ArgumentNullException exception)
+            {
+                Console.WriteLine("Message = {0}, paramName = {1}", exception.Message, exception.ParamName);
+                return null;
+            }
+            return items;
         }
 
-        public bool Save<T>(T items)
+        public bool SaveAll<T>(T items)
         {
             try
             {
+                if (items.GetType().IsValueType)
+                {
+                    throw new TypeIsNotEnumerableException(string.Format(
+                        "Item is value type {0}. Need to be Enumerable", items.GetType().Name));
+                }
+                if (typeof(T).Name != typeof(IEnumerable).Name)
+                {
+                    throw new TypeIsNotEnumerableException(string.Format(
+                        "Item is not Enumerable type {0}. Need to be Enumerable", items.GetType().Name));
+                }
                 _dataBase.WriteData(items);
             }
-            catch (IsValueTypeException exception)
+            catch (TypeIsNotEnumerableException exception)
             {
                 Console.WriteLine(exception.Message);
                 return false;
             }
             return true;
-        }
-
-        public void Remove<T>(T item)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Remove<T>(string id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Update<T>(T item)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

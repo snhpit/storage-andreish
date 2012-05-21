@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.IO;
 using System.Linq;
+using System.Management.Instrumentation;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using LabOne.Cinema.Entities;
@@ -20,11 +21,6 @@ namespace LabOne.Cinema.DataAccess.Database
 
         public override bool WriteData<T>(T data)
         {
-            if (data.GetType().IsValueType)
-            {
-                throw new IsValueTypeException();
-            }
-
             string filename = GenerateFileName(((dynamic)data).ToArray().GetType());
             var formatter = new BinaryFormatter();
 
@@ -42,7 +38,7 @@ namespace LabOne.Cinema.DataAccess.Database
             var readData = InternalRead<T>(filename);
             if (readData == null)
             {
-                throw new FileNotFoundException(string.Format("The file on this path {0} was not found", filename));
+                throw new InstanceNotFoundException(string.Format("The file on this path {0} was not found", filename));
             }
             return readData;
         }
@@ -51,11 +47,17 @@ namespace LabOne.Cinema.DataAccess.Database
         {
             if (File.Exists(filename))
             {
+                List<T> data;
                 var formatter = new BinaryFormatter();
                 using (var reader = File.OpenRead(filename))
                 {
-                    return (List<T>)formatter.Deserialize(reader);
+                    data = (List<T>)formatter.Deserialize(reader);
                 }
+                if (data[0] == null)
+                {
+                    throw new ItemNotFoundException(string.Format("Item {0} not load.", typeof(T).Name));
+                }
+                return data;
             }
             return null;
         }

@@ -29,11 +29,6 @@ namespace LabOne.Cinema.DataAccess.Database
             string fileName = type.IsArray ? type.Name.Remove(type.Name.IndexOf('[')) + "s" : type.Name + "s";
 
             return Path.Combine(BasePath, string.Format("{0}.{1}", fileName, FileExtension));
-            //return Path.GetFullPath(Path.Combine(
-            //    AppDomain.CurrentDomain.BaseDirectory,
-            //    @"..\..\",
-            //    @BasePath,
-            //    string.Format("{0}.{1}", fileName, FileExtension)));
         }
 
         public bool Delete<T>()
