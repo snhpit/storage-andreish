@@ -67,5 +67,6 @@ namespace LabOne.Cinema.DataAccess.Repository
         {
             Update(item);
         }
+
     }
 }

@@ -73,22 +73,32 @@ namespace LabOne.Cinema.Presentation
                 };
 
             var listOrders = new List<Order>
-                {
-                    new Order
-                        {
-                            Cashier = listCashiers[0],
-                            Visitor = listVisitors[0],
-                            DateOrder = new DateTime(),
-                            Film = listFilms[9]
-                        }
-                };
+                                 {
+                                     new Order
+                                         {
+                                             Cashier = listCashiers[0],
+                                             Visitor = listVisitors[0],
+                                             DateOrder = new DateTime(),
+                                             Film = listFilms[9]
+                                         },
+                                     new Order
+                                         {
+                                             Cashier = listCashiers[0],
+                                             Visitor = listVisitors[1],
+                                             DateOrder = new DateTime(),
+                                             Film = listFilms[7]
+                                         }
+                                 };
 
             var listSeats = new List<Seat>
-                {
-                    new Seat {Order = listOrders[0], SeatNumber = 1},
-                    new Seat {Order = listOrders[0], SeatNumber = 2},
-                    new Seat {Order = listOrders[0], SeatNumber = 3},
-                };
+                                {
+                                    new Seat {Order = listOrders[0], SeatNumber = 1},
+                                    new Seat {Order = listOrders[0], SeatNumber = 2},
+                                    new Seat {Order = listOrders[0], SeatNumber = 3},
+                                    new Seat {Order = listOrders[1], SeatNumber = 5},
+                                    new Seat {Order = listOrders[1], SeatNumber = 17},
+                                    new Seat {Order = listOrders[1], SeatNumber = 4}
+                                };
 
             return new List<IEnumerable> { listVisitors, listCashiers, listFilms, listOrders, listSeats };
         }

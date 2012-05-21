@@ -67,5 +67,15 @@ namespace LabOne.Cinema.DataAccess.Repository
         {
             Update(item);
         }
+
+        public IEnumerable<string> GetAllId()
+        {
+            return _films.Select(elem => elem.ID);
+        }
+
+        public IEnumerable<List<string>> GetBaseInfoAboutType()
+        {
+            return _films.Select(elem => elem.ToString().Split('|').ToList());
+        }
     }
 }

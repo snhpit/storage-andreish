@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogic\Cinema.cs" />
     <Compile Include="DataAccess\DataBaseNotFoundException.cs" />
     <Compile Include="DataAccess\Database\DataBase.cs" />
     <Compile Include="DataAccess\Database\FileDatabase.cs">
@@ -94,7 +95,6 @@
     <Compile Include="DataAccess\TypeIsNotEnumerableException.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="BusinessLogic\" />
     <Folder Include="Data\TxtDB\" />
     <Folder Include="Data\XmlDB\" />
   </ItemGroup>

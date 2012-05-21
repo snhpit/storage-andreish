@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using LabOne.Cinema.DataAccess.Database;
@@ -11,9 +12,24 @@ namespace LabOne.Cinema.DataAccess.Repository
     public class Repository : IRepository
     {
         private readonly IDataBase _dataBase;
-
+        //private dynamic _updater;
+        
+                                       
         public Repository(string path, string fileExtension)
         {
+            //_updater = new ExpandoObject();
+            //_updater.UpdateVisitor =
+            //    Update<Visitor>(
+            //        item =>
+            //        new Visitor
+            //            {
+            //                ID = item.ID,
+            //                FirstName = item.FirstName,
+            //                LastName = item.LastName,
+            //                PasportNumber = item.PasportNumber
+            //            });
+
+            //var result = _updater.UpdateVisitor();
             try
             {
                 _dataBase = SelectDataBase(path, fileExtension);
@@ -23,6 +39,11 @@ namespace LabOne.Cinema.DataAccess.Repository
                 Console.WriteLine(exeption.Message, exeption.Source);
             }
         }
+
+        //private T Update<T>(Func<T, T> items)
+        //{
+        //    return items.Method;
+        //}
 
         public Repository(DataBase database)
         {
@@ -47,6 +68,11 @@ namespace LabOne.Cinema.DataAccess.Repository
                     { "xml", path => new XmlDataBase(path) },
                     { "txt", path => new FileDataBase(path) }
                 };
+        }
+
+        public IEnumerable<T> DataToObject<T>()
+        {
+            return GetAll<T>();
         }
 
         public T Get<T>(string id) where T : EntityBase
@@ -112,6 +138,32 @@ namespace LabOne.Cinema.DataAccess.Repository
                 return false;
             }
             return true;
+        }
+
+        public void Create<T>(T item) where T : EntityBase, new()
+        {
+            Update(item);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="items"></param>
+        /// <returns></returns>
+        public static Func<T, T> Update<T>(T items) where T : EntityBase, new()
+        {
+            return element => new T();
+        }
+
+        public IEnumerable<string> GetAllId<T>() where T : EntityBase
+        {
+            return GetAll<T>().Select(elem => elem.ID);
+        }
+
+        public IEnumerable<List<string>> GetBaseInfoAboutType<T>()
+        {
+            return GetAll<T>().Select(elem => elem.ToString().Split('|').ToList());
         }
     }
 }
