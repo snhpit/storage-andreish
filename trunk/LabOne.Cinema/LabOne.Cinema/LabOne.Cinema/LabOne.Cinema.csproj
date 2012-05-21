@@ -69,8 +69,19 @@
     </Compile>
     <Compile Include="DataAccess\Database\IDataBase.cs" />
     <Compile Include="DataAccess\Database\XMLDatabase.cs" />
+    <Compile Include="DataAccess\ItemNotFoundException.cs" />
+    <Compile Include="DataAccess\Repository\CashierRepository.cs" />
+    <Compile Include="DataAccess\Repository\FilmRepository.cs" />
+    <Compile Include="DataAccess\Repository\ICrudRepository.cs" />
     <Compile Include="DataAccess\Repository\IRepository.cs" />
+    <Compile Include="DataAccess\Repository\OrderRepository.cs" />
     <Compile Include="DataAccess\Repository\Repository.cs" />
+    <Compile Include="DataAccess\Repository\SeatRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataAccess\Repository\VisitorRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Entities\Cashier.cs" />
     <Compile Include="Entities\Film.cs" />
     <Compile Include="Entities\EntityBase.cs" />

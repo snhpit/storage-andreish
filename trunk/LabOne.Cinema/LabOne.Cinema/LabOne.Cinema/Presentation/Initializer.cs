@@ -32,7 +32,7 @@ namespace LabOne.Cinema.Presentation
 
         public Initializer(Repository repository)
         {
-            InitData().All(repository.Save);
+            InitData().All(repository.SaveAll);
         }
 
         public bool GoInit()

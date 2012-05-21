@@ -22,11 +22,6 @@ namespace LabOne.Cinema.DataAccess.Database
 
         public override bool WriteData<T>(T data)
         {
-            if (data.GetType().IsValueType)
-            {
-                throw new IsValueTypeException();
-            }
-
             var typeofData = ((dynamic)data).ToArray().GetType();
             string filename = GenerateFileName(typeofData);
             var serializer = new XmlSerializer(typeofData);
@@ -63,9 +58,12 @@ namespace LabOne.Cinema.DataAccess.Database
                     {
                         list.Add((T)serializer.Deserialize(reader));
                     }
-
-                    return list;
                 }
+                if (list[0] == null)
+                {
+                    throw new ItemNotFoundException(string.Format("Item {0} not load.", typeof(T).Name));
+                }
+                return list;
             }
             return null;
         }

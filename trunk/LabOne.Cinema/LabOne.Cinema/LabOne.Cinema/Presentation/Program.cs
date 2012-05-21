@@ -30,10 +30,18 @@ namespace LabOne.Cinema.Presentation
 
             var repo1 = new Repository(xml);
             var repo2 = new Repository(file);
-            repo1.Save(new Visitor());
-            new Initializer(repo1);
-            var order = repo1.Get<Order>("f97dab5a-1b83-4385-8426-2e19e335f08f");
+            // var r = repo1.SaveAll(t);
+            //new Initializer(repo1);
 
+            var w = repo1.Get<Visitor>("cfbb0795-baee-4d99-89d8-6d0995df54c9");
+
+            var ww = new VisitorRepository(xml);
+            var x = ww.Get("cfbb0795-baee-4d99-89d8-6d0995df54c9");
+
+            var rr = new SeatRepository(xml);
+            var qx = rr.GetNumbersOfSeats("f55fc07a-4bb0-440b-bd2e-6fd6bf5857ca");
+
+            //repo1.
             Console.ReadKey(true);
         }
     }

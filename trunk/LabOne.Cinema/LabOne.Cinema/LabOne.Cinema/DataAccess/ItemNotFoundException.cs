@@ -1,30 +1,33 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Text;
 
 namespace LabOne.Cinema.DataAccess
 {
     [Serializable]
-    public class TypeIsNotEnumerableException : Exception
+    public class ItemNotFoundException : Exception
     {
-        private readonly string _message;
+        private string _message;
 
-        public TypeIsNotEnumerableException()
+        public ItemNotFoundException()
         {
         }
 
-        public TypeIsNotEnumerableException(string message)
+        public ItemNotFoundException(string message)
             : base(message)
         {
             _message = message;
         }
 
-        public TypeIsNotEnumerableException(string message, Exception inner)
+        public ItemNotFoundException(string message, Exception inner)
             : base(message, inner)
         {
             _message = message;
         }
 
-        protected TypeIsNotEnumerableException(
+        protected ItemNotFoundException(
             SerializationInfo info,
             StreamingContext context)
             : base(info, context)
@@ -33,7 +36,7 @@ namespace LabOne.Cinema.DataAccess
 
         public override string Message
         {
-            get { return string.Format("{0}\nIncorrect data. Need enumerable.", _message); }
+            get { return string.Format("Item not found.\n{0}", _message); }
         }
     }
 }

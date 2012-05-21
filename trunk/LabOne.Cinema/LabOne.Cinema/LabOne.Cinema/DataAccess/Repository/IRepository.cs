@@ -1,22 +1,22 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using LabOne.Cinema.Entities;
 
 namespace LabOne.Cinema.DataAccess.Repository
 {
     public interface IRepository
     {
-        T Get<T>(string id);
-
         IEnumerable<T> GetAll<T>();
 
-        bool Save<T>(T items);
+        bool SaveAll<T>(T items);
+
+        T Get<T>(string id) where T : EntityBase;
 
         void Remove<T>(T item);
 
-        void Remove<T>(string id);
-
-        void Update<T>(T item);
+        void Remove<T>(string id) where T : EntityBase;
     }
 }
