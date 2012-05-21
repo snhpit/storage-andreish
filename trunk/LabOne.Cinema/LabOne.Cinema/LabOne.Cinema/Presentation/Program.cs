@@ -28,18 +28,20 @@ namespace LabOne.Cinema.Presentation
 
             var t = new List<Visitor> { new Visitor() };
 
-            var repo1 = new Repository(xml);
-            var repo2 = new Repository(file);
-            // var r = repo1.SaveAll(t);
-            //new Initializer(repo1);
+            var repoXml = new Repository(xml);
+            var repoFile = new Repository(file);
+            // var r = repoXml.SaveAll(t);
+            //new Initializer(repoXml);
 
-            var w = repo1.Get<Visitor>("cfbb0795-baee-4d99-89d8-6d0995df54c9");
+            var w = repoXml.Get<Visitor>("f8bdb86e-5087-4cfa-867a-d2a94e03290e");
 
-            var ww = new VisitorRepository(xml);
-            var x = ww.Get("cfbb0795-baee-4d99-89d8-6d0995df54c9");
+            var visRep = new VisitorRepository(xml);
+            var x = visRep.Get("f8bdb86e-5087-4cfa-867a-d2a94e03290e");
+            //visRep.;
 
-            var rr = new SeatRepository(xml);
-            var qx = rr.GetNumbersOfSeats("f55fc07a-4bb0-440b-bd2e-6fd6bf5857ca");
+            var seatFile = new SeatRepository(file);
+            var qx = seatFile.GetNumbersOfSeatsByOrderId("f8bdb86e-5087-4cfa-867a-d2a94e03290e");
+
 
             //repo1.
             Console.ReadKey(true);

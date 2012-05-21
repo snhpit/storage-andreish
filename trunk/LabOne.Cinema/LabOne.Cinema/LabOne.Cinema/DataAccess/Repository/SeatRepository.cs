@@ -38,10 +38,12 @@ namespace LabOne.Cinema.DataAccess.Repository
             }
         }
 
-        public IEnumerable<int> GetNumbersOfSeats(string id)
+
+        public IEnumerable<int> GetNumbersOfSeatsByOrderId(string id)
         {
-            //_orderRepository.Get(id).ToString().Split('|').Select((elem, index) => elem[index * 2]);
-            return _seats.Select(elem => elem.ToString().Split('|')).Where(elem => elem[0] == id).Select(elem => int.Parse(elem[1]));
+            return
+                _seats.Select(elem => elem.ToString().Split('|')).Where(elem => elem[0] == id).Select(
+                    elem => int.Parse(elem[1]));
         }
     }
 }
