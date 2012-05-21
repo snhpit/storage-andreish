@@ -62,12 +62,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\DataBaseNotFoundException.cs" />
     <Compile Include="DataAccess\Database\DataBase.cs" />
     <Compile Include="DataAccess\Database\FileDatabase.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DataAccess\Database\IDatabase.cs" />
+    <Compile Include="DataAccess\Database\IDataBase.cs" />
     <Compile Include="DataAccess\Database\XMLDatabase.cs" />
+    <Compile Include="DataAccess\Repository\IRepository.cs" />
     <Compile Include="DataAccess\Repository\Repository.cs" />
     <Compile Include="Entities\Cashier.cs" />
     <Compile Include="Entities\Film.cs" />
@@ -78,6 +80,7 @@
     <Compile Include="Presentation\Initializer.cs" />
     <Compile Include="Presentation\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataAccess\TypeIsNotEnumerableException.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BusinessLogic\" />

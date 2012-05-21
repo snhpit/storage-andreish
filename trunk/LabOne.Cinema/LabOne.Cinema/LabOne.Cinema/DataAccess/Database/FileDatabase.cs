@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.IO;
@@ -9,18 +10,22 @@ using LabOne.Cinema.Entities;
 
 namespace LabOne.Cinema.DataAccess.Database
 {
-    public class FileDataBase : DataBase
+    internal class FileDataBase : DataBase
     {
-        public FileDataBase(string basePath, string fileExtension)
+        public FileDataBase(string basePath)
+            : base(basePath)
         {
-            BasePath = basePath;
-            FileExtension = fileExtension;
+            FileExtension = "txt";
         }
 
-        public override string WriteData<T>(T data)
+        public override bool WriteData<T>(T data)
         {
-            object[] items = ((dynamic)data).ToArray();
-            string filename = GenerateFileName(items.GetType());
+            if (data.GetType().IsValueType)
+            {
+                throw new IsValueTypeException();
+            }
+
+            string filename = GenerateFileName(((dynamic)data).ToArray().GetType());
             var formatter = new BinaryFormatter();
 
             using (var writer = File.OpenWrite(filename))
@@ -28,7 +33,7 @@ namespace LabOne.Cinema.DataAccess.Database
                 formatter.Serialize(writer, data);
             }
 
-            return filename;
+            return true;
         }
 
         public override IEnumerable<T> ReadFile<T>()

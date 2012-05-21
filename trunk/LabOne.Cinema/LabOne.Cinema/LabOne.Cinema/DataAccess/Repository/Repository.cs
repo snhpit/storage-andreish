@@ -1,89 +1,112 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using LabOne.Cinema.DataAccess.Database;
+using LabOne.Cinema.Entities;
 
 namespace LabOne.Cinema.DataAccess.Repository
 {
-    public class Repository<T>
+    public class Repository : IRepository
     {
-        //private Dictionary<string, Func<string, string, Database.Database>> _dictionary;
-        private DataBase _database;
+        private readonly IDataBase _dataBase;
 
         public Repository(string path, string fileExtension)
         {
-            _database = SelectDataBase()[fileExtension](path, fileExtension);
+            try
+            {
+                _dataBase = SelectDataBase(path, fileExtension);
+            }
+            catch (DataBaseNotFoundException exeption)
+            {
+                Console.WriteLine(exeption.Message, exeption.Source);
+            }
         }
 
-        protected DataBase
+        public Repository(DataBase database)
+        {
+            _dataBase = database;
+        }
 
-        protected Dictionary<string, Func<string, string, DataBase>> SelectDataBase()
+        private DataBase SelectDataBase(string path, string fileExtension)
+        {
+            var dataBase = CreateDataBase();
+            if (!dataBase.ContainsKey(fileExtension))
+            {
+                throw new DataBaseNotFoundException(fileExtension);
+            }
+            return dataBase[fileExtension](path);
+        }
+
+        private Dictionary<string, Func<string, DataBase>> CreateDataBase()
         {
             return new Dictionary
-            <string, Func<string, string, DataBase>>
+            <string, Func<string, DataBase>>
                 {
-                    { "xml", (path, fileExtension) => new XmlDataBase(path, fileExtension) },
-                    { "txt", (path, fileExtension) => new FileDataBase(path, fileExtension) }
+                    { "xml", path => new XmlDataBase(path) },
+                    { "txt", path => new FileDataBase(path) }
                 };
         }
 
-        public Person[] GetAllPeople()
+        //public Person[] GetAllPeople()
+        //{
+        //    return GetAll<Person>();
+        //}
+
+        //public Unit[] GetAllUnits()
+        //{
+        //    return GetAll<Unit>();
+        //}
+
+        //public Person GetPerson(string id)
+        //{
+        //    return Get<Person>(id);
+        //}
+
+        //public Unit GetUnit(string id)
+        //{
+        //    return Get<Unit>(id);
+        //}
+
+        //public void Save<TItem>(TItem item) where TItem : ModelBase
+        //{
+        //    Save(item, item.ID);
+        //}
+
+        public T Get<T>(string id)
         {
-            return GetAll<Person>();
+            return GetAll<T>().FirstOrDefault(elem => ((dynamic)elem).ID == id);
         }
 
-        public Unit[] GetAllUnits()
+        public IEnumerable<T> GetAll<T>()
         {
-            return GetAll<Unit>();
+            return _dataBase.ReadFile<T>();
         }
 
-        public Person GetPerson(string id)
+        public bool Save<T>(T items)
         {
-            return Get<Person>(id);
+            try
+            {
+                _dataBase.WriteData(items);
+            }
+            catch (IsValueTypeException exception)
+            {
+                Console.WriteLine(exception.Message);
+                return false;
+            }
+            return true;
         }
 
-        public Unit GetUnit(string id)
-        {
-            return Get<Unit>(id);
-        }
-
-        public void Save<TItem>(TItem item) where TItem : ModelBase
-        {
-            Save(item, item.ID);
-        }
-
-        public TItem Create<TItem>() where TItem : ModelBase, new()
-        {
-            ModelBase item = new TItem();
-            item.ID = _database.CreateID();
-            return (TItem)item;
-        }
-
-        public T Get(string id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IEnumerable<T> GetAll()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Save(T item)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Remove(T item)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Remove(string id)
+        public void Remove<T>(T item)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Update(T item)
+        public void Remove<T>(string id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Update<T>(T item)
         {
             throw new System.NotImplementedException();
         }

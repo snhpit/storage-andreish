@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using LabOne.Cinema.DataAccess.Database;
+using LabOne.Cinema.DataAccess.Repository;
 using LabOne.Cinema.Entities;
 
 namespace LabOne.Cinema.Presentation
@@ -11,23 +12,35 @@ namespace LabOne.Cinema.Presentation
     public class Initializer
     {
         const string xmlPath = @"Data\XmlDB\";
-        const string extension = @"Data\XmlDB\";
         const string txtPath = @"Data\TxtDB\";
-        private XmlDataBase _database;
-        //private FileDatabase _database;
 
-        public Initializer()
+        private DataBase _database;
+        //private Repository _repository;
+
+        public Initializer(string path, string fileExtension)
         {
-            _database = new XmlDataBase(xmlPath, );
-            //_fileDatabase = new FileDatabase(txtPath);
+            //_database.ReadFile<Visitor>(); why is it possible?
+            if (fileExtension == "xml")
+            {
+                _database = new XmlDataBase(path);
+            }
+            if (fileExtension == "txt")
+            {
+                _database = new FileDataBase(path);
+            }
         }
 
-        public void GoInit()
+        public Initializer(Repository repository)
         {
-            InitData().Select(list => _database.WriteData(list));
+            InitData().All(repository.Save);
         }
 
-        private IEnumerable<IEnumerable> InitData()
+        public bool GoInit()
+        {
+            return _database != null && InitData().All(_database.WriteData);
+        }
+
+        private static IEnumerable<IEnumerable> InitData()
         {
             var listVisitors = new List<Visitor>
                 {
@@ -66,7 +79,7 @@ namespace LabOne.Cinema.Presentation
                             Cashier = listCashiers[0],
                             Visitor = listVisitors[0],
                             DateOrder = new DateTime(),
-                            Film = listFilms[10]
+                            Film = listFilms[9]
                         }
                 };
 
