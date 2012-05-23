@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfVisitor xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Visitor>
+    <ID>1</ID>
+    <FirstName>A</FirstName>
+    <LastName>A</LastName>
+    <PasportNumber>1111</PasportNumber>
+  </Visitor>
+  <Visitor>
+    <ID>2</ID>
+    <FirstName>B</FirstName>
+    <LastName>B</LastName>
+    <PasportNumber>1112</PasportNumber>
+  </Visitor>
+  <Visitor>
+    <ID>3</ID>
+    <FirstName>C</FirstName>
+    <LastName>C</LastName>
+    <PasportNumber>1113</PasportNumber>
+  </Visitor>
+</ArrayOfVisitor>
