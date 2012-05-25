@@ -23,8 +23,7 @@ h3 {
 }
 
 .wrapper {
-    width: 960px;
-    margin: 0px auto;
+
 }
 
 .ribbon {
@@ -37,10 +36,13 @@ h3 {
 
 .slideshow-wrap {
     background: rgb(69, 72, 77);
+    overflow: hidden;
+    width: 960px;
+    margin: 0px auto;
 }
 
 .slideshow-inner {
-    overflow: hidden;
+
 }
 
 .slideshow {

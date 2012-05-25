@@ -2,19 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="7398e2e3-ddee-4f17-a0e1-a1c1b142d310" name="Default" comment="IUpdateble">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Promo.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scripts/jquery-1.7.2.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scripts/jquery.scrollTo-1.4.2.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scripts/jquery.tmpl.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scripts/kickstart.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/kickstart.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/styles/style.css" />
-      <change type="DELETED" beforePath="D:\_Projects\Promo\Anontune - Home.htm" afterPath="" />
-      <change type="DELETED" beforePath="D:\_Projects\Promo\pic\jquery.js" afterPath="" />
-      <change type="DELETED" beforePath="D:\_Projects\Promo\pic\kickstart.css" afterPath="" />
-      <change type="DELETED" beforePath="D:\_Projects\Promo\pic\kickstart.js" afterPath="" />
-      <change type="DELETED" beforePath="D:\_Projects\Promo\pic\style.css" afterPath="" />
-      <change type="MOVED" beforePath="D:\_Projects\Promo\Anontune - Home_files" afterPath="$PROJECT_DIR$/pic" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Promo.html" afterPath="$PROJECT_DIR$/Promo.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/promo.js" afterPath="$PROJECT_DIR$/scripts/promo.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/styles/style.css" afterPath="$PROJECT_DIR$/styles/style.css" />
     </list>
     <ignored path="Promo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,7 +30,7 @@
       <file leaf-file-name="Promo.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Promo.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="25" selection-start="739" selection-end="739" vertical-scroll-proportion="-9.153846">
+            <state line="67" column="14" selection-start="2635" selection-end="2635" vertical-scroll-proportion="-11.769231">
               <folding />
             </state>
           </provider>
@@ -48,7 +39,16 @@
       <file leaf-file-name="kickstart.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scripts/kickstart.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="12" selection-start="1090" selection-end="1090" vertical-scroll-proportion="0.0">
+            <state line="9" column="50" selection-start="359" selection-end="359" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="promo.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/scripts/promo.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="1" selection-start="1" selection-end="1" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -57,38 +57,16 @@
       <file leaf-file-name="jquery.scrollTo-1.4.2.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scripts/jquery.scrollTo-1.4.2.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="157" column="65" selection-start="6237" selection-end="6237" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="jquery-1.7.2.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/scripts/jquery-1.7.2.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="96" column="0" selection-start="2614" selection-end="2614" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="style.css" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/styles/style.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="91" column="36" selection-start="912" selection-end="912" vertical-scroll-proportion="0.7235622">
+            <state line="214" column="2" selection-start="7704" selection-end="7704" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="kickstart.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/styles/kickstart.css">
+      <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/styles/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="60" column="10" selection-start="961" selection-end="1014" vertical-scroll-proportion="0.0">
+            <state line="40" column="21" selection-start="459" selection-end="459" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -112,17 +90,20 @@
         <option value="$PROJECT_DIR$/Anontune - Home_files/style.css" />
         <option value="$PROJECT_DIR$/Anontune - Home_files/kickstart.css" />
         <option value="$PROJECT_DIR$/Anontune - Home_files/kickstart.js" />
-        <option value="$PROJECT_DIR$/Promo.html" />
         <option value="$PROJECT_DIR$/styles/kickstart.css" />
+        <option value="$PROJECT_DIR$/scripts/kickstart.js" />
+        <option value="$PROJECT_DIR$/scripts/slideshow.js" />
         <option value="$PROJECT_DIR$/styles/style.css" />
+        <option value="$PROJECT_DIR$/Promo.html" />
+        <option value="$PROJECT_DIR$/scripts/promo.js" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1296" />
-    <option name="height" value="1000" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -150,16 +131,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -222,6 +193,16 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -270,20 +251,20 @@
     <option name="myMappingRoots">
       <list>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="D:\_Projects\Promo" />
-          <option name="myCopyRoot" value="D:\_Projects\Promo" />
+          <option name="myVcsRoot" value="C:\_work\Promo" />
+          <option name="myCopyRoot" value="C:\_work\Promo" />
         </SvnCopyRootSimple>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="D:\_Projects\Promo\.idea" />
-          <option name="myCopyRoot" value="D:\_Projects\Promo\.idea" />
+          <option name="myVcsRoot" value="C:\_work\Promo\.idea" />
+          <option name="myCopyRoot" value="C:\_work\Promo\.idea" />
         </SvnCopyRootSimple>
       </list>
     </option>
     <option name="myMoreRealMappingRoots">
       <list>
         <SvnCopyRootSimple>
-          <option name="myVcsRoot" value="D:\_Projects\Promo" />
-          <option name="myCopyRoot" value="D:\_Projects\Promo" />
+          <option name="myVcsRoot" value="C:\_work\Promo" />
+          <option name="myCopyRoot" value="C:\_work\Promo" />
         </SvnCopyRootSimple>
       </list>
     </option>
@@ -298,7 +279,11 @@
       <created>1336393105144</created>
       <updated>1336393105144</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="updated before changing">
+      <created>1337911626128</created>
+      <updated>1337911626128</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TodoView" selected-index="2">
@@ -322,15 +307,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32857144" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32857144" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3270548" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297619" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297619" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1646778" sideWeight="0.67142856" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16455697" sideWeight="0.6729452" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -382,7 +367,7 @@
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="IUpdateble" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated before changing" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -397,68 +382,50 @@
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
     <MESSAGE value="updated" />
     <MESSAGE value="IUpdateble" />
+    <MESSAGE value="updated before changing" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../Puzzle/Puzzle.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../BBC-Promo/BBC - Promo.htm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="660" column="8" selection-start="41104" selection-end="41104" vertical-scroll-proportion="-22.73077" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Puzzle/Scripts/puzzle.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="30" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/scripts/jquery-1.7.2.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="96" column="0" selection-start="2614" selection-end="2614" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/kickstart.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="12" selection-start="1090" selection-end="1090" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Promo.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="25" selection-start="739" selection-end="739" vertical-scroll-proportion="-9.153846">
+        <state line="5406" column="8" selection-start="143699" selection-end="143699" vertical-scroll-proportion="0.9098592">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/scripts/jquery.scrollTo-1.4.2.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="157" column="65" selection-start="6237" selection-end="6237" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
+        <state line="214" column="2" selection-start="7704" selection-end="7704" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/styles/kickstart.css">
+    <entry file="file://$PROJECT_DIR$/scripts/kickstart.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="10" selection-start="961" selection-end="1014" vertical-scroll-proportion="0.0">
+        <state line="9" column="50" selection-start="359" selection-end="359" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/styles/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="91" column="36" selection-start="912" selection-end="912" vertical-scroll-proportion="0.7235622">
+        <state line="40" column="21" selection-start="459" selection-end="459" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Promo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="67" column="14" selection-start="2635" selection-end="2635" vertical-scroll-proportion="-11.769231">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/promo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="1" selection-start="1" selection-end="1" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
