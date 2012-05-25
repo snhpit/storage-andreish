@@ -1,110 +1,94 @@
-/* Main styles */
-
-html, body
-{
-	height: 100%;
-	min-height: 100%;
-	font-family: "PT Sans Caption", sans-serif;
+html, body {
+    height: 100%;
+    min-height: 100%;
+    font-family: "PT Sans Caption", sans-serif;
 }
 
-body
-{
-	padding: 0px;
-	margin: 0px;
+body {
+    padding: 0px;
+    margin: 0px;
 }
 
-a
-{
-	color: #000269;
+a {
+    color: #ffffff;
 }
 
-a:hover
-{
-	color: #0002A3;
+a:hover {
+    color: #a37b74;
 }
 
-h3
-{
-	font-size: 40px;
+h3 {
+    font-size: 40px;
+    margin: 10px 0 10px 0;
 }
 
-/* Layout */
-
-.wrapper
-{
-	width: 960px;
-	margin: 0px auto;
+.wrapper {
+    width: 960px;
+    margin: 0px auto;
 }
 
-/* Ribbon */
-
-/*.ribbon, .top
-{
-	font-family: "PT Sans Caption", sans-serif;
-}*/
-
-.ribbon
-{
-	padding: 24px;
-	padding-top: 10px;
-	color: white;
+.ribbon {
+    color: white;
 }
 
-.ribbon, .menu li.current > a, .menu li.current > a:hover, .menu li.current.hover > a
-{
-	background: rgb(69,72,77); /* Old browsers */
+.ribbon p {
+    margin-top: 0px;
 }
 
-/*.ribbon p
-{
-	color: #DEDEDE;
-}*/
-
-.ribbon p
-{
-	margin-top: 0px;
+.slideshow-wrap {
+    background: rgb(69, 72, 77);
 }
 
-/*.ribbon .important
-{
-	font-weight: bold;
-	color: #FF2929;
-}*/
-
-/*.ribbon .article h3
-{
-	margin-top: 22px;
+.slideshow-inner {
+    overflow: hidden;
 }
 
-.slideshow-inner, .slideshow-buttons li a
-{
-	border: none;
+.slideshow {
+    margin: 0;
+    padding: 0;
+    width: 6720px;
 }
 
-
-.slideshow_main, .slideshow_main li
-{
-	width: 960px;
-	height: 558px;
-}*/
-
-.slideshow img
-{
-	float: right;
-	margin: 24px;
+.slideshow li {
+    list-style-type: none;
+    float: left;
+    width: 960px;
 }
 
-/*.padder {
+.slideshow img {
     float: right;
-    margin: 20xp;
-}*/
-
-.slideshow-buttons li a
-{
-	color: white;
+    margin: 24px;
+    width: 240px;
+    height: 240px;
 }
 
-.slideshow-buttons li.current a
-{
-	background-color: #282828;
+.aligner {
+    padding: 10px;
+}
+
+.slideshow-buttons {
+    text-align: right;
+    margin: 3px;
+    padding: 3px;
+}
+
+.slideshow-buttons li {
+    display: inline;
+    line-height: 100%;
+}
+
+
+.slideshow-buttons li a {
+    padding: 1px 3px;
+    margin: 0 1px;
+    text-decoration: none;
+    font-size: 0.8em;
+}
+
+.slideshow-buttons li.current a {
+    background-color: #282828;
+}
+
+.slideshow-buttons li.current a:hover {
+    color: #ffffff;
 }
