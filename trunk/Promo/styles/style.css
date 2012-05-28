@@ -23,11 +23,14 @@ h3 {
 }
 
 .wrapper {
-
+  /*  position: relative;
+    width: 960px;
+    margin: 0px auto;*/
 }
 
 .ribbon {
     color: white;
+
 }
 
 .ribbon p {
@@ -39,19 +42,26 @@ h3 {
     overflow: hidden;
     width: 960px;
     margin: 0px auto;
+    position: relative;
 }
 
 .slideshow-inner {
-
+    clear: both;
+    left: 0;
+    overflow: hidden;
+    position: relative;
+    top: 0;
 }
 
 .slideshow {
     margin: 0;
     padding: 0;
-    width: 6720px;
+    width: 7680px;
+    position: relative;
 }
 
 .slideshow li {
+    display: block;
     list-style-type: none;
     float: left;
     width: 960px;
@@ -75,22 +85,46 @@ h3 {
 }
 
 .slideshow-buttons li {
-    display: inline;
+    display: inline-block;
+    margin: 2px;
     line-height: 100%;
+    padding: 0;
+    background: #000000;
+    width: 10px;
+    height: 10px;
+    cursor: pointer;
 }
-
-
+/*
 .slideshow-buttons li a {
-    padding: 1px 3px;
-    margin: 0 1px;
+    padding: 3px;
+    margin: 5px;
     text-decoration: none;
     font-size: 0.8em;
-}
+    text-align: center;
+}*/
 
-.slideshow-buttons li.current a {
-    background-color: #282828;
+.slideshow-buttons li.current {
+    background: none repeat scroll 0 0 #e8691e;
 }
 
 .slideshow-buttons li.current a:hover {
     color: #ffffff;
+}
+
+.nav-left, .nav-right, .nav-play {
+    cursor: pointer;
+    opacity: 0.2;
+    background: no-repeat scroll #707070;
+    bottom: 10%;
+    height: 48px;
+    overflow: hidden;
+    position: absolute;
+    width: 47px;
+}
+
+.nav-play {
+    left: 50%;
+}
+.nav-right {
+    right: 0%;
 }
