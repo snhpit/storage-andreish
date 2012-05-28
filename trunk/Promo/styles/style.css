@@ -38,7 +38,7 @@ h3 {
 }
 
 .slideshow-wrap {
-    background: rgb(69, 72, 77);
+    background: rgb(97, 103, 107);
     overflow: hidden;
     width: 960px;
     margin: 0px auto;
@@ -104,7 +104,7 @@ h3 {
 }*/
 
 .slideshow-buttons li.current {
-    background: none repeat scroll 0 0 #e8691e;
+    background: none repeat scroll 0 0 #e89300;
 }
 
 .slideshow-buttons li.current a:hover {
@@ -113,18 +113,34 @@ h3 {
 
 .nav-left, .nav-right, .nav-play {
     cursor: pointer;
-    opacity: 0.2;
+    opacity: 0.5;
     background: no-repeat scroll #707070;
-    bottom: 10%;
+    bottom: 5%;
     height: 48px;
     overflow: hidden;
     position: absolute;
     width: 47px;
+    font-size: 40px;
+}
+
+.nav-left:hover, .nav-right:hover, .nav-play:hover {
+    opacity: 0.7;
+    background-color: #E4E4E4;
+    color: #707070;
+}
+.nav-left:hover, .nav-right:hover {
+    /*width: 100px;*/
+}
+.nav-left p, .nav-right p, .nav-play p {
+    line-height: 48px;
+    text-align: center;
 }
 
 .nav-play {
+    opacity: 0;
     left: 50%;
 }
+
 .nav-right {
     right: 0%;
 }
