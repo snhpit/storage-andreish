@@ -3,12 +3,21 @@
 }
 <h2>@ViewBag.Message</h2>
 <div class="centerwrapper">
-    <label for="from">
-        From</label>
-    <input type="text" id="from" name="from" />
-    <label for="to">
-        to</label>
-    <input type="text" id="to" name="to" />
+    @using (Html.BeginForm())
+    {
+        <p>
+            <input type="text" id="quote" placeholder="Company name" />
+            <input type="submit" value="Get" />
+        </p>
+        <p>
+            <input type="text" id="from" name="from" placeholder="From" />
+            <input type="text" id="to" name="to" placeholder="To" />
+        </p>
+        <div id="radio">
+            <input type="radio" id="radio1" name="radio" /><label for="radio1">Google</label>
+            <input type="radio" id="radio2" name="radio" /><label for="radio2">Yahoo</label>
+        </div>
+    }
     <table class="standart">
         <tr>
             <th>
