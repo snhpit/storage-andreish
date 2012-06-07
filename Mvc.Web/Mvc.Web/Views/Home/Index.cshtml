@@ -3,15 +3,15 @@
 }
 <h2>@ViewBag.Message</h2>
 <div class="centerwrapper">
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Index", "Home"))
     {
         <p>
-            <input type="text" id="quote" placeholder="Company name" />
+            <input type="text" id="quote" name="CompanySymbol" placeholder="Company symbol" />
             <input type="submit" value="Get quotes" />
         </p>
         <p>
-            <input type="text" id="from" name="from" placeholder="From" />
-            <input type="text" id="to" name="to" placeholder="To" />
+            <input type="text" id="from" name="From" placeholder="From" />
+            <input type="text" id="to" name="To" placeholder="To" />
         </p>
         <div id="radio">
             <input type="radio" id="radio1" name="radio" /><label for="radio1">Google</label>
