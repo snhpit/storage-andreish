@@ -8,6 +8,6 @@ namespace Mvc.Web.Providers
 {
     public interface IProvider
     {
-        List<Data> GetData();
+        string GetData();
     }
 }
