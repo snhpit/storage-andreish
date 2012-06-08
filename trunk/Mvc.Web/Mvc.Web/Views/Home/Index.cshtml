@@ -1,4 +1,6 @@
-﻿@{
+﻿@using System.Web.UI.WebControls
+@model Mvc.Entities.InputInfo
+@{
     ViewBag.Title = "Home Page";
 }
 <h2>@ViewBag.Message</h2>
@@ -6,18 +8,22 @@
     @using (Html.BeginForm("Index", "Home"))
     {
         <p>
-            <input type="text" id="quote" name="CompanySymbol" placeholder="Company symbol" />
+            @Html.TextBoxFor(model => model.Company, new { id = "quote", placeholder = "Company symbol" })
+            @*<input type="text" id="quote" name="Company" placeholder="Company symbol" />*@
             <input type="submit" value="Get quotes" />
         </p>
         <p>
-            <input type="text" id="from" name="From" placeholder="From" />
-            <input type="text" id="to" name="To" placeholder="To" />
+            @*<input type="text" id="from" name="From" placeholder="From" />*@
+            @Html.TextBoxFor(model => model.DateFrom, new { id = "from", placeholder = "From" })
+            @*<input type="text" id="to" name="To" placeholder="To" />*@
+            @Html.TextBoxFor(model => model.DateTo, new { id = "to", placeholder = "To" })
         </p>
         <div id="radio">
             <input type="radio" id="radio1" name="radio" /><label for="radio1">Google</label>
             <input type="radio" id="radio2" name="radio" /><label for="radio2">Yahoo</label>
         </div>
     }
+    @*@Html.Partial(new Table().ToString()) где будет @model Mvc.Entities.Quote *@
     <table class="standart">
         <tr>
             <th>
