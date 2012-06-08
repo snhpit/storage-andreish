@@ -19,8 +19,12 @@
             @Html.TextBoxFor(model => model.DateTo, new { id = "to", placeholder = "To" })
         </p>
         <div id="radio">
-            <input type="radio" id="radio1" name="radio" /><label for="radio1">Google</label>
-            <input type="radio" id="radio2" name="radio" /><label for="radio2">Yahoo</label>
+            @Html.RadioButtonFor(model => model.Provider, "Google", new { id = "radio1", value = "Google" })
+            @Html.Label("radio1", "Google");
+            @Html.RadioButtonFor(model => model.Provider, "Yahoo", new { id = "radio2", value = "Yahoo" })
+            @Html.Label("radio2", "Yahoo");
+            @*<input type="radio" value="Google" id="radio1" name="Provider" /><label name="Provider" for="radio1">Google</label>
+            <input type="radio" value="Yahoo" id="radio2" name="Provider" /><label name="Provider" for="radio2">Yahoo</label>*@
         </div>
     }
     @*@Html.Partial(new Table().ToString()) где будет @model Mvc.Entities.Quote *@

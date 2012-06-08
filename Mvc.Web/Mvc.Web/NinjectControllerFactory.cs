@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Mvc.Web.Converters;
+using Mvc.Web.Providers;
 using Ninject;
 
 namespace Mvc.Web
@@ -25,8 +27,10 @@ namespace Mvc.Web
 
         private void AddBindings()
         {
-            //_ninjectKernel.Bind<IProvider>().To<GoogleProvider>();
             //_ninjectKernel.Bind<IProvider>().To<YahooProvider>();
+            //_ninjectKernel.Bind<IConverter>().To<XmlConverter>();
+            _ninjectKernel.Bind<IProvider>().To<GoogleProvider>();
+            _ninjectKernel.Bind<IConverter>().To<CsvConverter>();
         }
     }
 }

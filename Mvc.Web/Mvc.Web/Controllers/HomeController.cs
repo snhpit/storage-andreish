@@ -9,15 +9,35 @@ using System.Web.Mvc;
 using System.Xml;
 using System.Xml.Serialization;
 using Mvc.Entities;
+using Mvc.Web.Converters;
 using Mvc.Web.Providers;
+using Ninject;
 
 namespace Mvc.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private IConverter _converter;
+
+        public HomeController(IConverter converter)
+        {
+            _converter = converter;
+        }
+
         public ActionResult Index()
         {
             ViewBag.Message = "Finance Statistic";
+            
+            var data = _converter.Convert();
+
+            return View();
+        }
+
+        [HttpPost] // и без model binder прошло
+        public ActionResult Index(InputInfo info)
+        {
+            
+            var data = _converter.Convert();
 
             return View();
         }
