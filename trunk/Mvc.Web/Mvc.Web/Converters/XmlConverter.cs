@@ -22,10 +22,11 @@ namespace Mvc.Web.Converters
 
         public IEnumerable<Quote> Convert()
         {
-            //XmlDocument xml = new XmlDocument();
-            //xml.LoadXml(_provider.GetData());
             XDocument document = XDocument.Parse(_provider.GetData());
-            var xElements = document.Root.Descendants("Quote")
+
+            if (document.Root == null) return null;
+
+            var xElements = document.Root.Descendants("quote")
                 .Select(element => new Quote
                     {
                         Date = DateTime.Parse(element.Element("Date").Value),
