@@ -11,7 +11,9 @@ namespace Mvc.Web.Providers
 {
     public class GoogleProvider : IProvider
     {
-        public string GetData()
+        public string ProviderName { get; set; }
+
+        public string GetData(DateTime dateFrom, DateTime dateTo, string company)
         {
             HttpWebRequest googleRequest =
                 (HttpWebRequest)
@@ -21,6 +23,8 @@ namespace Mvc.Web.Providers
             if (googleStream == null) return null;
             StreamReader stream = new StreamReader(googleStream);
             return stream.ReadToEnd();
+
+            // надо ли?
             //finally
             //{
             //    googleResponse.Close();

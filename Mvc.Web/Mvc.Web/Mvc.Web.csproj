@@ -84,6 +84,7 @@
     <Compile Include="Providers\YahooProvider.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\loader.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_30_cccccc_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_50_5c5c5c_40x100.png" />
@@ -140,6 +141,7 @@
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.zebra.js" />
+    <Content Include="Scripts\jQueryRotate.2.2.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
     <Content Include="Scripts\news-template.js" />
@@ -188,6 +190,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Weather.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Table.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

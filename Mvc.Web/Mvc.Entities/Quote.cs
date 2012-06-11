@@ -7,7 +7,7 @@ namespace Mvc.Entities
 {
     public class Quote
     {
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
 
         public double Open { get; set; }
 

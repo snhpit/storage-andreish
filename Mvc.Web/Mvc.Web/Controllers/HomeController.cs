@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,27 +18,34 @@ namespace Mvc.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private IConverter _converter;
+        private readonly IConverter _converter;
+        private IProvider _provider;
 
-        public HomeController(IConverter converter)
+        public HomeController(IProvider provider, IConverter converter)
         {
             _converter = converter;
+            _provider = provider;
         }
 
+        [HttpGet]
         public ActionResult Index()
         {
-            ViewBag.Message = "Finance Statistic";
-            
-            var data = _converter.Convert();
-
             return View();
         }
 
-        [HttpPost] // и без model binder прошло
+        [HttpPost]
         public ActionResult Index(InputInfo info)
         {
-            
-            var data = _converter.Convert();
+            ViewBag.Message = "Finance Statistic";
+
+            var data = _provider.GetData(info.DateFrom, info.DateTo, info.Company);
+            var quotes = new Quote { Date = "11.06.2012", Close = 29.09, High = 12.12, Low = 121.12, Open = 35.1, Volume = 1412412 };//_converter.Convert(data);
+            ViewData["Quotes"] = new List<Quote> { quotes };
+
+            if (Request.IsAjaxRequest())
+            {
+                return Json(new List<Quote> { quotes });
+            }
 
             return View();
         }
@@ -58,26 +66,28 @@ namespace Mvc.Web.Controllers
                 var g = googleResponse.GetResponseStream();
                 XmlDocument googleXmlDoc = new XmlDocument();
                 googleXmlDoc.Load(googleResponse.GetResponseStream());
+
                 XmlNode root = googleXmlDoc.DocumentElement;
                 XmlNodeList nodeList1 = root.SelectNodes("weather/forecast_information");
-                ViewBag.Weather = ViewBag.Weather + "<b>City : " + nodeList1.Item(0).SelectSingleNode("city").Attributes["data"].InnerText + "</b>";
+                ViewBag.Weather += "<b>City : " + nodeList1.Item(0).SelectSingleNode("city").Attributes["data"].InnerText + "</b>";
                 XmlNodeList nodeList = root.SelectNodes("weather/current_conditions");
 
-                ViewBag.Weather = ViewBag.Weather + "<table class=\"bordered\" cellpadding=\"5\"><tbody><tr><td><b><big><nobr>" + nodeList.Item(0).SelectSingleNode("temp_c").Attributes["data"].InnerText + " °C | " + nodeList.Item(0).SelectSingleNode("temp_f").Attributes["data"].InnerText + " °F</nobr></big></b>";
-                ViewBag.Weather = ViewBag.Weather + "<b>Current:</b> " + nodeList.Item(0).SelectSingleNode("condition").Attributes["data"].InnerText + "";
-                ViewBag.Weather = ViewBag.Weather + " " + nodeList.Item(0).SelectSingleNode("wind_condition").Attributes["data"].InnerText + "";
-                ViewBag.Weather = ViewBag.Weather + " " + nodeList.Item(0).SelectSingleNode("humidity").Attributes["data"].InnerText;
+                ViewBag.Weather += "<table class=\"bordered\" cellpadding=\"5\"><tbody><tr><td><b><big><nobr>" + nodeList.Item(0).SelectSingleNode("temp_c").Attributes["data"].InnerText + " °C | " + nodeList.Item(0).SelectSingleNode("temp_f").Attributes["data"].InnerText + " °F</nobr></big></b>";
+                ViewBag.Weather += "<b>Current:</b> " + nodeList.Item(0).SelectSingleNode("condition").Attributes["data"].InnerText + "";
+                ViewBag.Weather += " " + nodeList.Item(0).SelectSingleNode("wind_condition").Attributes["data"].InnerText + "";
+                ViewBag.Weather += " " + nodeList.Item(0).SelectSingleNode("humidity").Attributes["data"].InnerText;
                 nodeList = root.SelectNodes("descendant::weather/forecast_conditions");
+
                 foreach (XmlNode nod in nodeList)
                 {
-                    ViewBag.Weather = ViewBag.Weather + "</td><td align=\"center\">" + nod.SelectSingleNode("day_of_week").Attributes["data"].InnerText + "";
-                    ViewBag.Weather = ViewBag.Weather + "<img src=\"http://www.google.com" + nod.SelectSingleNode("icon").Attributes["data"].InnerText + "\" alt=\"" + nod.SelectSingleNode("condition").Attributes["data"].InnerText + "\">";
-                    ViewBag.Weather = ViewBag.Weather + nod.SelectSingleNode("low").Attributes["data"].InnerText + "°F | ";
-                    ViewBag.Weather = ViewBag.Weather + nod.SelectSingleNode("high").Attributes["data"].InnerText + "°F";
+                    ViewBag.Weather += "</td><td align=\"center\">" + nod.SelectSingleNode("day_of_week").Attributes["data"].InnerText + "";
+                    ViewBag.Weather += "<img src=\"http://www.google.com" + nod.SelectSingleNode("icon").Attributes["data"].InnerText + "\" alt=\"" + nod.SelectSingleNode("condition").Attributes["data"].InnerText + "\">";
+                    ViewBag.Weather += nod.SelectSingleNode("low").Attributes["data"].InnerText + "°F | ";
+                    ViewBag.Weather += nod.SelectSingleNode("high").Attributes["data"].InnerText + "°F";
                 }
                 ViewBag.Weather = ViewBag.Weather + "</td></tr></tbody></table>";
             }
-            catch (System.Exception ex)
+            catch (NullReferenceException ex)
             {
                 ViewBag.Weather = ex.Message;
             }

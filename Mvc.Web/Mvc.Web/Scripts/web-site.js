@@ -26,17 +26,6 @@
             }
         });
 
-        $('table.standart').zebra();
-
-        $('table.changed-options').zebra({
-            bgEven: '#CC66CC',
-            bgOdd: '#E6ACE6',
-            fontEven: '#662266',
-            fontOdd: '#662266',
-            bgHover: '#331133',
-            fontHover: '#FFFFFF'
-        });
-
         $('#smiles').click(function () {
             $('#news-section .container').load('smiles.htm', function (response, status, xhr) {
                 if (status == "error") {
@@ -58,6 +47,62 @@
 
         $(window).unload(function () {
             //location.hash = $('#news').html();
+        });
+
+        var tableOptions = function () {
+            $('table.standart').zebra();
+
+            $('table.changed-options').zebra({
+                bgEven: '#CC66CC',
+                bgOdd: '#E6ACE6',
+                fontEven: '#662266',
+                fontOdd: '#662266',
+                bgHover: '#331133',
+                fontHover: '#FFFFFF'
+            });
+        };
+
+        var onSuccess = function (data) {
+            $('#finance-historical').empty();
+            $("#tableTemplate").tmpl(data).appendTo("#finance-historical");
+            tableOptions();
+
+            //            var angle = 0;
+            //            setInterval(function () {
+            //                angle += 3;
+            //                $("#finance-historical").rotate(angle);
+            //            }, 50);
+        };
+
+        $('form').ajaxStart(function () { showLoader(); });
+        $('form').ajaxComplete(function () { hideLoader(); });
+
+        function showLoader() {
+            $('div.loader').show();
+        };
+
+        function hideLoader() {
+            $('div.loader').hide();
+        };
+
+        $('form').submit(function (e) {
+            e.preventDefault();
+            var inputInfo = {
+                Company: $('#company').val(),
+                DateFrom: $('#from').val(),
+                DateTo: $('#to').val(),
+                Provider: $('#form0 input:radio:checked').val()
+            };
+
+            $.ajax({
+                url: '/',
+                type: 'POST',
+                data: JSON.stringify(inputInfo),
+                dataType: 'json',
+                processData: false,
+                contentType: 'application/json; charset=utf-8',
+                success: onSuccess
+            });
         });
     } (jQuery));
 });

@@ -10,21 +10,14 @@ namespace Mvc.Web.Converters
 {
     public class CsvConverter : IConverter
     {
-        private IProvider _provider;
-
-        public CsvConverter(IProvider provider)
+        public IEnumerable<Quote> Convert(string providerData)
         {
-            _provider = provider;
-        }
+            var data = providerData.Split('\n').TakeWhile(elem => !string.IsNullOrWhiteSpace(elem)).Skip(1);
 
-        public IEnumerable<Quote> Convert()
-        {
-            var data = _provider.GetData().Split('\n').TakeWhile(elem => !string.IsNullOrWhiteSpace(elem)).Skip(1);
-            
             var quotes = data.Select(line => line.Split(','))
                 .Select(quote => new Quote
                     {
-                        Date = DateTime.Parse(quote[0]),
+                        Date = DateTime.Parse(quote[0]).Date.ToShortDateString(),
                         Open = double.Parse(quote[1]),
                         High = double.Parse(quote[2]),
                         Low = double.Parse(quote[3]),
