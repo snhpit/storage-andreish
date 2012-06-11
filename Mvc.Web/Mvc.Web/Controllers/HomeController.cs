@@ -39,12 +39,16 @@ namespace Mvc.Web.Controllers
             ViewBag.Message = "Finance Statistic";
 
             var data = _provider.GetData(info.DateFrom, info.DateTo, info.Company);
-            var quotes = new Quote { Date = "11.06.2012", Close = 29.09, High = 12.12, Low = 121.12, Open = 35.1, Volume = 1412412 };//_converter.Convert(data);
-            ViewData["Quotes"] = new List<Quote> { quotes };
+            var quotes = new List<Quote> {
+                new Quote { Date = "11.06.2012", Close = 29.09, High = 12.12, Low = 121.12, Open = 35.1, Volume = 1412412 },
+                new Quote { Date = "10.06.2012", Close = 29.09, High = 12.12, Low = 121.12, Open = 35.1, Volume = 1412412 },
+                new Quote { Date = "09.06.2012", Close = 29.09, High = 12.12, Low = 121.12, Open = 35.1, Volume = 1412412 },
+            };//_converter.Convert(data);
+            ViewData["Quotes"] = quotes;
 
             if (Request.IsAjaxRequest())
             {
-                return Json(new List<Quote> { quotes });
+                return Json(quotes);
             }
 
             return View();
