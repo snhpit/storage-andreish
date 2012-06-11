@@ -30,11 +30,11 @@ namespace Mvc.Web
 
         private void AddBindings()
         {
-            _ninjectKernel.Bind<IProvider>().To<YahooProvider>();
-            //_ninjectKernel.Bind<IProvider>().To<GoogleProvider>();
+            //_ninjectKernel.Bind<IProvider>().To<YahooProvider>();
+            _ninjectKernel.Bind<IProvider>();//.ToMethod<YahooProvider>(context => context.Parameters.Count == 3);
 
-            _ninjectKernel.Bind<IConverter>().To<XmlConverter>();
-            //_ninjectKernel.Bind<IConverter>().To<CsvConverter>();
+            //_ninjectKernel.Bind<IConverter>().To<XmlConverter>();
+            _ninjectKernel.Bind<IConverter>().To<CsvConverter>();
         }
     }
 }

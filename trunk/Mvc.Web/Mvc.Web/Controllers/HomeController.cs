@@ -33,22 +33,27 @@ namespace Mvc.Web.Controllers
             return View();
         }
 
+        //[Inject]
         [HttpPost]
-        public ActionResult Index(InputInfo info)
+        public ActionResult Index(InputInfo info, IConverter converter, IProvider provider)
         {
             ViewBag.Message = "Finance Statistic";
 
-            var data = _provider.GetData(info.DateFrom, info.DateTo, info.Company);
-            var quotes = new List<Quote> {
-                new Quote { Date = "11.06.2012", Close = 29.09, High = 12.12, Low = 121.12, Open = 35.1, Volume = 1412412 },
-                new Quote { Date = "10.06.2012", Close = 29.09, High = 12.12, Low = 121.12, Open = 35.1, Volume = 1412412 },
-                new Quote { Date = "09.06.2012", Close = 29.09, High = 12.12, Low = 121.12, Open = 35.1, Volume = 1412412 },
-            };//_converter.Convert(data);
-            ViewData["Quotes"] = quotes;
+            var data = provider.GetData(info.DateFrom, info.DateTo, info.Company);
+            var quotes = converter.Convert(data);
+            //var quotes = new List<Quote> {
+            //    new Quote { Date = DateTime.Parse("11.06.2012"), Close = 29.09, High = 12.12, Low = 121.12, Open = 35.1, Volume = 1412412 },
+            //    new Quote { Date = DateTime.Parse("10.06.2012"), Close = 29.09, High = 12.12, Low = 121.12, Open = 35.1, Volume = 1412412 },
+            //    new Quote { Date = DateTime.Parse("09.06.2012"), Close = 29.09, High = 12.12, Low = 121.12, Open = 35.1, Volume = 1412412 },
+            //};
+            //ViewData["Quotes"] = quotes;
 
             if (Request.IsAjaxRequest())
             {
-                return Json(quotes);
+                return Json(quotes.Select(elem => new
+                    {
+                        Date = elem.Date.ToShortDateString(), elem.Close,  elem.High, elem.Low, elem.Open, elem.Volume
+                    }));
             }
 
             return View();

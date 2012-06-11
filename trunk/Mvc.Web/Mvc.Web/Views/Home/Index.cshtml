@@ -2,17 +2,18 @@
 @model Mvc.Entities.InputInfo
 @{
     ViewBag.Title = "Home Page";
-}
-<h2>@ViewBag.Message</h2>
-<div class="centerwrapper">
-    @using (Ajax.BeginForm("Index", "Home", new AjaxOptions
+    var ajaxOptions = new AjaxOptions
         {
             Url = Url.Action("Index", "Home"),
             //LoadingElementId = "loading",
             //LoadingElementDuration = 2000,
             //OnSuccess = "onSuccess",
             HttpMethod = "Post"
-        }))
+        };
+}
+<h2>@ViewBag.Message</h2>
+<div class="centerwrapper">
+    @using (Html.BeginForm("Index", "Home"))
     {
         <div id="" class="loader">
         </div>
@@ -33,8 +34,4 @@
     }
     <div id="finance-historical">
     </div>
-    @if (ViewData["Quotes"] != null)
-    {
-        @Html.Partial("Table", ViewData["Quotes"] as IEnumerable<Mvc.Entities.Quote>)
-    }
 </div>
