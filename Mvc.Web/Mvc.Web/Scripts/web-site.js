@@ -75,7 +75,7 @@
         };
 
         $('form').ajaxStart(function () { showLoader(); });
-        $('form').ajaxComplete(function () { hideLoader(); });
+        $('form').ajaxStop(function () { hideLoader(); });
 
         function showLoader() {
             $('div.loader').show();

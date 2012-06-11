@@ -15,22 +15,28 @@ namespace Mvc.Web.Providers
 
         public string GetData(DateTime dateFrom, DateTime dateTo, string company)
         {
-            HttpWebRequest googleRequest =
-                (HttpWebRequest)
-                WebRequest.Create("http://www.google.com/finance/historical?cid=694653&startdate=Jun+1%2C+2011&enddate=Jun+7%2C+2011&output=csv");
-            HttpWebResponse googleResponse = (HttpWebResponse)googleRequest.GetResponse();
-            var googleStream = googleResponse.GetResponseStream();
-            if (googleStream == null) return null;
-            StreamReader stream = new StreamReader(googleStream);
-            return stream.ReadToEnd();
+            string data;
+            string url =
+                string.Format("http://www.google.com/finance/historical?q={2}&startdate={0}&enddate={1}&output=csv",
+                dateFrom.ToString("MMM+dd,+yyyy"), dateTo.ToString("MMM+dd,+yyyy"), company ?? "epam");
 
-            // надо ли?
-            //finally
-            //{
-            //    googleResponse.Close();
-            //    googleStream.Close();
-            //    stream.Close();
-            //}
+            HttpWebRequest googleRequest = (HttpWebRequest)WebRequest.Create(url);
+            HttpWebResponse googleResponse = (HttpWebResponse) googleRequest.GetResponse();
+
+            using (var googleStream = googleResponse.GetResponseStream())
+            {
+                if (googleStream == null)
+                {
+                    return null;
+                }
+
+                using (var stream = new StreamReader(googleStream))
+                {
+                    data = stream.ReadToEnd();
+                }
+                googleResponse.Close();
+            }
+            return data;
         }
     }
 }

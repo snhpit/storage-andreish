@@ -17,7 +17,7 @@ namespace Mvc.Web.Converters
             var quotes = data.Select(line => line.Split(','))
                 .Select(quote => new Quote
                     {
-                        Date = DateTime.Parse(quote[0]).Date.ToShortDateString(),
+                        Date = DateTime.Parse(quote[0]),
                         Open = double.Parse(quote[1]),
                         High = double.Parse(quote[2]),
                         Low = double.Parse(quote[3]),
