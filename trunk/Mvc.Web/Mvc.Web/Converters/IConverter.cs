@@ -8,6 +8,6 @@ namespace Mvc.Web.Converters
 {
     public interface IConverter
     {
-        IEnumerable<Quote> Convert();
+        IEnumerable<Quote> Convert(string providerData);
     }
 }

@@ -12,9 +12,10 @@ namespace Mvc.Web.Providers
 {
     public class YahooProvider : IProvider
     {
-        public string GetData() // startDate, endDate, symbol
+        public string ProviderName { get; set; }
+
+        public string GetData(DateTime dateFrom, DateTime dateTo, string company)
         {
-            //http://ichart.finance.yahoo.com/table.csv?s=GOOG&a=05&b=1&c=2011&d=05&e=7&f=2011&g=d&ignore=.csv
             //http://finance.yahoo.com/q/hp?s=EPAM&a=01&b=8&c=2012&d=05&e=8&f=2012&g=d&ignore=.csv
             HttpWebRequest googleRequest =
                 (HttpWebRequest)
