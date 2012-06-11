@@ -63,10 +63,10 @@
         };
 
         var onSuccess = function (data) {
+            var dataWrapper = { values: data };
             $('#finance-historical').empty();
-            $("#tableTemplate").tmpl(data).appendTo("#finance-historical");
+            $("#tableTemplate").tmpl(dataWrapper).appendTo("#finance-historical");
             tableOptions();
-
             //            var angle = 0;
             //            setInterval(function () {
             //                angle += 3;
