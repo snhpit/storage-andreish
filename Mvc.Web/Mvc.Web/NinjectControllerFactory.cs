@@ -9,6 +9,7 @@ using Mvc.Web.Providers;
 using Ninject;
 using Ninject.Parameters;
 using Ninject.Syntax;
+using Ninject.Web.Mvc;
 
 namespace Mvc.Web
 {
@@ -31,7 +32,7 @@ namespace Mvc.Web
         private void AddBindings()
         {
             //_ninjectKernel.Bind<IProvider>().To<YahooProvider>();
-            _ninjectKernel.Bind<IProvider>();//.ToMethod<YahooProvider>(context => context.Parameters.Count == 3);
+            var h = _ninjectKernel.Bind<IProvider>().To<GoogleProvider>();//.ToMethod<YahooProvider>(context => context.Parameters.Count == 3);
 
             //_ninjectKernel.Bind<IConverter>().To<XmlConverter>();
             _ninjectKernel.Bind<IConverter>().To<CsvConverter>();

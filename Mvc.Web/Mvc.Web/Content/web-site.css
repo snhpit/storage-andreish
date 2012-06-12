@@ -246,8 +246,8 @@ ul
     background-image: url('/Content/Images/loader.gif');
     background-repeat: no-repeat;
     background-position: center center;
-    width: 59%;
-    height: 20%;
+    width: 800px;
+    height: 98px;
     opacity: 0.6;
     background-color: #CCCCCC;
     display: none;

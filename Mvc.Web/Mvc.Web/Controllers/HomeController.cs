@@ -18,14 +18,14 @@ namespace Mvc.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IConverter _converter;
-        private IProvider _provider;
+        //private readonly IConverter _converter;
+        //private IProvider _provider;
 
-        public HomeController(IProvider provider, IConverter converter)
-        {
-            _converter = converter;
-            _provider = provider;
-        }
+        //public HomeController(IProvider provider, IConverter converter)
+        //{
+        //    _converter = converter;
+        //    _provider = provider;
+        //}
 
         [HttpGet]
         public ActionResult Index()
@@ -33,26 +33,45 @@ namespace Mvc.Web.Controllers
             return View();
         }
 
-        //[Inject]
+        [Inject]
         [HttpPost]
-        public ActionResult Index(InputInfo info, IConverter converter, IProvider provider)
+        public ActionResult Index(InputInfo info, IProvider provider, IConverter converter)
         {
             ViewBag.Message = "Finance Statistic";
+            if (HttpContext != null)
+            {
+                var f = HttpContext.ApplicationInstance as IKernel;
+                if (info.Provider == "Google")
+                {
+                    provider = f.Get<GoogleProvider>();
+                    converter = f.Get<CsvConverter>();
+                }
+                else
+                {
+                    provider = f.Get<YahooProvider>();
+                    converter = f.Get<XmlConverter>();
+                }
+            }
 
             var data = provider.GetData(info.DateFrom, info.DateTo, info.Company);
-            var quotes = converter.Convert(data);
-            //var quotes = new List<Quote> {
-            //    new Quote { Date = DateTime.Parse("11.06.2012"), Close = 29.09, High = 12.12, Low = 121.12, Open = 35.1, Volume = 1412412 },
-            //    new Quote { Date = DateTime.Parse("10.06.2012"), Close = 29.09, High = 12.12, Low = 121.12, Open = 35.1, Volume = 1412412 },
-            //    new Quote { Date = DateTime.Parse("09.06.2012"), Close = 29.09, High = 12.12, Low = 121.12, Open = 35.1, Volume = 1412412 },
-            //};
+            //var quotes = _converter.Convert(data);
+            var quotes = new List<Quote> {
+                new Quote { Date = DateTime.Parse("11.06.2012"), Close = 29.09, High = 12.12, Low = 121.12, Open = 35.1, Volume = 1412412 },
+                new Quote { Date = DateTime.Parse("10.06.2012"), Close = 29.09, High = 12.12, Low = 121.12, Open = 35.1, Volume = 1412412 },
+                new Quote { Date = DateTime.Parse("09.06.2012"), Close = 29.09, High = 12.12, Low = 121.12, Open = 35.1, Volume = 1412412 },
+            };
             //ViewData["Quotes"] = quotes;
 
-            if (Request.IsAjaxRequest())
+            if (Request != null && Request.IsAjaxRequest())
             {
                 return Json(quotes.Select(elem => new
                     {
-                        Date = elem.Date.ToShortDateString(), elem.Close,  elem.High, elem.Low, elem.Open, elem.Volume
+                        Date = elem.Date.ToShortDateString(),
+                        elem.Close,
+                        elem.High,
+                        elem.Low,
+                        elem.Open,
+                        elem.Volume
                     }));
             }
 
