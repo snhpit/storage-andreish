@@ -20,21 +20,6 @@ namespace Mvc.Web.Converters
             if (document.Root == null) return null;
 
             var quotes = document.Root.Descendants("quote")
-            //var quotes = new List<Quote>();
-            //foreach (var xQuote in xQuotes)
-            //{
-            //    var date = xQuote.Element("Date").Value;//DateTime.Parse(xQuote.Element("Date").Value).Date.ToShortDateString();
-            //    var quote = new Quote
-            //                    {
-            //                        Date = date,
-            //                        Open = double.Parse(xQuote.Element("Open").Value),
-            //                        Close = double.Parse(xQuote.Element("Close").Value),
-            //                        Low = double.Parse(xQuote.Element("Low").Value),
-            //                        High = double.Parse(xQuote.Element("High").Value),
-            //                        Volume = double.Parse(xQuote.Element("Volume").Value),
-            //                    };
-            //    quotes.Add(quote);
-            //}
             .Select(quote => new Quote
                 {
                     Date = DateTime.Parse(quote.Element("Date").Value),
