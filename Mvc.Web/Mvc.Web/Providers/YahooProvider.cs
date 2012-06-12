@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -27,7 +28,16 @@ namespace Mvc.Web.Providers
                 dateFrom.ToString("yyyy-mm-dd"), dateTo.ToString("yyyy-mm-dd"), company ?? "epam");
 
             HttpWebRequest googleRequest = (HttpWebRequest)WebRequest.Create(url);
-            HttpWebResponse googleResponse = (HttpWebResponse)googleRequest.GetResponse();
+            
+            HttpWebResponse googleResponse = null;
+            try
+            {
+                googleResponse = (HttpWebResponse)googleRequest.GetResponse();
+            }
+            catch (WebException e)
+            {
+                Debug.WriteLine(e.Message);
+            }
 
             using (var googleStream = googleResponse.GetResponseStream())
             {
