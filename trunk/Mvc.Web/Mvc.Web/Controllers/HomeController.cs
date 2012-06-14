@@ -9,22 +9,24 @@ using System.Web;
 using System.Web.Mvc;
 using System.Xml;
 using System.Xml.Serialization;
+using Microsoft.Practices.ServiceLocation;
 using Mvc.Entities;
 using Mvc.Web.Converters;
 using Mvc.Web.Providers;
 using Ninject;
+using NinjectAdapter;
 
 namespace Mvc.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IConverter _converter;
-        private readonly IProvider _provider;
+        private readonly IProviderFactory _providerFactory;
+        private readonly IConverterFactory _converterFactory;
 
-        public HomeController(IProvider provider, IConverter converter)
+        public HomeController(IProviderFactory providerFactory, IConverterFactory converterFactory)
         {
-            _converter = converter;
-            _provider = provider;
+            _providerFactory = providerFactory;
+            _converterFactory = converterFactory;
         }
 
         [HttpGet]
@@ -34,33 +36,30 @@ namespace Mvc.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(InputInfo info)
+        public JsonResult Index(InputInfo info)
         {
-            ViewBag.Message = "Finance Statistic";
-            
-            var data = _provider.GetData(info.DateFrom, info.DateTo, info.Company);
-            var quotes = _converter.Convert(data);
+            var provider = _providerFactory.Create(info.Provider);
+            var data = provider.GetData(info.DateFrom, info.DateTo, info.Company);
+            var quotes = _converterFactory.Create(provider.GetType()).Convert(data);
+
+            //var data = _provider.GetData(info.DateFrom, info.DateTo, info.Company);
+            //var quotes = _converter.Convert(data);
+
             //var quotes = new List<Quote> {
             //    new Quote { Date = DateTime.Parse("11.06.2012"), Close = 29.09, High = 12.12, Low = 121.12, Open = 35.1, Volume = 1412412 },
             //    new Quote { Date = DateTime.Parse("10.06.2012"), Close = 29.09, High = 12.12, Low = 121.12, Open = 35.1, Volume = 1412412 },
             //    new Quote { Date = DateTime.Parse("09.06.2012"), Close = 29.09, High = 12.12, Low = 121.12, Open = 35.1, Volume = 1412412 },
             //};
-            //ViewData["Quotes"] = quotes;
 
-            if (Request != null && Request.IsAjaxRequest())
-            {
-                return Json(quotes.Select(elem => new
-                    {
-                        Date = elem.Date.ToShortDateString(),
-                        elem.Close,
-                        elem.High,
-                        elem.Low,
-                        elem.Open,
-                        elem.Volume
-                    }));
-            }
-
-            return View();
+            return Json(quotes.Select(elem => new
+                {
+                    Date = elem.Date.ToShortDateString(),
+                    elem.Close,
+                    elem.High,
+                    elem.Low,
+                    elem.Open,
+                    elem.Volume
+                }));
         }
 
         public ActionResult About()

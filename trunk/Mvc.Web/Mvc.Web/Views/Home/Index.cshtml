@@ -26,9 +26,9 @@
             @Html.TextBoxFor(model => model.DateTo, new { id = "to", placeholder = "To" })
         </p>
         <div id="radio">
-            @Html.RadioButtonFor(model => model.Provider, "Google", new { id = "radio1", value = "Google" })
+            @Html.RadioButtonFor(model => model.Provider, "GoogleProvider", new { id = "radio1", value = "GoogleProvider" })
             @Html.Label("radio1", "Google");
-            @Html.RadioButtonFor(model => model.Provider, "Yahoo", new { id = "radio2", value = "Yahoo" })
+            @Html.RadioButtonFor(model => model.Provider, "YahooProvider", new { id = "radio2", value = "YahooProvider" })
             @Html.Label("radio2", "Yahoo");
         </div>
     }

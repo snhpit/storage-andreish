@@ -12,8 +12,6 @@ namespace Mvc.Web.Providers
 {
     public class GoogleProvider : IProvider
     {
-        public string ProviderName { get; set; }
-
         public string GetData(DateTime dateFrom, DateTime dateTo, string company)
         {
             string data;
