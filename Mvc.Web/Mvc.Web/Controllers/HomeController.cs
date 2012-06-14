@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -37,13 +38,11 @@ namespace Mvc.Web.Controllers
 
         [HttpPost]
         public JsonResult Index(InputInfo info)
-        {
+        {    
             var provider = _providerFactory.Create(info.Provider);
+            if (provider == null) { return null; }
             var data = provider.GetData(info.DateFrom, info.DateTo, info.Company);
             var quotes = _converterFactory.Create(provider.GetType()).Convert(data);
-
-            //var data = _provider.GetData(info.DateFrom, info.DateTo, info.Company);
-            //var quotes = _converter.Convert(data);
 
             //var quotes = new List<Quote> {
             //    new Quote { Date = DateTime.Parse("11.06.2012"), Close = 29.09, High = 12.12, Low = 121.12, Open = 35.1, Volume = 1412412 },
@@ -53,7 +52,7 @@ namespace Mvc.Web.Controllers
 
             return Json(quotes.Select(elem => new
                 {
-                    Date = elem.Date.ToShortDateString(),
+                    Date = elem.Date.ToString("MMM dd, yyyy"),
                     elem.Close,
                     elem.High,
                     elem.Low,

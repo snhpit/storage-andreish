@@ -10,7 +10,7 @@
         }, options);
 
         return this.each(function () {
-            $(this).find('tr:even')
+            $(this).find('tbody tr:even')
                 .css('background-color', options.bgEven)
                 .css('color', options.fontEven)
                 .hover(
@@ -24,7 +24,7 @@
                 }
 		            );
 
-            $(this).find('tr:odd')
+            $(this).find('tbody tr:odd')
                 .css('background-color', options.bgOdd)
                 .css('color', options.fontOdd)
                 .hover(

@@ -11,26 +11,32 @@
     <script src="../../Scripts/web-site.js" type="text/javascript"></script>
     <script src="../../Scripts/jquery.zebra.js" type="text/javascript"></script>
     <script src="../../Scripts/jQueryRotate.2.2.js" type="text/javascript"></script>
+    <script src="../../Scripts/jquery.tablesorter.js" type="text/javascript"></script>
+    <script src="../../Scripts/jquery.tablesorter.pager.js" type="text/javascript"></script>
     <script id="tableTemplate" type="text/x-jquery-tmpl">
-        <table class="standart">
-            <tr>
-                <th>Date</th>
-                <th>Open</th>
-                <th>High</th>
-                <th>Low</th>
-                <th>Close</th>
-                <th>Volume</th>
-            </tr>
-            {{each values}}
-            <tr>
-                <td>${$value['Date']}</td>
-                <td>${$value['Open']}</td>
-                <td>${$value['High']}</td>
-                <td>${$value['Low']}</td>
-                <td>${$value['Close']}</td>
-                <td>${$value['Volume']}</td>
-            </tr>
-            {{/each}}
+        <table class="standart" class="tablesorter">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Open</th>
+                    <th>High</th>
+                    <th>Low</th>
+                    <th>Close</th>
+                    <th>Volume</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{each values}}
+                <tr>
+                    <td>${$value['Date']}</td>
+                    <td>${$value['Open']}</td>
+                    <td>${$value['High']}</td>
+                    <td>${$value['Low']}</td>
+                    <td>${$value['Close']}</td>
+                    <td>${$value['Volume']}</td>
+                </tr>
+                {{/each}}
+            </tbody>
         </table>
     </script>
 </head>

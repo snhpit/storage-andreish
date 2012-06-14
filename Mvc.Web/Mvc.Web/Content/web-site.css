@@ -1,4 +1,6 @@
-﻿/* * { margin:0; padding:0; } */html
+﻿@import url(tableSorter.css);
+/* * { margin:0; padding:0; } */
+html
 {
     font-size: 100%;
 }
@@ -20,7 +22,7 @@ a:hover
     color: #3d3b42;
     text-decoration: underline;
 }
-table
+/*table
 {
     margin: auto;
 }
@@ -30,6 +32,9 @@ td, th
     border-bottom: 1px dotted #000;
     text-align: center;
 }
+thead {
+    background-color: #FFE4C4;
+}*/
 footer
 {
     margin: 0 20px;

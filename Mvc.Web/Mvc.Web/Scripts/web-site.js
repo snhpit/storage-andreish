@@ -67,6 +67,10 @@
             $('#finance-historical').empty();
             $("#tableTemplate").tmpl(dataWrapper).appendTo("#finance-historical");
             tableOptions();
+            $("table")
+                .tablesorter({ widthFixed: false, widgets: ['zebra'], cssAsc: "headerSortUp", cssDesc: "headerSortDown", cssHeader: "header" });
+            //.tablesorterPager({ container: $("#pager") }); 
+
             //            var angle = 0;
             //            setInterval(function () {
             //                angle += 3;
@@ -91,7 +95,7 @@
                 Company: $('#company').val(),
                 DateFrom: $('#from').val(),
                 DateTo: $('#to').val(),
-                Provider: $('#form0 input:radio:checked').val()
+                Provider: $('#financeForm input:radio:checked').val()
             };
 
             $.ajax({
