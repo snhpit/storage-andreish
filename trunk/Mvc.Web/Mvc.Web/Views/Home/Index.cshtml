@@ -13,7 +13,7 @@
 }
 <h2>@ViewBag.Message</h2>
 <div class="centerwrapper">
-    @using (Html.BeginForm("Index", "Home"))
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "financeForm" }))
     {
         <div id="" class="loader">
         </div>
