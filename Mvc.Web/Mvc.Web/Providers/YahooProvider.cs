@@ -13,8 +13,6 @@ namespace Mvc.Web.Providers
 {
     public class YahooProvider : IProvider
     {
-        public string ProviderName { get; set; }
-
         public string GetData(DateTime dateFrom, DateTime dateTo, string company)
         {
             //http://finance.yahoo.com/q/hp?s=EPAM&a=01&b=8&c=2012&d=05&e=8&f=2012&g=d&ignore=.csv
