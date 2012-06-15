@@ -34,15 +34,22 @@ namespace Mvc.Web.Controllers
         public ActionResult Index()
         {
             return View();
+
         }
 
         [HttpPost]
         public JsonResult Index(InputInfo info)
-        {    
+        {
+            if (info.Provider == null || info.Company == null) { return null; }
             var provider = _providerFactory.Create(info.Provider);
-            if (provider == null) { return null; }
+            //if (provider == null) { return null; }
             var data = provider.GetData(info.DateFrom, info.DateTo, info.Company);
+
+            if (data == null) { return null; }
+
             var quotes = _converterFactory.Create(provider.GetType()).Convert(data);
+            
+            if (quotes == null) { return null;}
 
             //var quotes = new List<Quote> {
             //    new Quote { Date = DateTime.Parse("11.06.2012"), Close = 29.09, High = 12.12, Low = 121.12, Open = 35.1, Volume = 1412412 },

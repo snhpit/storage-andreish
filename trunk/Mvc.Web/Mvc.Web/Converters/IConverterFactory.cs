@@ -7,6 +7,6 @@ namespace Mvc.Web.Converters
 {
     public interface IConverterFactory
     {
-        IConverter Create(Type provider);
+        IConverter Create(string provider);
     }
 }

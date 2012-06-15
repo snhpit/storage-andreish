@@ -1,0 +1,16 @@
+﻿@using System.Web.UI.WebControls
+<div class="pager" id="pager">
+    <form>
+        <img class="first" src="@Url.Content("~/Content/pager/first.png")" alt="first"/>
+        <img class="prev" src="@Url.Content("~/Content/pager/prev.png")" alt="previous"/>
+        <input type="text" class="pagedisplay" />
+        <img class="next" src="@Url.Content("~/Content/pager/next.png")" alt="next"/>
+        <img class="last" src="@Url.Content("~/Content/pager/last.png")" alt="last"/>
+        <select class="pagesize">
+            <option value="10" selected="selected">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+        </select>
+    </form>
+</div>

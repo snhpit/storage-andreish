@@ -11,20 +11,21 @@ namespace Mvc.Web.Converters
     public class ConverterFactory : IConverterFactory
     {
         private readonly NinjectDependencyResolver _dependencyResolver;
+
         public ConverterFactory(IResolutionRoot resolutionRoot)
         {
             _dependencyResolver = new NinjectDependencyResolver(resolutionRoot);
         }
 
-        IConverter IConverterFactory.Create(Type provider)
+        IConverter IConverterFactory.Create(string provider)
         {
-            if (provider == typeof(GoogleProvider))
+            if (provider == "GoogleProvider")
             {
-                return _dependencyResolver.GetService(typeof(CsvConverter)) as CsvConverter;
+                return (IConverter) _dependencyResolver.GetService(typeof(CsvConverter));
             }
-            if (provider == typeof(YahooProvider))
+            if (provider == "YahooProvider")
             {
-                return _dependencyResolver.GetService(typeof(XmlConverter)) as XmlConverter;
+                return (IConverter) _dependencyResolver.GetService(typeof(XmlConverter));
             }
 
             return null;

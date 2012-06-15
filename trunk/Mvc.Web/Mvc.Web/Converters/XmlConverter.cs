@@ -17,10 +17,9 @@ namespace Mvc.Web.Converters
         {
             XDocument document = XDocument.Parse(providerData);
 
-            if (document.Root == null) return null;
+            if (document.Root == null || document.Root.Value == String.Empty) { return null; }
 
-            var quotes = document.Root.Descendants("quote")
-            .Select(quote => new Quote
+            var quotes = document.Root.Descendants("quote").Select(quote => new Quote
                 {
                     Date = DateTime.Parse(quote.Element("Date").Value),
                     Open = double.Parse(quote.Element("Open").Value),

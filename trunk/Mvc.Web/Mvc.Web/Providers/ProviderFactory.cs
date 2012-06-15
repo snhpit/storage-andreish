@@ -13,6 +13,7 @@ namespace Mvc.Web.Providers
     public class ProviderFactory : IProviderFactory
     {
         private readonly NinjectDependencyResolver _dependencyResolver;
+
         public ProviderFactory(IResolutionRoot resolutionRoot)
         {
             _dependencyResolver = new NinjectDependencyResolver(resolutionRoot);
@@ -20,7 +21,6 @@ namespace Mvc.Web.Providers
 
         IProvider IProviderFactory.Create(string providerName)
         {
-            if (providerName == null) { return null; }
             if (providerName.ToLower() == typeof(GoogleProvider).Name.ToLower())
             {
                 return _dependencyResolver.GetService(typeof(GoogleProvider)) as GoogleProvider;
