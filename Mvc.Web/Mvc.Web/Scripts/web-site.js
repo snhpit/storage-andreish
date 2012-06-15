@@ -49,7 +49,7 @@
             //location.hash = $('#news').html();
         });
 
-        var tableOptions = function () {
+        var tableZebra = function () {
             $('table.standart').zebra();
 
             $('table.changed-options').zebra({
@@ -65,16 +65,20 @@
         var onSuccess = function (data) {
             var dataWrapper = { values: data };
             $('#finance-historical').empty();
-            $("#tableTemplate").tmpl(dataWrapper).appendTo("#finance-historical");
-            tableOptions();
-            $("table")
-                .tablesorter({ widthFixed: false, widgets: ['zebra'], cssAsc: "headerSortUp", cssDesc: "headerSortDown", cssHeader: "header" });
-            //.tablesorterPager({ container: $("#pager") }); 
-
+            
+            if (dataWrapper.values !== null) {
+                $("#tableTemplate").tmpl(dataWrapper).appendTo("#finance-historical");
+                $("#pager").css("display", "block");
+                $("#finance-historical > table").addClass("tablesorter standart");
+                $("table")
+                .tablesorter({ widthFixed: false, widgets: ['zebra'],    cssAsc: "headerSortUp", cssDesc: "headerSortDown", cssHeader: "header" })
+                .tablesorterPager({ container: $("#pager"), size: $(".pagesize option:selected").val() });
+                //tableZebra();
+            }
             //            var angle = 0;
             //            setInterval(function () {
             //                angle += 3;
-            //                $("#finance-historical").rotate(angle);
+            //                $("div.loader").rotate(angle);
             //            }, 50);
         };
 

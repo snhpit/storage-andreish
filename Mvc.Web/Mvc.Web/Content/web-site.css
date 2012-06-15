@@ -257,3 +257,6 @@ ul
     background-color: #CCCCCC;
     display: none;
 }
+#pager {
+    display: none;
+}

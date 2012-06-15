@@ -38,6 +38,8 @@ namespace Mvc.Web
         {
             _ninjectKernel.Bind<IProviderFactory>().To<ProviderFactory>();
             _ninjectKernel.Bind<IConverterFactory>().To<ConverterFactory>();
+            //_ninjectKernel.Bind<IConverter>().To<XmlConverter>().Named("Ya");
+            //_ninjectKernel.Bind<IConverter>().To<CsvConverter>().WithParameter();
         }
     }
 }
