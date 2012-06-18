@@ -260,3 +260,9 @@ ul
 #pager {
     display: none;
 }
+
+#getCookies {
+	left: 59%;
+    margin: 0 3px;
+    position: absolute;
+}

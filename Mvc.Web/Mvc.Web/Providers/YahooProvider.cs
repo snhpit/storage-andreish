@@ -26,7 +26,7 @@ namespace Mvc.Web.Providers
                 "select%20*%20from%20yahoo.finance.historicaldata%20" +
                 "where%20symbol%20%3D%20%22{2}%22%20and%20" +
                 "startDate%20%3D%20%22{0}%22%20and%20" +
-                "endDate%20%3D%20%22{1}%22&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys", 
+                "endDate%20%3D%20%22{1}%22&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys",
                 dateFrom.ToString("yyyy-MM-dd"), dateTo.ToString("yyyy-MM-dd"), company /*?? "epam"*/);
 
             HttpWebRequest googleRequest = (HttpWebRequest)WebRequest.Create(url);
@@ -47,10 +47,10 @@ namespace Mvc.Web.Providers
             {
                 Debug.WriteLine(e.Message);
             }
-            catch (NullReferenceException e)
-            {
-                Debug.WriteLine(e.Message);
-            }
+            //catch (NullReferenceException e)
+            //{
+            //    Debug.WriteLine(e.Message);
+            //}
 
             return data;
         }

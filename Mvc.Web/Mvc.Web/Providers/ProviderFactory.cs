@@ -14,20 +14,20 @@ namespace Mvc.Web.Providers
     {
         private readonly NinjectDependencyResolver _dependencyResolver;
 
-        public ProviderFactory(IResolutionRoot resolutionRoot)
+        public ProviderFactory(IKernel resolutionRoot)
         {
             _dependencyResolver = new NinjectDependencyResolver(resolutionRoot);
         }
 
         IProvider IProviderFactory.Create(string providerName)
         {
-            if (providerName.ToLower() == typeof(GoogleProvider).Name.ToLower())
+            if (providerName.ToLower() == "googleprovider")
             {
-                return _dependencyResolver.GetService(typeof(GoogleProvider)) as GoogleProvider;
+                return (IProvider)_dependencyResolver.GetService(typeof(GoogleProvider));
             }
-            if (providerName.ToLower() == typeof(YahooProvider).Name.ToLower())
+            if (providerName.ToLower() == "yahooprovider")
             {
-                return _dependencyResolver.GetService(typeof(YahooProvider)) as YahooProvider;
+                return (IProvider)_dependencyResolver.GetService(typeof(YahooProvider));
             }
             return null;
         }
