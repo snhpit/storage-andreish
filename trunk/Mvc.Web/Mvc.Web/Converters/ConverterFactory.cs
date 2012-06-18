@@ -13,7 +13,7 @@ namespace Mvc.Web.Converters
     {
         private readonly NinjectDependencyResolver _dependencyResolver;
 
-        public ConverterFactory(IKernel resolutionRoot)
+        public ConverterFactory(IResolutionRoot resolutionRoot)
         {
             _dependencyResolver = new NinjectDependencyResolver(resolutionRoot);
         }

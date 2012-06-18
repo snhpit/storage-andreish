@@ -14,7 +14,7 @@ namespace Mvc.Web.Providers
     {
         private readonly NinjectDependencyResolver _dependencyResolver;
 
-        public ProviderFactory(IKernel resolutionRoot)
+        public ProviderFactory(IResolutionRoot resolutionRoot)
         {
             _dependencyResolver = new NinjectDependencyResolver(resolutionRoot);
         }

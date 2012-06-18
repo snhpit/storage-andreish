@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvc.Web", "Mvc.Web\Mvc.Web.csproj", "{64508938-FB63-4D47-8E2A-7248A3CD5EF7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvc.Web.Tests", "Mvc.Web.Tests\Mvc.Web.Tests.csproj", "{A639DE82-BBBD-4216-B1D8-43B70A1D2195}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FD008FFE-B427-46F0-AFCF-9EC7B1032183} = {FD008FFE-B427-46F0-AFCF-9EC7B1032183}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvc.Entities", "Mvc.Entities\Mvc.Entities.csproj", "{FD008FFE-B427-46F0-AFCF-9EC7B1032183}"
 EndProject
