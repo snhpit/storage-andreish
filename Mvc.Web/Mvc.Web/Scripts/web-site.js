@@ -124,13 +124,16 @@
                 $("#company").val(financeCookies[0]);
                 $("#from").val(financeCookies[1]);
                 $("#to").val(financeCookies[2]);
-                $("#radio input:radio").each(function () {
-                    if ($(this).val() === financeCookies[3]) {
-                        var $val = $(this).prop("id");
-                        $(this).attr("checked", "true");
-                        $("#radio label").each(function () {
-                            if ($(this).attr("for") === $val) {
-                                $(this).addClass("ui-state-active").attr("aria-pressed", "true");
+                var $radioButtons = $("#radio");
+                $radioButtons.find("input:radio").each(function () {
+                    var $radio = $(this);
+                    if ($radio.val() === financeCookies[3]) {
+                        var $val = $radio.prop("id");
+                        $radio.attr("checked", "true");
+                        $radioButtons.find("label").each(function () {
+                            var $label = $(this);
+                            if ($label.attr("for") === $val) {
+                                $label.addClass("ui-state-active").attr("aria-pressed", "true");
                             }
                         });
                     };
