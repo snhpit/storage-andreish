@@ -17,7 +17,10 @@ namespace Mvc.Web.Converters
         {
             XDocument document = XDocument.Parse(providerData);
 
-            if (document.Root == null || document.Root.Value == String.Empty) { return null; }
+            if (document.Root == null || document.Root.Value == String.Empty)
+            {
+                throw new NullReferenceException("XmlConverter");
+            }
 
             var quotes = document.Root.Descendants("quote").Select(quote => new Quote
                 {

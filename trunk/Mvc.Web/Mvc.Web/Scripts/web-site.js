@@ -65,13 +65,13 @@
         var onSuccess = function (data) {
             var dataWrapper = { values: data };
             $('#finance-historical').empty();
-            
+
             if (dataWrapper.values !== null) {
                 $("#tableTemplate").tmpl(dataWrapper).appendTo("#finance-historical");
                 $("#pager").css("display", "block");
                 $("#finance-historical > table").addClass("tablesorter standart");
                 $("table")
-                .tablesorter({ widthFixed: false, widgets: ['zebra'],    cssAsc: "headerSortUp", cssDesc: "headerSortDown", cssHeader: "header" })
+                .tablesorter({ widthFixed: false, widgets: ['zebra'], cssAsc: "headerSortUp", cssDesc: "headerSortDown", cssHeader: "header" })
                 .tablesorterPager({ container: $("#pager"), size: $(".pagesize option:selected").val() });
                 //tableZebra();
             }
@@ -93,6 +93,10 @@
             $('div.loader').hide();
         };
 
+        var setCookies = function (inputInfo) {
+            $.cookie("finance", [inputInfo.Company, inputInfo.DateFrom, inputInfo.DateTo, inputInfo.Provider].join("|"));
+        };
+
         $('form').submit(function (e) {
             e.preventDefault();
             var inputInfo = {
@@ -101,7 +105,7 @@
                 DateTo: $('#to').val(),
                 Provider: $('#financeForm input:radio:checked').val()
             };
-
+            setCookies(inputInfo);
             $.ajax({
                 url: '/',
                 type: 'POST',
@@ -112,5 +116,28 @@
                 success: onSuccess
             });
         });
+
+        $("#getCookies").click(function () {
+            var financeCookies = $.cookie("finance");
+            if (financeCookies) {
+                financeCookies = financeCookies.split("|");
+                $("#company").val(financeCookies[0]);
+                $("#from").val(financeCookies[1]);
+                $("#to").val(financeCookies[2]);
+                $("#radio input:radio").each(function () {
+                    if ($(this).val() === financeCookies[3]) {
+                        var $val = $(this).prop("id");
+                        $(this).attr("checked", "true");
+                        $("#radio label").each(function () {
+                            if ($(this).attr("for") === $val) {
+                                $(this).addClass("ui-state-active").attr("aria-pressed", "true");
+                            }
+                        });
+                    };
+                });
+            }
+        });
+
+        $("#financeForm").validate();
     } (jQuery));
 });

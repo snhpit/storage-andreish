@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Mvc.Web.Providers;
+using Ninject;
 using Ninject.Syntax;
 using Ninject.Web.Mvc;
 
@@ -12,20 +13,20 @@ namespace Mvc.Web.Converters
     {
         private readonly NinjectDependencyResolver _dependencyResolver;
 
-        public ConverterFactory(IResolutionRoot resolutionRoot)
+        public ConverterFactory(IKernel resolutionRoot)
         {
             _dependencyResolver = new NinjectDependencyResolver(resolutionRoot);
         }
 
-        IConverter IConverterFactory.Create(string provider)
+        IConverter IConverterFactory.Create(string providerName)
         {
-            if (provider == "GoogleProvider")
+            if (providerName.ToLower() == "googleprovider")
             {
-                return (IConverter) _dependencyResolver.GetService(typeof(CsvConverter));
+                return (IConverter)_dependencyResolver.GetService(typeof(CsvConverter));
             }
-            if (provider == "YahooProvider")
+            if (providerName.ToLower() == "yahooprovider")
             {
-                return (IConverter) _dependencyResolver.GetService(typeof(XmlConverter));
+                return (IConverter)_dependencyResolver.GetService(typeof(XmlConverter));
             }
 
             return null;

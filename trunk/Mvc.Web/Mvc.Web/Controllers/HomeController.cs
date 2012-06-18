@@ -15,47 +15,67 @@ using Mvc.Entities;
 using Mvc.Web.Converters;
 using Mvc.Web.Providers;
 using Ninject;
+using Ninject.Web.Mvc;
 using NinjectAdapter;
 
 namespace Mvc.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IProviderFactory _providerFactory;
-        private readonly IConverterFactory _converterFactory;
+        //private readonly IProviderFactory _providerFactory;
+        //private readonly IConverterFactory _converterFactory;
 
-        public HomeController(IProviderFactory providerFactory, IConverterFactory converterFactory)
+        //public HomeController(IProviderFactory providerFactory, IConverterFactory converterFactory)
+        //{
+        //    _providerFactory = providerFactory;
+        //    _converterFactory = converterFactory;
+        //}
+
+        //private readonly List<IProvider> _provider;
+        //private readonly List<IConverter> _converter;
+
+        //public HomeController(List<IProvider> provider, List<IConverter> converter)
+        //{
+        //    _provider = provider;
+        //    _converter = converter;
+        //}
+
+        private readonly IKernel _kernel;
+
+        public HomeController(IKernel kernel)
         {
-            _providerFactory = providerFactory;
-            _converterFactory = converterFactory;
+            _kernel = kernel;
         }
 
         [HttpGet]
         public ActionResult Index()
         {
             return View();
-
         }
 
         [HttpPost]
         public JsonResult Index(InputInfo info)
         {
             if (info.Provider == null || info.Company == null) { return null; }
-            var provider = _providerFactory.Create(info.Provider);
-            //if (provider == null) { return null; }
-            var data = provider.GetData(info.DateFrom, info.DateTo, info.Company);
+            IEnumerable<Quote> quotes1 = null;
 
-            if (data == null) { return null; }
+            try
+            {
+                var data = _kernel.Get<IProvider>(info.Provider).GetData(info.DateFrom, info.DateTo, info.Company);
+                quotes1 = _kernel.Get<IConverter>(info.Provider).Convert(data);
+                //var data = _providerFactory.Create(info.Provider).GetData(info.DateFrom, info.DateTo, info.Company);
+                //quotes1 = _converterFactory.Create(info.Provider).Convert(data);
+            }
+            catch (NullReferenceException exception)
+            {
+                Debug.WriteLine("{1} - {0}", exception.Message, exception.Data);
+            }
 
-            var quotes = _converterFactory.Create(provider.GetType()).Convert(data);
-            
-            if (quotes == null) { return null;}
-
-            //var quotes = new List<Quote> {
-            //    new Quote { Date = DateTime.Parse("11.06.2012"), Close = 29.09, High = 12.12, Low = 121.12, Open = 35.1, Volume = 1412412 },
-            //    new Quote { Date = DateTime.Parse("10.06.2012"), Close = 29.09, High = 12.12, Low = 121.12, Open = 35.1, Volume = 1412412 },
-            //    new Quote { Date = DateTime.Parse("09.06.2012"), Close = 29.09, High = 12.12, Low = 121.12, Open = 35.1, Volume = 1412412 },
-            //};
+            var quotes = new List<Quote> {
+                new Quote { Date = DateTime.Parse("11.06.2012"), Close = 29.09, High = 12.12, Low = 121.12, Open = 35.1, Volume = 1412412 },
+                new Quote { Date = DateTime.Parse("10.06.2012"), Close = 29.09, High = 12.12, Low = 121.12, Open = 35.1, Volume = 1412412 },
+                new Quote { Date = DateTime.Parse("09.06.2012"), Close = 29.09, High = 12.12, Low = 121.12, Open = 35.1, Volume = 1412412 },
+            };
 
             return Json(quotes.Select(elem => new
                 {

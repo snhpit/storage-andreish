@@ -13,6 +13,7 @@
 }
 <h2>@ViewBag.Message</h2>
 <div class="centerwrapper">
+    <input type="button" value="Get previous" id="getCookies"> </input>
     @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "financeForm" }))
     {
         <div id="" class="loader">

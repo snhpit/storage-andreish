@@ -37,10 +37,10 @@ namespace Mvc.Web.Providers
             {
                 Debug.WriteLine(e.Message);
             }
-            catch(NullReferenceException e)
-            {
-                Debug.WriteLine(e.Message);
-            }
+            //catch(NullReferenceException e)
+            //{
+            //    Debug.WriteLine(e.Message);
+            //}
 
             return data;
         }

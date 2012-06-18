@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.Practices.ServiceLocation;
@@ -36,10 +37,22 @@ namespace Mvc.Web
 
         private void AddBindings()
         {
-            _ninjectKernel.Bind<IProviderFactory>().To<ProviderFactory>();
-            _ninjectKernel.Bind<IConverterFactory>().To<ConverterFactory>();
-            //_ninjectKernel.Bind<IConverter>().To<XmlConverter>().Named("Ya");
-            //_ninjectKernel.Bind<IConverter>().To<CsvConverter>().WithParameter();
+            //_ninjectKernel.Bind<IProviderFactory>().To<ProviderFactory>();
+            //_ninjectKernel.Bind<IConverterFactory>().To<ConverterFactory>();
+
+            _ninjectKernel.Bind<IProvider>().To<YahooProvider>().Named("YahooProvider");
+            _ninjectKernel.Bind<IProvider>().To<GoogleProvider>().Named("GoogleProvider");
+
+            _ninjectKernel.Bind<IConverter>().To<XmlConverter>().Named("YahooProvider");
+            _ninjectKernel.Bind<IConverter>().To<CsvConverter>().Named("GoogleProvider");
+
+            //var prov = _ninjectKernel.Get<IProvider>("YahooProvider");
+            //var conv = _ninjectKernel.Get<IConverter>("YahooProvider");
+
+            //_ninjectKernel.Bind<IKernel>().To<StandardKernel>();
+
+            var q = DependencyResolver.Current.GetType().GetMethod("GetService")
+                .Invoke(DependencyResolver.Current, new[] { Type.GetType("Mvc.Web.Providers.YahooProvider") });
         }
     }
 }
