@@ -1,89 +1,49 @@
-﻿using Mvc.Web.Providers;
+﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting.Web;
+using Moq;
+using Mvc.Web.Providers;
 
 namespace Mvc.Web.Tests
 {
-    
-    
     /// <summary>
     ///This is a test class for YahooProviderTest and is intended
     ///to contain all YahooProviderTest Unit Tests
     ///</summary>
     [TestClass()]
     public class YahooProviderTest
-    {             
-        private TestContext testContextInstance;
-
+    {
         /// <summary>
         ///Gets or sets the test context which provides
         ///information about and functionality for the current test run.
         ///</summary>
-        public TestContext TestContext
+        public TestContext TestContext { get; set; }
+
+        private static YahooProvider _provider;
+
+        [ClassInitialize()]
+        public static void MyClassInitialize(TestContext testContext)
         {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
+            _provider = new YahooProvider();
         }
-
-        #region Additional test attributes
-        // 
-        //You can use the following additional attributes as you write your tests:
-        //
-        //Use ClassInitialize to run code before running the first test in the class
-        //[ClassInitialize()]
-        //public static void MyClassInitialize(TestContext testContext)
-        //{
-        //}
-        //
-        //Use ClassCleanup to run code after all tests in a class have run
-        //[ClassCleanup()]
-        //public static void MyClassCleanup()
-        //{
-        //}
-        //
-        //Use TestInitialize to run code before running each test
-        //[TestInitialize()]
-        //public void MyTestInitialize()
-        //{
-        //}
-        //
-        //Use TestCleanup to run code after each test has run
-        //[TestCleanup()]
-        //public void MyTestCleanup()
-        //{
-        //}
-        //
-        #endregion
-
 
         /// <summary>
         ///A test for GetData
         ///</summary>
-        // TODO: Ensure that the UrlToTest attribute specifies a URL to an ASP.NET page (for example,
-        // http://.../Default.aspx). This is necessary for the unit test to be executed on the web server,
-        // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
-        [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("D:\\_Projects\\Mvc.Web\\Mvc.Web", "/")]
-        [UrlToTest("http://localhost:53208/")]
         public void GetDataTest()
         {
-            YahooProvider target = new YahooProvider(); // TODO: Initialize to an appropriate value
-            DateTime dateFrom = new DateTime(); // TODO: Initialize to an appropriate value
-            DateTime dateTo = new DateTime(); // TODO: Initialize to an appropriate value
-            string company = string.Empty; // TODO: Initialize to an appropriate value
-            string expected = string.Empty; // TODO: Initialize to an appropriate value
+            DateTime dateFrom = new DateTime();
+            DateTime dateTo = new DateTime();
+            string company = "MSFT";
+            string expected = string.Empty;
             string actual;
-            actual = target.GetData(dateFrom, dateTo, company);
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+            actual = _provider.GetData(dateFrom, dateTo, company);
+            Assert.IsNotNull(actual);
+            Assert.IsTrue(actual.StartsWith(@"<?xml"));
+            //var provider = new Mock<IProvider>();
+            //provider.Verify(p => p.GetData(dateFrom, dateTo, company), Times.Once());
+            //provider.Setup(p => p.GetData(dateFrom, dateTo, "!fadf/;1")).Throws<NullReferenceException>();
         }
     }
 }
