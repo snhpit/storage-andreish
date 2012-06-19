@@ -32,14 +32,7 @@ namespace Mvc.Web.Tests
         /// <summary>
         ///A test for Mvc.Web.Converters.IConverterFactory.Create
         ///</summary>
-        // TODO: Ensure that the UrlToTest attribute specifies a URL to an ASP.NET page (for example,
-        // http://.../Default.aspx). This is necessary for the unit test to be executed on the web server,
-        // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
-        [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("D:\\_Projects\\Mvc.Web\\Mvc.Web", "/")]
-        [UrlToTest("http://localhost:53208/")]
-        [DeploymentItem("Mvc.Web.dll")]
         public void CreateConverterTest()
         {
             string provider = "GoogleProvider";
@@ -54,7 +47,6 @@ namespace Mvc.Web.Tests
         public void CreateConverterReturnNullTest()
         {
             string provider = "SOLOLO";
-            IConverter expected = new CsvConverter();
             IConverter actual;
             actual = _converterFactory.Create(provider);
             Assert.IsNull(actual);
