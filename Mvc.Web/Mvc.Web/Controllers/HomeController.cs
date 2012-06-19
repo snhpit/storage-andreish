@@ -67,10 +67,15 @@ namespace Mvc.Web.Controllers
                     elem.Low,
                     elem.Open,
                     elem.Volume
-                }));                                    
+                }));
         }
 
         public ActionResult About()
+        {
+            return View();
+        }
+
+        public ActionResult JsTests()
         {
             return View();
         }

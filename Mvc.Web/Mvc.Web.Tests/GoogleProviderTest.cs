@@ -1,13 +1,11 @@
-﻿using Moq;
-using Mvc.Web.Providers;
+﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting.Web;
+using Moq;
+using Mvc.Web.Providers;
 
 namespace Mvc.Web.Tests
 {
-    
-    
     /// <summary>
     ///This is a test class for GoogleProviderTest and is intended
     ///to contain all GoogleProviderTest Unit Tests
@@ -15,80 +13,34 @@ namespace Mvc.Web.Tests
     [TestClass()]
     public class GoogleProviderTest
     {
-
-
-        private TestContext testContextInstance;
-
         /// <summary>
         ///Gets or sets the test context which provides
         ///information about and functionality for the current test run.
         ///</summary>
-        public TestContext TestContext
+        public TestContext TestContext { get; set; }
+
+        private static GoogleProvider _provider;
+
+        [ClassInitialize()]
+        public static void MyClassInitialize(TestContext testContext)
         {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
+            _provider = new GoogleProvider();
         }
-
-        #region Additional test attributes
-        // 
-        //You can use the following additional attributes as you write your tests:
-        //
-        //Use ClassInitialize to run code before running the first test in the class
-        //[ClassInitialize()]
-        //public static void MyClassInitialize(TestContext testContext)
-        //{
-        //}
-        //
-        //Use ClassCleanup to run code after all tests in a class have run
-        //[ClassCleanup()]
-        //public static void MyClassCleanup()
-        //{
-        //}
-        //
-        //Use TestInitialize to run code before running each test
-        //[TestInitialize()]
-        //public void MyTestInitialize()
-        //{
-        //}
-        //
-        //Use TestCleanup to run code after each test has run
-        //[TestCleanup()]
-        //public void MyTestCleanup()
-        //{
-        //}
-        //
-        #endregion
-
 
         /// <summary>
         ///A test for GetData
         ///</summary>
-        // TODO: Ensure that the UrlToTest attribute specifies a URL to an ASP.NET page (for example,
-        // http://.../Default.aspx). This is necessary for the unit test to be executed on the web server,
-        // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
-        [HostType("ASP.NET")]
-        [AspNetDevelopmentServerHost("D:\\_Projects\\Mvc.Web\\Mvc.Web", "/")]
-        [UrlToTest("http://localhost:53208/")]
         public void GetDataTest()
         {
-            GoogleProvider target = new GoogleProvider(); // TODO: Initialize to an appropriate value
-            DateTime dateFrom = new DateTime(); // TODO: Initialize to an appropriate value
-            DateTime dateTo = new DateTime(); // TODO: Initialize to an appropriate value
-            string company = "ASDFFF"; // TODO: Initialize to an appropriate value
-            string expected = string.Empty; // TODO: Initialize to an appropriate value
-            Mock<IProvider> mock = new Mock<IProvider>();
-            mock.Setup(m => m.GetData(dateFrom, dateTo, company)).Returns(string.Empty);
+            DateTime dateFrom = new DateTime();
+            DateTime dateTo = new DateTime();
+            string company = "MSFT";
+            string expected = string.Empty;
             string actual;
-            actual = target.GetData(dateFrom, dateTo, company);
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+            actual = _provider.GetData(dateFrom, dateTo, company);
+            Assert.IsTrue(actual.StartsWith("Date"));
+            Assert.IsTrue(actual.Length != 0);
         }
     }
 }

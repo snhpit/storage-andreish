@@ -26,7 +26,7 @@
             }
         });
 
-        $('#smiles').click(function () {
+        $('#smiles').on("click", function () {
             $('#news-section .container').load('smiles.htm', function (response, status, xhr) {
                 if (status == "error") {
                     var msg = "Sorry but there was an error: ";
@@ -82,22 +82,20 @@
             //            }, 50);
         };
 
-        $('form').ajaxStart(function () { showLoader(); });
-        $('form').ajaxStop(function () { hideLoader(); });
-
-        function showLoader() {
+        var showLoader = function () {
             $('div.loader').show();
         };
 
-        function hideLoader() {
+        var hideLoader = function () {
             $('div.loader').hide();
         };
 
         var setCookies = function (inputInfo) {
-            $.cookie("finance", [inputInfo.Company, inputInfo.DateFrom, inputInfo.DateTo, inputInfo.Provider].join("|"));
+            var data = [inputInfo.Company, inputInfo.DateFrom, inputInfo.DateTo, inputInfo.Provider].join("|");
+            $.cookie("finance", data);
         };
 
-        $('form').submit(function (e) {
+        var ajaxGetData = function (e) {
             e.preventDefault();
             var inputInfo = {
                 Company: $('#company').val(),
@@ -115,9 +113,9 @@
                 contentType: 'application/json; charset=utf-8',
                 success: onSuccess
             });
-        });
+        };
 
-        $("#getCookies").click(function () {
+        var getCookies = function () {
             var financeCookies = $.cookie("finance");
             if (financeCookies) {
                 financeCookies = financeCookies.split("|");
@@ -128,18 +126,25 @@
                 $radioButtons.find("input:radio").each(function () {
                     var $radio = $(this);
                     if ($radio.val() === financeCookies[3]) {
-                        var $val = $radio.prop("id");
+                        var val = $radio.prop("id");
                         $radio.attr("checked", "true");
                         $radioButtons.find("label").each(function () {
                             var $label = $(this);
-                            if ($label.attr("for") === $val) {
+                            if ($label.attr("for") === val) {
                                 $label.addClass("ui-state-active").attr("aria-pressed", "true");
                             }
                         });
                     };
                 });
             }
+        };
+
+        $('form').submit(function (e) {
+            ajaxGetData(e);
         });
+        $('form').ajaxStart(function () { showLoader(); });
+        $('form').ajaxStop(function () { hideLoader(); });
+        $("#getCookies").on("click", getCookies());
 
         $("#financeForm").validate();
     } (jQuery));
