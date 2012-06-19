@@ -144,7 +144,9 @@
         });
         $('form').ajaxStart(function () { showLoader(); });
         $('form').ajaxStop(function () { hideLoader(); });
-        $("#getCookies").on("click", getCookies());
+        $("#getCookies").on("click", function () {
+            getCookies();
+        });
 
         $("#financeForm").validate();
     } (jQuery));
