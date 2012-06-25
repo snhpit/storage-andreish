@@ -40,11 +40,20 @@
     <Reference Include="Excel">
       <HintPath>..\Excel.dll</HintPath>
     </Reference>
+    <Reference Include="Ionic.Utils.Zip">
+      <HintPath>..\Ionic.Utils.Zip.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\LinqToExcel.1.6.2\lib\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Net.SourceForge.Koogra">
+      <HintPath>..\Net.SourceForge.Koogra.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.7\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Remotion">
       <HintPath>..\packages\LinqToExcel.1.6.2\lib\Remotion.dll</HintPath>
@@ -65,7 +74,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DropBoxProvider.cs" />
-    <Compile Include="ExcelConverter.cs" />
+    <Compile Include="Json.cs" />
+    <Compile Include="JsonConverter.cs" />
+    <Compile Include="ExcelProvider.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
