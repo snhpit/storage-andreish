@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,9 +15,8 @@ namespace ExcelConverter
             var excelObjectData = provider.GetDataFromEePlus();
             //var converter = new JsonConverter();
             //converter.JsonEncode(excelObjectData);
-
-            var pro = new DropBoxProvider();
-            var x = pro.GetDataFromEePlus();
+            var hash = new Hashtable();
+            hash["UPC"] = 121;
         }
     }
 }
