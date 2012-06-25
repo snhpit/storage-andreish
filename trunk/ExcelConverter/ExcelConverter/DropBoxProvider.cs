@@ -11,7 +11,7 @@ using System.Text;
 using System.Xml.Linq;
 using Excel;
 using OfficeOpenXml;
-using Microsoft.Office.Interop.Excel;
+using Koogra = Net.SourceForge.Koogra;
 
 namespace ExcelConverter
 {
@@ -35,7 +35,7 @@ namespace ExcelConverter
                     var value = result.Tables[0].Rows[0];
 
                     var categoryName = result.Tables["Events"];
-                                        
+
                     var xml = result.GetXml();
                     XDocument document = XDocument.Parse(xml);
                     //document.Save(path + "file.txt");
@@ -46,65 +46,36 @@ namespace ExcelConverter
             }
         }
 
-        public void GetDataFromExcelInterop()
+        public void GetDataFromKoogra()
         {
-            string Path = _path + file;
-            
-            Application app = new Application();
-            //Excel.Worksheet NwSheet;
-            Range ShtRange;
-            // create the workbook object by opening  the excel file.
-            Workbook workBook = app.Workbooks.Open(Path, 0, true, 5, "", "", true, XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
-            // Get The Active Worksheet Using Sheet Name Or Active Sheet
-            Worksheet workSheet = (Worksheet)workBook.ActiveSheet;
-            int index = 1;
-            // that is which cell in the excel you are interesting to read.
-            object rowIndex = 1;
-            object colIndex1 = 1;
-            object colIndex2 = 2;
-            object colIndex3 = 3;
-            StringBuilder sb = new StringBuilder();
-            try
+            using (FileStream stream = File.Open(Path.Combine(_path, file), FileMode.Open, FileAccess.Read))
             {
-                while (((Range)workSheet.Cells[rowIndex, colIndex1]).Value2 != null)
+                var workBook = new Koogra.Excel2007.Workbook(stream);
+                var sheets = workBook.GetWorksheets();
+                foreach (var worksheet in sheets)
                 {
-                    rowIndex = index;
-                    string firstName = Convert.ToString(((Range)workSheet.Cells[rowIndex, colIndex1]).Value2);
-                    string lastName = Convert.ToString(((Range)workSheet.Cells[rowIndex, colIndex2]).Value2);
-                    string Name = Convert.ToString(((Range)workSheet.Cells[rowIndex, colIndex3]).Value2);
-                    string line = firstName + "," + lastName + "," + Name;
-                    sb.Append(line); sb.Append(Environment.NewLine);
-                    Console.WriteLine(" {0},{1},{2} ", firstName, lastName, Name);
-                    index++;
+                    for (var r = worksheet.CellMap.FirstRow; r <= worksheet.CellMap.LastRow; ++r)
+                    {
+                        var row = worksheet.GetRow(r);
+
+                        for (var c = worksheet.CellMap.FirstCol; c <= worksheet.CellMap.LastCol; ++c)
+                        {
+                            Console.WriteLine(row.GetCell(c).Value);
+                            Console.WriteLine(row.GetCell(c).GetFormattedValue());
+                        }
+                    }
                 }
-
-                //Writetofile(sb.ToString());
-
-                ShtRange = workSheet.UsedRange;
-                Object[,] s = ShtRange.Value;
-
-
             }
-            catch (Exception ex)
-            {
-                app.Quit();
-                Console.WriteLine(ex.Message);
-                Console.ReadLine();
-            }
+        }
+
+        public void GetDataFromExcelMapper()
+        {
 
         }
 
-
-        
-        public void GetDataFromExcelLibrary()
+        public List<Tuple<string, List<Tuple<string, string>>>> GetDataFromEePlus()
         {
-           
-
-        }
-
-        public List<Tuple<string, List<Tuple<string, object>>>> GetDataFromEePlus()
-        {
-            var excelObjectData = new List<Tuple<string, List<Tuple<string, object>>>>();
+            var excelObjectData = new List<Tuple<string, List<Tuple<string, string>>>>();
 
             using (FileStream stream = File.Open(Path.Combine(_path, file), FileMode.Open, FileAccess.Read))
             {
@@ -112,19 +83,18 @@ namespace ExcelConverter
                 {
                     foreach (var workSheet in excelReader.Workbook.Worksheets)
                     {
-                        var listOfColumns = new List<Tuple<string, object>>();
+                        var listOfColumns = new List<Tuple<string, string>>();
 
                         for (int i = 1; i <= workSheet.Dimension.End.Column; i++)
                         {
                             for (int j = 2; j <= workSheet.Dimension.End.Row; j++)
                             {
-                                listOfColumns.Add(new Tuple<string, object>(workSheet.Cells[1, i].Text, workSheet.Cells[j, i].Text));
+                                listOfColumns.Add(new Tuple<string, string>(workSheet.Cells[1, i].Text, workSheet.Cells[j, i].Text));
                                 if (workSheet.Cells[j + 1, i].Value == null) { break; }
                             }
                             if (workSheet.Cells[1, i + 1].Value == null) { break; }
                         }
-
-                        excelObjectData.Add(new Tuple<string, List<Tuple<string, object>>>(workSheet.Name, listOfColumns));
+                        excelObjectData.Add(new Tuple<string, List<Tuple<string, string>>>(workSheet.Name, listOfColumns));
                     }
                 }
             }
@@ -137,7 +107,7 @@ namespace ExcelConverter
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             try
             {
-                using(HttpWebResponse googleResponse = (HttpWebResponse)request.GetResponse())
+                using (HttpWebResponse googleResponse = (HttpWebResponse)request.GetResponse())
                 {
                     using (var q = googleResponse.GetResponseStream())
                     {
@@ -148,15 +118,15 @@ namespace ExcelConverter
                                 //var chars = reader.ReadChars(100);
                             }
 
-                        }     
+                        }
                     }
                 }
             }
             catch (WebException e)
             {
                 Debug.WriteLine(e.Message);
-            }      
-            
+            }
+
             return data;
         }
 
