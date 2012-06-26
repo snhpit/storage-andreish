@@ -10,13 +10,11 @@ using System.Web;
 using System.Web.Mvc;
 using System.Xml;
 using System.Xml.Serialization;
-using Microsoft.Practices.ServiceLocation;
 using Mvc.Entities;
 using Mvc.Web.Converters;
 using Mvc.Web.Providers;
 using Ninject;
 using Ninject.Web.Mvc;
-using NinjectAdapter;
 
 namespace Mvc.Web.Controllers
 {
