@@ -93,4 +93,22 @@
     console.log(extendObjectTestAdded);
     console.log(someObject);
 
+
+
+
+
+
+    (function(){
+        this.Markup = (function(){
+            function Markup(){
+                console.log("Hi from Markup");
+            }
+            return Markup;
+        })();
+
+        $(function(){
+            return new Markup;
+        });
+    }).call(this);
+
 })(jQuery); // jQuery not determined
