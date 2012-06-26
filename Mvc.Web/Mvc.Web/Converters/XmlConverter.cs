@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -24,7 +25,7 @@ namespace Mvc.Web.Converters
 
             var quotes = document.Root.Descendants("quote").Select(quote => new Quote
                 {
-                    Date = DateTime.Parse(quote.Element("Date").Value),
+                    Date = DateTime.Parse(quote.Element("Date").Value, new CultureInfo("en-US", true)),
                     Open = double.Parse(quote.Element("Open").Value),
                     Close = double.Parse(quote.Element("Close").Value),
                     Low = double.Parse(quote.Element("Low").Value),

@@ -125,6 +125,7 @@
     <Compile Include="Providers\IProvider.cs" />
     <Compile Include="Providers\IProviderFactory.cs" />
     <Compile Include="Providers\ProviderFactory.cs" />
+    <Compile Include="Providers\StaticMethods.cs" />
     <Compile Include="Providers\YahooProvider.cs" />
   </ItemGroup>
   <ItemGroup>

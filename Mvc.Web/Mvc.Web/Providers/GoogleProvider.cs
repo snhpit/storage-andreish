@@ -14,6 +14,8 @@ namespace Mvc.Web.Providers
     {
         public string GetData(DateTime dateFrom, DateTime dateTo, string company)
         {
+            StaticMethods.CheckDate(ref dateFrom, ref dateTo);
+            
             string data = null;
             string url =
                 string.Format("http://www.google.com/finance/historical?q={2}&startdate={0}&enddate={1}&output=csv",
@@ -36,12 +38,7 @@ namespace Mvc.Web.Providers
             catch (WebException e)
             {
                 Debug.WriteLine(e.Message);
-            }
-            //catch(NullReferenceException e)
-            //{
-            //    Debug.WriteLine(e.Message);
-            //}
-
+            }      
             return data;
         }
     }
