@@ -4,18 +4,10 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.Practices.ServiceLocation;
 using Mvc.Web.Controllers;
 using Mvc.Web.Converters;
 using Mvc.Web.Providers;
 using Ninject;
-using Ninject.Extensions.Conventions;
-using Ninject.Modules;
-using Ninject.Parameters;
-using Ninject.Planning.Bindings;
-using Ninject.Syntax;
-using Ninject.Web.Mvc;
-using NinjectAdapter;
 
 namespace Mvc.Web
 {
