@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting.Web;
 using Moq;
@@ -15,6 +16,9 @@ namespace Mvc.Web.Tests
     [TestClass()]
     public class XmlConverterTest
     {
+        private IEnumerable<Quote> _quotes = new List<Quote> {
+                new Quote { Date = DateTime.Parse("18-Jun-12"), Close = 29.84, High = 30.03, Low = 29.71, Open = 29.99, Volume = 58285251 },
+            };
         /// <summary>
         ///Gets or sets the test context which provides
         ///information about and functionality for the current test run.
@@ -35,13 +39,17 @@ namespace Mvc.Web.Tests
         [TestMethod()]
         public void ConvertTest()
         {
-            string providerData = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<query xmlns:yahoo=\"http://www.yahooapis.com/v1/base.rng\" yahoo:count=\"0\" yahoo:created=\"2012-06-18T23:06:40Z\" yahoo:lang=\"en-US\"><results/></query><!-- total: 300 -->\n<!-- engine3.yql.ch1.yahoo.com -->\n";
+            var providerData = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<query xmlns:yahoo=\"http://www.yahooapis.com/v1/base.rng\" yahoo:count=\"253\" yahoo:created=\"2012-06-20T08:45:08Z\" yahoo:lang=\"en-US\"><results><quote date=\"2012-06-19\"><Date>2012-06-19</Date><Open>30.19</Open><High>31.11</High><Low>30.05</Low><Close>30.70</Close><Volume>75714400</Volume><Adj_Close>30.70</Adj_Close></quote></results></query><!-- total: 1599 -->\n<!-- engine4.yql.ch1.yahoo.com -->\n";
             IEnumerable<Quote> actual;
-            //actual = _converter.Convert(providerData);
-            //Assert.AreNotEqual(null, actual);
             Mock<IConverter> conv = new Mock<IConverter>();
-            conv.Setup(c => c.Convert(providerData)).Throws<NullReferenceException>();
-            //var f = conv.Object.Convert(providerData);
+            conv.Setup(c => c.Convert(providerData)).Returns(_quotes);
+            var fakeQuotes = conv.Object.Convert(providerData);
+            var converter = new XmlConverter();
+            var realQuotes = converter.Convert(providerData);
+
+            Assert.AreNotEqual(null, realQuotes.FirstOrDefault());
+            Assert.AreEqual(realQuotes.Count(), fakeQuotes.Count());
+            Assert.IsTrue(realQuotes.All(quote => quote.Volume > default(double)));
         }
     }
 }

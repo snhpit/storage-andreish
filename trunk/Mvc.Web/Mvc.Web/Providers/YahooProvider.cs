@@ -19,7 +19,7 @@ namespace Mvc.Web.Providers
 
             string data = null;
 
-            if (dateTo.Year == 1) { dateTo = DateTime.Now; }
+            StaticMethods.CheckDate(ref dateFrom, ref dateTo);
 
             string url = string.Format(
                 "http://query.yahooapis.com/v1/public/yql?q=" +
@@ -47,12 +47,7 @@ namespace Mvc.Web.Providers
             {
                 Debug.WriteLine(e.Message);
             }
-            //catch (NullReferenceException e)
-            //{
-            //    Debug.WriteLine(e.Message);
-            //}
-
             return data;
         }
-    }
+      }
 }

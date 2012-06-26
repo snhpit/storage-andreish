@@ -64,6 +64,7 @@
 
         var onSuccess = function (data) {
             var dataWrapper = { values: data };
+            if (!dataWrapper.values[0]) { return; }
             $('#finance-historical').empty();
 
             if (dataWrapper.values !== null) {

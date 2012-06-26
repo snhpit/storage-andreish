@@ -33,17 +33,14 @@ namespace Mvc.Web.Tests
         [TestMethod()]
         public void GetDataTest()
         {
-            DateTime dateFrom = new DateTime();
-            DateTime dateTo = new DateTime();
             string company = "MSFT";
             string expected = string.Empty;
             string actual;
-            actual = _provider.GetData(dateFrom, dateTo, company);
+            actual = _provider.GetData(new DateTime(), new DateTime(), company);
             Assert.IsNotNull(actual);
             Assert.IsTrue(actual.StartsWith(@"<?xml"));
-            //var provider = new Mock<IProvider>();
-            //provider.Verify(p => p.GetData(dateFrom, dateTo, company), Times.Once());
-            //provider.Setup(p => p.GetData(dateFrom, dateTo, "!fadf/;1")).Throws<NullReferenceException>();
+            Assert.IsTrue(actual.Contains("quote"));
+            Assert.IsTrue(actual.Contains("Date"));
         }
     }
 }
