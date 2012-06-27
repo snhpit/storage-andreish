@@ -13,10 +13,8 @@ namespace ExcelConverter
         {
             var provider = new ExcelProvider();
             var excelObjectData = provider.GetDataFromEePlus();
-            //var converter = new JsonConverter();
-            //converter.JsonEncode(excelObjectData);
-            var hash = new Hashtable();
-            hash["UPC"] = 121;
+            var converter = new JsonConverter();
+            converter.JsonEncode(excelObjectData);
         }
     }
 }
