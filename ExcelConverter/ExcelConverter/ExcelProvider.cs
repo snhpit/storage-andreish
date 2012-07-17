@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using OfficeOpenXml;
 
@@ -7,8 +8,8 @@ namespace ExcelConverter
 {
     public class ExcelProvider
     {
-        private const string File = "Complex version 18.xlsx";
-        private readonly string _path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\"));
+        private const string File = "Complex version 20.xlsx";
+        private readonly string _path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory/*, @"..\..\..\"*/));
 
         public List<Tuple<string, List<Tuple<string, object>>>> GetDataFromEePlus()
         {
@@ -33,12 +34,12 @@ namespace ExcelConverter
                         }
                         for (int i = 2; i <= rowNumbers; i++)
                         {
-                            
                             for (int j = 1; j <= columnNumbers; j++)
                             {
-                                var value = workSheet.Cells[i, j].Value;
-                                listOfRows.Add(new Tuple<string, object>(workSheet.Cells[1, j].Text, 
-                                    value is DateTime ? String.Format("{0:M/d/yyyy}", value) : value));
+                                DateTime dateTime;
+                                var value = workSheet.Cells[i, j].Text;
+                                listOfRows.Add(new Tuple<string, object>(workSheet.Cells[1, j].Text,
+                                    DateTime.TryParse(value, out dateTime) ? dateTime.ToString(@"M/d/yyyy", CultureInfo.InvariantCulture) : value));
                                 if (workSheet.Cells[1, j + 1].Value == null) { break; }
                             }
                             if (workSheet.Cells[i + 1, 1].Value == null) { break; }

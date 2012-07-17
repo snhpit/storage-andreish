@@ -35,7 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EPPlus">
-      <HintPath>..\EPPlus.dll</HintPath>
+      <HintPath>..\packages\EPPlus.3.0.0.2\lib\net20\EPPlus.dll</HintPath>
     </Reference>
     <Reference Include="Excel">
       <HintPath>..\Excel.dll</HintPath>
@@ -73,7 +73,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DropBoxProvider.cs" />
     <Compile Include="Json.cs" />
     <Compile Include="JsonConverter.cs" />
     <Compile Include="ExcelProvider.cs" />

@@ -11,7 +11,7 @@ namespace ExcelConverter
 {
     public class JsonConverter
     {
-        private readonly string _path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\"));
+        private readonly string _path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory/*, @"..\..\..\"*/));
 
         public void JsonEncode(List<Tuple<string, List<Tuple<string, object>>>> excelObjectData)
         {
@@ -24,7 +24,7 @@ namespace ExcelConverter
                 var firstElementName = tuple.Item2.FirstOrDefault().Item1;
                 if (Equals(tuple.Item2.LastOrDefault(), null)) { continue; }
                 var lastElementName = tuple.Item2.LastOrDefault().Item1;
-                
+
                 foreach (var element in tuple.Item2)
                 {
                     if (firstElementName == element.Item1)
@@ -41,7 +41,6 @@ namespace ExcelConverter
                         stringBuilder.AppendFormat(@"""{0}"":""{1}""", element.Item1,
                             element.Item2 is string ? Regex.Replace((string)element.Item2, Environment.NewLine, "\\r\\n") : element.Item2);
                     }
-                    
 
                     if (lastElementName != element.Item1)
                     {
