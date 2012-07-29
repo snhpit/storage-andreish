@@ -9,12 +9,11 @@ using Fleck;
 
 namespace Chat
 {
-    class Program
+    internal class Program
     {
         private static readonly string Path = System.IO.Path.GetFullPath(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\"));
 
-
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             FleckLog.Level = LogLevel.Debug;
             var allSockets = new List<IWebSocketConnection>();
@@ -33,12 +32,12 @@ namespace Chat
                 };
                 socket.OnMessage = message =>
                 {
-                    var date = SaveMessage(socket.ConnectionInfo.Id, message);
+                    var date = DateTime.Now.ToShortTimeString();
+                    //SaveMessage(socket.ConnectionInfo.Id, message);
                     Console.WriteLine(message);
                     allSockets.ToList().ForEach(s => s.Send(date + ": " + message));
                 };
             });
-
 
             var input = Console.ReadLine();
             while (input != "exit")
@@ -49,16 +48,14 @@ namespace Chat
                 }
                 input = Console.ReadLine();
             }
-             
+
             Console.ReadKey(true);
         }
 
-        private static string SaveMessage(Guid id, string message)
+        private static void SaveMessage(Guid id, string message)
         {
             var date = DateTime.Now.ToShortTimeString();
             File.AppendAllText(Path + "chat.txt", id + ": " + date + ": " + message + Environment.NewLine);
-            return date;
         }
-
     }
 }
