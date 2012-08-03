@@ -99,8 +99,20 @@
 	},
 
 	'updatePosition': function() {
+	    var data = this.data('panZoom');
+        var parentHeight = data.viewport_dimensions.y;
+        var parentWidth = data.viewport_dimensions.x;
+        var elementWidth = Math.round(data.position.x2 - data.position.x1);
+        var elementHeight = Math.round(data.position.y2 - data.position.y1);
+
 	  validatePosition.apply(this);
 	  writePosition.apply(this);
+        if (parentWidth > parentHeight) {
+            elementWidth + settings.elementOffset.leftOffset < parentWidth ? methods.fit.apply(this) : this;
+        } else {
+            elementHeight + settings.elementOffset.topOffset < parentHeight ? methods.fit.apply(this) : this;
+        }
+
 	  applyPosition.apply(this);
 	},
 
@@ -209,7 +221,7 @@
 	  window.clearInterval(data.mousedown_interval);
 	}
 
-  }
+  };
 
   function setupBindings() {
 
@@ -302,8 +314,39 @@
 	}
 
 	if (settings.draggable && typeof(this.draggable) == 'function') {
-	  this.draggable({
-		stop: function () { $(this).panZoom('dragComplete'); }
+        var that = this;
+		this.draggable({
+		  start: function( event, ui ) {
+			  if (!settings.margins) {
+                  settings.margins = {
+                      marginLeft: ui.offset.left,
+                      marginRight: ui.helper.width() + ui.offset.left,
+                      marginTop: ui.offset.top,
+                      marginBottom: ui.helper.height() + ui.offset.top
+                  }
+              }
+		  },
+		  drag: function( event, ui ){
+              if (settings.margins.marginTop < ui.offset.top) {
+                  ui.helper.offset({ top: settings.margins.marginTop });
+                  /*return false;*/
+              }
+              if (settings.margins.marginLeft < ui.offset.left) {
+                  ui.helper.offset({ left: settings.margins.marginLeft });
+                  /*return false;*/
+              }
+              if (settings.margins.marginRight > ui.helper.width() + ui.offset.left) {
+                  ui.helper.offset({ left: settings.margins.marginRight - ui.helper.width() });
+                  /*return false;*/
+              }
+              if (settings.margins.marginBottom > ui.helper.height() + ui.offset.top) {
+                  ui.helper.offset({ top: settings.margins.marginBottom - ui.helper.height() });
+                  /*return false;*/
+              }
+		  },
+		  stop: function (e, ui) {
+			  $(this).panZoom('dragComplete');
+		  }
 	  });
 	} else if (settings.draggable) {
 	  alert('Draggable requires jQuery UI - please include jQuery UI or disable draggable to remove this warning.')
@@ -351,9 +394,8 @@
 
   function validatePosition() {
 	var data = this.data('panZoom');
-	// if dimensions are too small...
+
 	if ( data.position.x2 - data.position.x1 < settings.min_width/settings.factor || data.position.y2 - data.position.y1 < settings.min_height/settings.factor ) {
-	  // and second co-ords are zero (IE: no dims set), fit image
 	  if (data.position.x2 == 0 || data.position.y2 == 0) {
 		methods.fit.apply(this);
 	  }
@@ -383,8 +425,12 @@
 		data.position.y2 = data.position.y2*1 - (diff/2);
 	  }
 	}
-
-
+      if (!settings.elementOffset) {
+          settings.elementOffset = {
+              leftOffset: Math.round(data.position.x1),
+              topOffset: Math.round(data.position.y1)
+          };
+      }
   }
 
   function applyPosition() {
@@ -395,7 +441,9 @@
 	left_offset = getLeftOffset.apply(this);
 	top_offset = getTopOffset.apply(this);
 
-	properties = {
+
+
+      properties = {
 	  'top': Math.round(top_offset),
 	  'left': Math.round(left_offset),
 	  'width': Math.round(width),
@@ -425,7 +473,7 @@
 	this.stop().animate( properties , settings.animate_duration, settings.animate_easing);
   }
 
-  function getWidth() {
+  function  getWidth() {
 	var data = this.data('panZoom');
 	width = (data.position.x2 - data.position.x1);
 	return width;
