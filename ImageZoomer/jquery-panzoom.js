@@ -314,7 +314,9 @@
 	}
 
 	if (settings.draggable && typeof(this.draggable) == 'function') {
-        var that = this;
+        var start,
+	        drag,
+	        stop;
 		this.draggable({
 		  start: function( event, ui ) {
 			  if (!settings.margins) {
@@ -328,20 +330,21 @@
 		  },
 		  drag: function( event, ui ){
               if (settings.margins.marginTop < ui.offset.top) {
-                  ui.helper.offset({ top: settings.margins.marginTop });
-                  /*return false;*/
+	              ui.helper.animate(function() { ui.helper.offset({ top: settings.margins.marginTop }) }, 28);
+                  //ui.helper.offset({ top: settings.margins.marginTop });
+                  //return false;
               }
               if (settings.margins.marginLeft < ui.offset.left) {
-                  ui.helper.offset({ left: settings.margins.marginLeft });
-                  /*return false;*/
+	              ui.helper.animate(function() { ui.helper.offset({ left: settings.margins.marginLeft }) }, 28);
+                 // return false;
               }
               if (settings.margins.marginRight > ui.helper.width() + ui.offset.left) {
-                  ui.helper.offset({ left: settings.margins.marginRight - ui.helper.width() });
-                  /*return false;*/
+	              ui.helper.animate(function() { ui.helper.offset({ left: settings.margins.marginRight - ui.helper.width() }) }, 28);
+                 // return false;
               }
               if (settings.margins.marginBottom > ui.helper.height() + ui.offset.top) {
-                  ui.helper.offset({ top: settings.margins.marginBottom - ui.helper.height() });
-                  /*return false;*/
+	              ui.helper.animate(function() { ui.helper.offset({ top: settings.margins.marginBottom - ui.helper.height() }) }, 28);
+                  //return false;
               }
 		  },
 		  stop: function (e, ui) {
@@ -535,4 +538,19 @@
 	data.target_dimensions.ratio = data.target_dimensions.x / data.target_dimensions.y;
   }
 
+	function Timer(callback, delay) {
+		var timerId, start, remaining = delay;
+
+		this.pause = function() {
+			window.clearTimeout(timerId);
+			remaining -= new Date() - start;
+		};
+
+		this.resume = function() {
+			start = new Date();
+			timerId = window.setTimeout(callback, remaining);
+		};
+
+		this.resume();
+	}
 })( jQuery );
