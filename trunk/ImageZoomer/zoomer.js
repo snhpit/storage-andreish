@@ -13,8 +13,8 @@
 
 	Zoom.prototype = {
 		options: {
-			zoomIn: true,
-			zoomOut: true,
+			/*zoomIn: true,
+			zoomOut: true,*/  /**/
 			draggable: true,
 			mousewheel: true,
 			initHeight: null,
@@ -87,6 +87,7 @@
 
 		bindEvents: function() {
 			var that = this;
+
 			$('#zoomIn').on('mousedown.zoom', function(e) {
 				that.mouseDown("zoomIn", e);
 				return false;
@@ -94,6 +95,7 @@
 					that.mouseUp(e);
 					return false;
 				});
+
 			$('#zoomOut').on('mousedown.zoom', function(e) {
 				that.mouseDown("zoomOut", e);
 				return false;
@@ -101,6 +103,13 @@
 					that.mouseUp(e);
 					return false;
 				});
+
+			if (this.options.mousewheel && typeof this.options.$element.mousewheel === 'function') {
+				this.options.$parent.on('mousewheel.zoom', function(e, delta) {
+					that.mouseWheel(delta);
+					return false;
+				});
+			}
 		},
 
 		mouseDown: function(action, e) {
@@ -120,6 +129,14 @@
 
 		zoomOut: function(e) {
 			console.log("zoomOut");
+		},
+
+		mouseWheel: function(delta, e) {
+			delta > 0 ? this.zoomIn(e) : this.zoomOut(e);
+		},
+
+		mouseDrag: function() {
+
 		}
 	};
 })(jQuery);
