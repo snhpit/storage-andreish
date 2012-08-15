@@ -23,7 +23,9 @@
 			$element: null,
 			$parent: null,
 			minElemWidth: null,
-			minElemHeight: null
+			minElemHeight: null,
+			mousedownInterval: null,
+			animateDuration: 200
 		},
 
 		init: function(element, options) {
@@ -84,20 +86,40 @@
 		},
 
 		bindEvents: function() {
-			$('#zoomIn').on('mousedown', function() {
-
-			});
-			$('#zoomOut').on('click', function() {
-
-			});
+			var that = this;
+			$('#zoomIn').on('mousedown.zoom', function(e) {
+				that.mouseDown("zoomIn", e);
+				return false;
+			}).on('mouseout.zoom mouseup.zoom', function(e) {
+					that.mouseUp(e);
+					return false;
+				});
+			$('#zoomOut').on('mousedown.zoom', function(e) {
+				that.mouseDown("zoomOut", e);
+				return false;
+			}).on('mouseout.zoom mouseup.zoom', function(e) {
+					that.mouseUp(e);
+					return false;
+				});
 		},
 
-		zoomIn: function() {
-
+		mouseDown: function(action, e) {
+			this[action](e);
+			this.options.mousedownInterval = window.setInterval(function(that, action) {
+				that[action](e);
+			}, this.options.animateDuration, this, action);
 		},
 
-		zoomOut: function() {
+		mouseUp: function(e) {
+			window.clearInterval(this.options.mousedownInterval);
+		},
 
+		zoomIn: function(e) {
+			console.log("zoomIn");
+		},
+
+		zoomOut: function(e) {
+			console.log("zoomOut");
 		}
 	};
 })(jQuery);

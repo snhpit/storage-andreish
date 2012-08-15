@@ -981,6 +981,7 @@ var zoomer_;
 			if (m.cFlag._nd) {
 				if (m.fixMoz) {
 					m.correctTransValue()
+
 				}
 				if (n.type == "mousedown") {
 					m.offX = n.pageX - m.$holder.offset().left - m.$image.position().left;
@@ -1739,6 +1740,7 @@ var zoomer_;
 		zoomIn: function (m) {
 			this.buttons[0].$ob.trigger(this.event_down, {
 				id: 0
+
 			})
 		},
 		zoomOut: function (m) {
