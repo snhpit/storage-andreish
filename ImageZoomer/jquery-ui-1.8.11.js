@@ -881,8 +881,8 @@ $.fn.position = function( options ) {
 				$.ui.position[ collision[i] ][ dir ]( position, {
 					targetWidth: targetWidth,
 					targetHeight: targetHeight,
-					elemWidth: elemWidth,
-					elemHeight: elemHeight,
+					minElemWidth: elemWidth,
+					minElemHeight: elemHeight,
 					collisionPosition: collisionPosition,
 					collisionWidth: collisionWidth,
 					collisionHeight: collisionHeight,
@@ -922,9 +922,9 @@ $.ui.position = {
 			var win = $( window ),
 				over = data.collisionPosition.left + data.collisionWidth - win.width() - win.scrollLeft(),
 				myOffset = data.my[ 0 ] === "left" ?
-					-data.elemWidth :
+					-data.minElemWidth :
 					data.my[ 0 ] === "right" ?
-						data.elemWidth :
+						data.minElemWidth :
 						0,
 				atOffset = data.at[ 0 ] === "left" ?
 					data.targetWidth :
@@ -943,9 +943,9 @@ $.ui.position = {
 			var win = $( window ),
 				over = data.collisionPosition.top + data.collisionHeight - win.height() - win.scrollTop(),
 				myOffset = data.my[ 1 ] === "top" ?
-					-data.elemHeight :
+					-data.minElemHeight :
 					data.my[ 1 ] === "bottom" ?
-						data.elemHeight :
+						data.minElemHeight :
 						0,
 				atOffset = data.at[ 1 ] === "top" ?
 					data.targetHeight :
