@@ -318,6 +318,12 @@
 	        drag,
 	        stop;
 		this.draggable({
+            refreshPositions: !1,
+            delay: 0,
+            cursor: !1,
+            scroll: !1,
+            containment: "parent",
+            distance: 1,
 		  start: function( event, ui ) {
 			  if (!settings.margins) {
                   settings.margins = {

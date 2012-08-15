@@ -8,10 +8,20 @@
 		<script type="text/javascript" src="../jquery.mousewheel.js"></script>
 		<script type="text/javascript" src="../jquery-panzoom.js"></script>
 		<script type="text/javascript" src="../jquery-image-zoom.js"></script>
+        <script type="text/javascript" src="../z.js"></script>
+        <script type="text/javascript" src="../jquery-zoom-image.js"></script>
 		<link rel="stylesheet" type="text/css" media="screen" href="style.css" />
 		<script type="text/javascript">
 			$(document).ready(function () {
-				$('#pan img').panZoom({
+
+                /*$('div.wrapper > img').z({
+                    width: 400,
+                        height: 310
+            });*/
+
+                $('#pan img').jqzoom();
+
+				/*$('#pan img').panZoom({
 					'zoomIn': $('#zoomin'),
 					'zoomOut' : $('#zoomout'),
 					'panUp'	 :$('#panup'),
@@ -20,19 +30,19 @@
 					'panRight':$('#panright'),
 					'fit'       :   $('#fit'),
 					'destroy'   :   $('#destroy'),
-					/*'out_x1'    :   $('#x1'),
+					*//*'out_x1'    :   $('#x1'),
 					'out_y1'    :   $('#y1'),
 					'out_x2'    :   $('#x2'),
-					'out_y2'    :   $('#y2'),*/
+					'out_y2'    :   $('#y2'),*//*
 					'directedit':   true,
 					'debug'     :   true
-			  });
+			  });*/
 				/*$('#pan img').imageZoom({
 					'zoomIn': $('#zoomin'),
 					'zoomOut' : $('#zoomout')
 				});*/
 
-				$('#images img').bind('click', function () {
+				/*$('#images img').bind('click', function () {
 					$('#pan img').attr('src', $(this).attr('src'));
 				});
 
@@ -43,7 +53,7 @@
 					return;
 				  }
 				  event.preventDefault();
-				});
+				});*/
 
 			});
 		</script>
@@ -52,7 +62,7 @@
 	<body>
 	<div class="wrapper">
 
-
+        <!--<img src="sample2.jpg">-->
 	  <div id="pan">
 		<img src="sample2.jpg">
 	  </div>
