@@ -304,6 +304,7 @@ var zoomer_;
 				if (n && n[0].tagName !== "BODY" && n[0].tagName !== "HTML") {
 					if (n.css("display") == "none") {
 						n.css("display", "block");
+
 						N.push(n)
 					}
 					n = n.parent()
