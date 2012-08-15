@@ -430,6 +430,7 @@ var zoomer_;
 					Y = t
 				}
 			}
+
 			R = g('<div style="position: absolute; ' + L + ":" + Y + "px; " + Z + ": " + J + "px; width: " + m + "px; height: " + q + 'px; z-index: 20;" class="noSel;"> <div class="noSel controlsBg" style="position: relative; width: 100%; height: 100%; z-index: 1;"> </div> </div>');
 			aa.append(R);
 			var u = R.find(".controlsBg");
@@ -561,6 +562,7 @@ var zoomer_;
 									}
 									o.focusOffX = o.focusOffY = 0;
 									o.changeOffset(true, true);
+
 									if (!o._playing) {
 										o.Animate()
 									}
