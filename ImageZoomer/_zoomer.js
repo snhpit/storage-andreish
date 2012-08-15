@@ -725,8 +725,8 @@ var zoomer_;
 			}
 			var t = m.sW;
 			var n = m.sH;
-			setLable(g("#barSmooth_t"), setSmooth(smPos), t, n);
-			setLable(g("#barSpeed_t"), setSpeed(spPos), t, n);
+			//setLable(g("#barSmooth_t"), setSmooth(smPos), t, n);
+			//setLable(g("#barSpeed_t"), setSpeed(spPos), t, n);
 			r.css({
 				width: t,
 				height: n
@@ -2109,7 +2109,7 @@ var zoomer_;
  * Version: 3.0.6
  *
  * Requires: 1.2.2+
- */ (function (a) {
+ *//* (function (a) {
 	function d(b) {
 		var c = b || window.event,
 			d = [].slice.call(arguments, 1),
@@ -2138,7 +2138,7 @@ var zoomer_;
 			return this.unbind("mousewheel", a)
 		}
 	})
-})(jQuery);
+})(jQuery);*/
 //.......
 var ani_smooth;
 var zoom_speed;
@@ -2165,7 +2165,7 @@ function setLable(c, b, a, e) {
 	var d = String(parseInt(b * 10) / 10);
 	d.length < 2 ? d = d + ".0" : "";
 	c.html(d)
-}
+}/*
 jQuery(function (c) {
 	var h = c(document);
 	var j = c("#cont");
@@ -2508,4 +2508,4 @@ jQuery(function (c) {
 				c(this).css("background-position", "-666px -44px"), c("#s1").css("background-position", "0px 0px"), c("#s2").css("background-position", "-111px 0px"), c("#s3").css("background-position", "-222px 0px"), c("#s4").css("background-position", "-333px 0px"), c("#s5").css("background-position", "-444px 0px"), c("#s6").css("background-position", "-555px 0px"), sample = 7
 			}
 		})
-});
+});*/
