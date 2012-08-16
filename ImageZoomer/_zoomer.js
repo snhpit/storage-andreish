@@ -981,7 +981,6 @@ var zoomer_;
 			if (m.cFlag._nd) {
 				if (m.fixMoz) {
 					m.correctTransValue()
-
 				}
 				if (n.type == "mousedown") {
 					m.offX = n.pageX - m.$holder.offset().left - m.$image.position().left;
@@ -989,6 +988,7 @@ var zoomer_;
 					g(k).bind(m.event_move + m.id, {
 						self: m
 					}, m.mouseDrag)
+
 				} else {
 					var o = n.originalEvent;
 					if (o.targetTouches.length > 1) {
@@ -1017,6 +1017,7 @@ var zoomer_;
 				m._recent = "drag";
 				m._dragging = true;
 				if (!m._playing) {
+
 					m.Animate()
 				}
 				return false
