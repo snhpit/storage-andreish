@@ -8,6 +8,7 @@
 	};
 
 	var Zoom = function(element, options) {
+
 		this.init(element, options);
 	};
 
@@ -53,14 +54,15 @@
 			};
 			var offset = $elem.offset();
 			this.options.offset = {
-				top: offset.top + this.options.pos.top,
-				left: offset.left + this.options.pos.left
+				top: Math.round(offset.top) + this.options.pos.top,
+				left: Math.round(offset.left) + this.options.pos.left
 			}
 		},
 
 		setCSS: function() {
 			this.options.$parent.css({ 'position': 'relative' });
-			this.fitElement();
+			this.options.$element.css({ 'position': 'absolute' });
+			this.alignElement();
 			if (this.options.draggable) {
 				this.options.$element.css({
 					'cursor': 'move'
@@ -68,9 +70,8 @@
 			}
 		},
 
-		fitElement: function() {
+		alignElement: function() {
 			this.options.$element.css({
-				'position': 'absolute',
 				'top': this.options.pos.top,
 				'left': this.options.pos.left,
 				'width': this.options.minElemWidth,
@@ -110,13 +111,26 @@
 					return false;
 				});
 			}
+
+			if (this.options.draggable) {
+				this.options.$element.on('mousedown.zoom', function(e) {
+					that.mouseDown('mouseDrag', e);
+					return false;
+				}).on('mouseup.zoom', function(e) {
+						that.mouseDrag(e);
+						return false;
+					})
+			}
 		},
 
 		mouseDown: function(action, e) {
+			var that = this;
 			this[action](e);
-			this.options.mousedownInterval = window.setInterval(function(that, action) {
+
+			if (action === "mouseDrag") { return; }
+			this.options.mousedownInterval = window.setInterval(function() {
 				that[action](e);
-			}, this.options.animateDuration, this, action);
+			}, this.options.animateDuration);
 		},
 
 		mouseUp: function(e) {
@@ -124,18 +138,43 @@
 		},
 
 		zoomIn: function(e) {
-			console.log("zoomIn");
+			this.validatePosition();
+			this.applyPosition();
 		},
 
 		zoomOut: function(e) {
-			console.log("zoomOut");
+			this.validatePosition();
+			this.applyPosition();
 		},
 
 		mouseWheel: function(delta, e) {
 			delta > 0 ? this.zoomIn(e) : this.zoomOut(e);
 		},
 
-		mouseDrag: function() {
+		mouseDrag: function(e) {
+			var that = this;
+			if (e.type === "mousedown") {
+				this.options.$element.on('mousemove.zoom', function(e) {
+					that.mouseDrag(e);
+					return false;
+				});
+			}
+
+			if (e.type === 'mousemove') {
+				this.validatePosition();
+				this.applyPosition();
+			}
+
+			if (e.type === 'mouseup') {
+				this.options.$element.off('mousemove.zoom');
+			}
+		},
+
+		validatePosition: function() {
+
+		},
+
+		applyPosition: function() {
 
 		}
 	};
