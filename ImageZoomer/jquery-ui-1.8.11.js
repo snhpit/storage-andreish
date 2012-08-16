@@ -634,6 +634,7 @@ $.widget("ui.mouse", {
 		if (event.originalEvent.mouseHandled) { return; }
 
 		// we may have missed mouseup (out of window)
+
 		(this._mouseStarted && this._mouseUp(event));
 
 		this._mouseDownEvent = event;
@@ -651,6 +652,7 @@ $.widget("ui.mouse", {
 				self.mouseDelayMet = true;
 			}, this.options.delay);
 		}
+
 
 		if (this._mouseDistanceMet(event) && this._mouseDelayMet(event)) {
 			this._mouseStarted = (this._mouseStart(event) !== false);
