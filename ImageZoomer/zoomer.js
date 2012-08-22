@@ -190,13 +190,13 @@
 			var that = this;
 
 			if (e.type === "mousedown") {
+				this.options.pos = {};
 				/*var pos = this.getPosition(e);
 				this.options.mouseOffset = { x: e.pageX - pos.x, y: e.pageY - pos.y };*/
-				if (!(that.options.mouseOffsetX && that.options.mouseOffsetY)) {
-					that.options.mouseOffsetX = e.pageX;
-					that.options.mouseOffsetY = e.pageY;
-				}
+				that.options.mouseOffsetX = e.pageX;
+				that.options.mouseOffsetY = e.pageY;
 				$(document).on('mousemove.zoom', function(e) {
+
 					that.mouseDrag(e);
 					return false;
 				});
@@ -212,54 +212,36 @@
 				});*/
 
 				if (e.pageX < this.options.mouseOffsetX && e.pageY < this.options.mouseOffsetY) {
-					/*this.options.offset.left -= x;
-					this.options.offset.top -= y;*/
-					this.options.$element.offset({
-						'left': this.options.offset.left - x,
-						'top': this.options.offset.top - y
-					});
+					this.options.pos.x = this.options.offset.left - x;
+					this.options.pos.y = this.options.offset.top - y;
 				}
 				if (e.pageX > this.options.mouseOffsetX && e.pageY > this.options.mouseOffsetY) {
-					/*this.options.offset.left += x;
-					this.options.offset.top += y;*/
-					this.options.$element.offset({
-						'left': this.options.offset.left + x,
-						'top': this.options.offset.top + y
-					});
+					this.options.pos.x = this.options.offset.left + x;
+					this.options.pos.y = this.options.offset.top + y;
 				}
 				if (e.pageX < this.options.mouseOffsetX && e.pageY > this.options.mouseOffsetY) {
-					/*this.options.offset.left -= x;
-					this.options.offset.top += y;*/
-					this.options.$element.offset({
-						'left': this.options.offset.left - x,
-						'top': this.options.offset.top + y
-					});
+					this.options.pos.x = this.options.offset.left - x;
+					this.options.pos.y = this.options.offset.top + y;
 				}
 				if (e.pageX > this.options.mouseOffsetX && e.pageY < this.options.mouseOffsetY) {
-					/*this.options.offset.left += x;
-					this.options.offset.top -= y;*/
-					this.options.$element.offset({
-						'left': this.options.offset.left + x,
-						'top': this.options.offset.top - y
-					});
+					this.options.pos.x = this.options.offset.left + x;
+					this.options.pos.y = this.options.offset.top - y;
 				}
+				this.options.$element.offset({
+					'left': this.options.pos.x,
+					'top': this.options.pos.y
+				 });
 				//this.validatePosition();
 				//this.applyPosition();
 			}
 
 			if (e.type === 'mouseup') {
 				$(document).off('mousemove.zoom');
-				/*this.options.offset.left = this.options.left;
-				this.options.offset.top = this.options.top;*/
-				this.options.mouseOffsetX = null;
-				this.options.mouseOffsetY = null;
+				this.options.offset.left = this.options.pos.x;
+				this.options.offset.top = this.options.pos.y;
 			}
 		},
 		getPosition: function(e) {
-			if (!(this.options.mouseOffsetX && this.options.mouseOffsetY)) {
-				this.options.mouseOffsetX = e.pageX;
-				this.options.mouseOffsetY = e.pageY;
-			}
 			var left = 0,
 				top = 0;
 			while (e.target) {
