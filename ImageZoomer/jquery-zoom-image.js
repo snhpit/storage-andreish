@@ -142,7 +142,8 @@
                     obj.deactivate();
                 });
                 $(".zoomPad", el).bind('mousemove', function (e) {
-                                                      //prevent fast mouse mevements not to fire the mouseout event
+
+                                  //prevent fast mouse mevements not to fire the mouseout event
                     if (e.pageX > smallimage.pos.r || e.pageX < smallimage.pos.l || e.pageY < smallimage.pos.t || e.pageY > smallimage.pos.b) {
                         lens.setcenter();
                         return false;
