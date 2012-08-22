@@ -10127,9 +10127,9 @@ function(i, attr) {
 		}
 
 		fx.elem.style[attr] = 'rgb(' +
-			Math.max(Math.min(parseInt((fx.pos * (fx.end[0] - fx.start[0])) + fx.start[0], 10), 255), 0) + ',' +
-			Math.max(Math.min(parseInt((fx.pos * (fx.end[1] - fx.start[1])) + fx.start[1], 10), 255), 0) + ',' +
-			Math.max(Math.min(parseInt((fx.pos * (fx.end[2] - fx.start[2])) + fx.start[2], 10), 255), 0) + ')';
+			Math.max(Math.min(parseInt((fx.positions * (fx.end[0] - fx.start[0])) + fx.start[0], 10), 255), 0) + ',' +
+			Math.max(Math.min(parseInt((fx.positions * (fx.end[1] - fx.start[1])) + fx.start[1], 10), 255), 0) + ',' +
+			Math.max(Math.min(parseInt((fx.positions * (fx.end[2] - fx.start[2])) + fx.start[2], 10), 255), 0) + ')';
 	};
 });
 
@@ -10897,30 +10897,30 @@ $.effects.bounce = function(o) {
 		$.effects.save(el, props); el.show(); // Save & Show
 		$.effects.createWrapper(el); // Create Wrapper
 		var ref = (direction == 'up' || direction == 'down') ? 'top' : 'left';
-		var motion = (direction == 'up' || direction == 'left') ? 'pos' : 'neg';
+		var motion = (direction == 'up' || direction == 'left') ? 'positions' : 'neg';
 		var distance = o.options.distance || (ref == 'top' ? el.outerHeight({margin:true}) / 3 : el.outerWidth({margin:true}) / 3);
-		if (mode == 'show') el.css('opacity', 0).css(ref, motion == 'pos' ? -distance : distance); // Shift
+		if (mode == 'show') el.css('opacity', 0).css(ref, motion == 'positions' ? -distance : distance); // Shift
 		if (mode == 'hide') distance = distance / (times * 2);
 		if (mode != 'hide') times--;
 
 		// Animate
 		if (mode == 'show') { // Show Bounce
 			var animation = {opacity: 1};
-			animation[ref] = (motion == 'pos' ? '+=' : '-=') + distance;
+			animation[ref] = (motion == 'positions' ? '+=' : '-=') + distance;
 			el.animate(animation, speed / 2, o.options.easing);
 			distance = distance / 2;
 			times--;
 		};
 		for (var i = 0; i < times; i++) { // Bounces
 			var animation1 = {}, animation2 = {};
-			animation1[ref] = (motion == 'pos' ? '-=' : '+=') + distance;
-			animation2[ref] = (motion == 'pos' ? '+=' : '-=') + distance;
+			animation1[ref] = (motion == 'positions' ? '-=' : '+=') + distance;
+			animation2[ref] = (motion == 'positions' ? '+=' : '-=') + distance;
 			el.animate(animation1, speed / 2, o.options.easing).animate(animation2, speed / 2, o.options.easing);
 			distance = (mode == 'hide') ? distance * 2 : distance / 2;
 		};
 		if (mode == 'hide') { // Last Bounce
 			var animation = {opacity: 0};
-			animation[ref] = (motion == 'pos' ? '-=' : '+=')  + distance;
+			animation[ref] = (motion == 'positions' ? '-=' : '+=')  + distance;
 			el.animate(animation, speed / 2, o.options.easing, function(){
 				el.hide(); // Hide
 				$.effects.restore(el, props); $.effects.removeWrapper(el); // Restore
@@ -10928,8 +10928,8 @@ $.effects.bounce = function(o) {
 			});
 		} else {
 			var animation1 = {}, animation2 = {};
-			animation1[ref] = (motion == 'pos' ? '-=' : '+=') + distance;
-			animation2[ref] = (motion == 'pos' ? '+=' : '-=') + distance;
+			animation1[ref] = (motion == 'positions' ? '-=' : '+=') + distance;
+			animation2[ref] = (motion == 'positions' ? '+=' : '-=') + distance;
 			el.animate(animation1, speed / 2, o.options.easing).animate(animation2, speed / 2, o.options.easing, function(){
 				$.effects.restore(el, props); $.effects.removeWrapper(el); // Restore
 				if(o.callback) o.callback.apply(this, arguments); // Callback
@@ -11036,13 +11036,13 @@ $.effects.drop = function(o) {
 		$.effects.save(el, props); el.show(); // Save & Show
 		$.effects.createWrapper(el); // Create Wrapper
 		var ref = (direction == 'up' || direction == 'down') ? 'top' : 'left';
-		var motion = (direction == 'up' || direction == 'left') ? 'pos' : 'neg';
+		var motion = (direction == 'up' || direction == 'left') ? 'positions' : 'neg';
 		var distance = o.options.distance || (ref == 'top' ? el.outerHeight({margin:true}) / 2 : el.outerWidth({margin:true}) / 2);
-		if (mode == 'show') el.css('opacity', 0).css(ref, motion == 'pos' ? -distance : distance); // Shift
+		if (mode == 'show') el.css('opacity', 0).css(ref, motion == 'positions' ? -distance : distance); // Shift
 
 		// Animation
 		var animation = {opacity: mode == 'show' ? 1 : 0};
-		animation[ref] = (mode == 'show' ? (motion == 'pos' ? '+=' : '-=') : (motion == 'pos' ? '-=' : '+=')) + distance;
+		animation[ref] = (mode == 'show' ? (motion == 'positions' ? '+=' : '-=') : (motion == 'positions' ? '-=' : '+=')) + distance;
 
 		// Animate
 		el.animate(animation, { queue: false, duration: o.duration, easing: o.options.easing, complete: function() {
@@ -11570,13 +11570,13 @@ $.effects.shake = function(o) {
 		$.effects.save(el, props); el.show(); // Save & Show
 		$.effects.createWrapper(el); // Create Wrapper
 		var ref = (direction == 'up' || direction == 'down') ? 'top' : 'left';
-		var motion = (direction == 'up' || direction == 'left') ? 'pos' : 'neg';
+		var motion = (direction == 'up' || direction == 'left') ? 'positions' : 'neg';
 
 		// Animation
 		var animation = {}, animation1 = {}, animation2 = {};
-		animation[ref] = (motion == 'pos' ? '-=' : '+=')  + distance;
-		animation1[ref] = (motion == 'pos' ? '+=' : '-=')  + distance * 2;
-		animation2[ref] = (motion == 'pos' ? '-=' : '+=')  + distance * 2;
+		animation[ref] = (motion == 'positions' ? '-=' : '+=')  + distance;
+		animation1[ref] = (motion == 'positions' ? '+=' : '-=')  + distance * 2;
+		animation2[ref] = (motion == 'positions' ? '-=' : '+=')  + distance * 2;
 
 		// Animate
 		el.animate(animation, speed, o.options.easing);
@@ -11629,13 +11629,13 @@ $.effects.slide = function(o) {
 		$.effects.save(el, props); el.show(); // Save & Show
 		$.effects.createWrapper(el).css({overflow:'hidden'}); // Create Wrapper
 		var ref = (direction == 'up' || direction == 'down') ? 'top' : 'left';
-		var motion = (direction == 'up' || direction == 'left') ? 'pos' : 'neg';
+		var motion = (direction == 'up' || direction == 'left') ? 'positions' : 'neg';
 		var distance = o.options.distance || (ref == 'top' ? el.outerHeight({margin:true}) : el.outerWidth({margin:true}));
-		if (mode == 'show') el.css(ref, motion == 'pos' ? (isNaN(distance) ? "-" + distance : -distance) : distance); // Shift
+		if (mode == 'show') el.css(ref, motion == 'positions' ? (isNaN(distance) ? "-" + distance : -distance) : distance); // Shift
 
 		// Animation
 		var animation = {};
-		animation[ref] = (mode == 'show' ? (motion == 'pos' ? '+=' : '-=') : (motion == 'pos' ? '-=' : '+=')) + distance;
+		animation[ref] = (mode == 'show' ? (motion == 'positions' ? '+=' : '-=') : (motion == 'positions' ? '-=' : '+=')) + distance;
 
 		// Animate
 		el.animate(animation, { queue: false, duration: o.duration, easing: o.options.easing, complete: function() {

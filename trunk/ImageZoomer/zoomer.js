@@ -27,8 +27,8 @@
 		},
 
 		domOptions: {
-			zoomIn: null,
-			zoomOut: null
+			$zoomIn: null,
+			$zoomOut: null
 		},
 
 		init: function(element, options) {
@@ -51,14 +51,14 @@
 			var alignFactor =  this.options.initHeight > this.options.initWidth ? this.options.initHeight / parentHeight : this.options.initWidth / parentWidth;
 			this.options.minWidth = this.options.width = Math.round(this.options.initWidth / alignFactor);
 			this.options.minHeight = this.options.height = Math.round(this.options.initHeight / alignFactor);
-			this.options.pos = {
+			this.options.positions = {
 				top: this.options.minHeight < this.options.minWidth ? Math.round((this.options.$parent.height() - this.options.minHeight) / 2) : 0,
 				left: this.options.minHeight > this.options.minWidth ? Math.round((this.options.$parent.width() - this.options.minWidth) / 2) : 0
 			};
 			var offset = $elem.offset();
 			this.options.offset = {
-				top: Math.round(offset.top) + this.options.pos.top,
-				left: Math.round(offset.left) + this.options.pos.left
+				top: Math.round(offset.top) + this.options.positions.top,
+				left: Math.round(offset.left) + this.options.positions.left
 			};
 			this.options.ratio = this.options.minHeight < this.options.minWidth ? this.options.minHeight / this.options.minWidth : this.options.minWidth / this.options.minHeight;
 		},
@@ -81,8 +81,8 @@
 
 		fitElement: function() {
 			this.options.$element.css({
-				'top': this.options.pos.top,
-				'left': this.options.pos.left,
+				'top': this.options.positions.top,
+				'left': this.options.positions.left,
 				'width': this.options.minWidth,
 				'height': this.options.minHeight
 			});
@@ -123,26 +123,30 @@
 
 			if (this.options.draggable) {
 				this.options.$element.on('mousedown.zoom', function(e) {
-					that.mouseDown('mouseDrag', e);
-					return false;
-				}).on('mouseup.zoom', function(e) {
+					if (e.which === 1) {
+						that.mouseDown('mouseDrag', e);
+						return false;
+					}
+				});/*.on('mouseup.zoom', function(e) {
 						that.mouseDrag(e);
 						return false;
-					}).on('dragstart.zoom', function() { return false; });
-				$('document').on('mouseup.zoom', function(e) {
+					}).on('dragstart.zoom', function() { return false; });*/
+				$(document).on('mouseup.zoom', function(e) {
 					that.mouseDrag(e);
 					return false;
 				});
 			}
+
+			/*document.ondragstart = function() { return false }
+			document.body.onselectstart = function() { return false }*/
 		},
 
 		mouseDown: function(action, e) {
-			var that = this;
 			this[action](e);
 
 			if (action === "mouseDrag") { return; }
 			this.options.mousedownInterval = window.setInterval(function() {
-				that[action](e);
+				[action].apply(Zoom, e);
 			}, this.options.animateDuration);
 		},
 
@@ -168,7 +172,7 @@
 			var xFactor = this.options.width * (1 / this.options.ratio) - this.options.width;
 			var yFactor = this.options.height * (1 / this.options.ratio) - this.options.height;
 
-			if (!this.validateSize(xFactor, 'zoomOut') || !this.validatePosition()) { return false; }
+			if (!this.validateSize(xFactor, 'zoomOut') || !this.validatePosition()) { return; }
 
 			this.options.height -= yFactor;
 			this.options.width -= xFactor;
@@ -186,45 +190,87 @@
 			var that = this;
 
 			if (e.type === "mousedown") {
-				$('document').on('mousemove.zoom', function(e) {
-					if (!(that.options.initClientX && that.options.initClientY)) {
-						that.options.initClientX = e.pageX;
-						that.options.initClientY = e.pageY;
-					}
+				/*var pos = this.getPosition(e);
+				this.options.mouseOffset = { x: e.pageX - pos.x, y: e.pageY - pos.y };*/
+				if (!(that.options.mouseOffsetX && that.options.mouseOffsetY)) {
+					that.options.mouseOffsetX = e.pageX;
+					that.options.mouseOffsetY = e.pageY;
+				}
+				$(document).on('mousemove.zoom', function(e) {
 					that.mouseDrag(e);
 					return false;
 				});
 			}
 
 			if (e.type === 'mousemove') {
-				console.log(e.clientX + " " + e.clientY);
-				var x = Math.abs(this.options.initClientX - e.pageX);
-				var y = Math.abs(this.options.initClientY - e.pageY);
+				var x = Math.abs(this.options.mouseOffsetX - e.pageX);
+				var y = Math.abs(this.options.mouseOffsetY - e.pageY);
 
-				this.options.$element.css({
-					'top': e.pageX,
-					'left': e.pageY
-				});
-				/*if (e.clientX < this.options.initClientX) {
+				/*this.options.$element.css({
+					'top': e.pageX - this.options.mouseOffset.x,
+					'left': e.pageY - this.options.mouseOffset.y
+				});*/
+
+				if (e.pageX < this.options.mouseOffsetX && e.pageY < this.options.mouseOffsetY) {
+					/*this.options.offset.left -= x;
+					this.options.offset.top -= y;*/
 					this.options.$element.offset({
 						'left': this.options.offset.left - x,
 						'top': this.options.offset.top - y
-					})
-				} else {
+					});
+				}
+				if (e.pageX > this.options.mouseOffsetX && e.pageY > this.options.mouseOffsetY) {
+					/*this.options.offset.left += x;
+					this.options.offset.top += y;*/
 					this.options.$element.offset({
 						'left': this.options.offset.left + x,
 						'top': this.options.offset.top + y
-					})
-				}*/
-				this.validatePosition();
-				this.applyPosition();
+					});
+				}
+				if (e.pageX < this.options.mouseOffsetX && e.pageY > this.options.mouseOffsetY) {
+					/*this.options.offset.left -= x;
+					this.options.offset.top += y;*/
+					this.options.$element.offset({
+						'left': this.options.offset.left - x,
+						'top': this.options.offset.top + y
+					});
+				}
+				if (e.pageX > this.options.mouseOffsetX && e.pageY < this.options.mouseOffsetY) {
+					/*this.options.offset.left += x;
+					this.options.offset.top -= y;*/
+					this.options.$element.offset({
+						'left': this.options.offset.left + x,
+						'top': this.options.offset.top - y
+					});
+				}
+				//this.validatePosition();
+				//this.applyPosition();
 			}
 
 			if (e.type === 'mouseup') {
-				this.options.$element.off('mousemove.zoom');
-				this.options.initClientX = null;
-				this.options.initClientY = null
+				$(document).off('mousemove.zoom');
+				/*this.options.offset.left = this.options.left;
+				this.options.offset.top = this.options.top;*/
+				this.options.mouseOffsetX = null;
+				this.options.mouseOffsetY = null;
 			}
+		},
+		getPosition: function(e) {
+			if (!(this.options.mouseOffsetX && this.options.mouseOffsetY)) {
+				this.options.mouseOffsetX = e.pageX;
+				this.options.mouseOffsetY = e.pageY;
+			}
+			var left = 0,
+				top = 0;
+			while (e.target) {
+				left += e.target.offsetLeft;
+				top += e.target.offsetTop;
+				e = e.target.offsetParent;
+			}
+			left += e.offsetLeft;
+			top += e.offsetTop;
+
+			return { x: left, y: top }
 		},
 
 		validateSize: function(xFactor, action) {
