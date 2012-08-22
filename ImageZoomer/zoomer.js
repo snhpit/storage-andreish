@@ -51,14 +51,18 @@
 			var alignFactor =  this.options.initHeight > this.options.initWidth ? this.options.initHeight / parentHeight : this.options.initWidth / parentWidth;
 			this.options.minWidth = this.options.width = Math.round(this.options.initWidth / alignFactor);
 			this.options.minHeight = this.options.height = Math.round(this.options.initHeight / alignFactor);
-			this.options.positions = {
+			this.options.position = {
 				top: this.options.minHeight < this.options.minWidth ? Math.round((this.options.$parent.height() - this.options.minHeight) / 2) : 0,
 				left: this.options.minHeight > this.options.minWidth ? Math.round((this.options.$parent.width() - this.options.minWidth) / 2) : 0
 			};
 			var offset = $elem.offset();
 			this.options.offset = {
-				top: Math.round(offset.top) + this.options.positions.top,
-				left: Math.round(offset.left) + this.options.positions.left
+				top: Math.round(offset.top) + this.options.position.top,
+				left: Math.round(offset.left) + this.options.position.left
+			};
+			this.options.initOffset = {
+				top: Math.round(offset.top) + this.options.position.top,
+				left: Math.round(offset.left) + this.options.position.left
 			};
 			this.options.ratio = this.options.minHeight < this.options.minWidth ? this.options.minHeight / this.options.minWidth : this.options.minWidth / this.options.minHeight;
 		},
@@ -69,7 +73,10 @@
 		},
 
 		setCSS: function() {
-			this.options.$parent.css({ 'position': 'relative' });
+			this.options.$parent.css({
+				'position': 'relative',
+				'overflow': 'hidden'
+			});
 			this.options.$element.css({ 'position': 'absolute' });
 			this.fitElement();
 			if (this.options.draggable) {
@@ -81,10 +88,12 @@
 
 		fitElement: function() {
 			this.options.$element.css({
-				'top': this.options.positions.top,
-				'left': this.options.positions.left,
 				'width': this.options.minWidth,
 				'height': this.options.minHeight
+			});
+			this.options.$element.offset({
+				'top': this.options.initOffset.top,
+				'left': this.options.initOffset.left
 			});
 		},
 
@@ -142,11 +151,12 @@
 		},
 
 		mouseDown: function(action, e) {
+			var that = this;
 			this[action](e);
 
 			if (action === "mouseDrag") { return; }
 			this.options.mousedownInterval = window.setInterval(function() {
-				[action].apply(Zoom, e);
+				that[action](e);
 			}, this.options.animateDuration);
 		},
 
@@ -196,63 +206,48 @@
 				that.options.mouseOffsetX = e.pageX;
 				that.options.mouseOffsetY = e.pageY;
 				$(document).on('mousemove.zoom', function(e) {
-
 					that.mouseDrag(e);
-					return false;
+					//return false;
 				});
 			}
 
 			if (e.type === 'mousemove') {
-				var x = Math.abs(this.options.mouseOffsetX - e.pageX);
-				var y = Math.abs(this.options.mouseOffsetY - e.pageY);
+				var x = this.options.mouseOffsetX - e.pageX;
+				var y = this.options.mouseOffsetY - e.pageY;
+				//if (x < 1 || y < 1) { return; }
 
-				/*this.options.$element.css({
-					'top': e.pageX - this.options.mouseOffset.x,
-					'left': e.pageY - this.options.mouseOffset.y
-				});*/
+				this.options.pos.x = this.options.offset.left - x;
+				this.options.pos.y = this.options.offset.top - y;
 
-				if (e.pageX < this.options.mouseOffsetX && e.pageY < this.options.mouseOffsetY) {
-					this.options.pos.x = this.options.offset.left - x;
-					this.options.pos.y = this.options.offset.top - y;
+				//var shiftX = this.options.pos.x < 0 ? Math.abs(this.options.pos.x) + this.options.position.left + this.options.width :
+				if (this.options.pos.x + this.options.position.left > this.options.initOffset.left
+					|| Math.abs(this.options.pos.x) + this.options.position.left + this.options.width < this.options.initOffset.left + this.options.minWidth) {
+					console.log(this.options.pos.x + " xnl | init " + this.options.initOffset.left + ' _ ' + (Math.abs(this.options.pos.x) + this.options.position.left + this.options.width) + " xnr | init " + (this.options.initOffset.left + this.options.minWidth));
+					this.options.pos.x = 0;
+					return;//this.options.x = this.options.offset.left;
 				}
-				if (e.pageX > this.options.mouseOffsetX && e.pageY > this.options.mouseOffsetY) {
-					this.options.pos.x = this.options.offset.left + x;
-					this.options.pos.y = this.options.offset.top + y;
+
+				if (this.options.pos.y + this.options.position.top > this.options.initOffset.top
+					|| Math.abs(this.options.pos.y) + this.options.position.top + this.options.height < this.options.initOffset.top + this.options.minHeight) {
+					this.options.pos.y = 0;
+					console.log(this.options.pos.y + " ynl | init " + this.options.initOffset.top + ' _ ' + (Math.abs(this.options.pos.y) + this.options.position.top + this.options.height) + " ynr | init " + (this.options.initOffset.top + this.options.minHeight));
+					return;//this.options.y = this.options.offset.top;
 				}
-				if (e.pageX < this.options.mouseOffsetX && e.pageY > this.options.mouseOffsetY) {
-					this.options.pos.x = this.options.offset.left - x;
-					this.options.pos.y = this.options.offset.top + y;
-				}
-				if (e.pageX > this.options.mouseOffsetX && e.pageY < this.options.mouseOffsetY) {
-					this.options.pos.x = this.options.offset.left + x;
-					this.options.pos.y = this.options.offset.top - y;
-				}
+
 				this.options.$element.offset({
 					'left': this.options.pos.x,
 					'top': this.options.pos.y
-				 });
+				});
+
 				//this.validatePosition();
 				//this.applyPosition();
 			}
 
 			if (e.type === 'mouseup') {
 				$(document).off('mousemove.zoom');
-				this.options.offset.left = this.options.pos.x;
-				this.options.offset.top = this.options.pos.y;
+				this.options.offset.left = this.options.pos.x || this.options.offset.left;
+				this.options.offset.top = this.options.pos.y || this.options.offset.top;
 			}
-		},
-		getPosition: function(e) {
-			var left = 0,
-				top = 0;
-			while (e.target) {
-				left += e.target.offsetLeft;
-				top += e.target.offsetTop;
-				e = e.target.offsetParent;
-			}
-			left += e.offsetLeft;
-			top += e.offsetTop;
-
-			return { x: left, y: top }
 		},
 
 		validateSize: function(xFactor, action) {
