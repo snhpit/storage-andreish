@@ -10,6 +10,10 @@
 		<script type="text/javascript" src="../jquery-image-zoom.js"></script>
         <script type="text/javascript" src="../z.js"></script>
         <script type="text/javascript" src="../zoomer.js"></script>
+
+		<script type="text/javascript" src="../iutil.js"></script>
+		<script type="text/javascript" src="../idrag.js"></script>
+		<script type="text/javascript" src="../islider.js"></script>
 		<link rel="stylesheet" type="text/css" media="screen" href="style.css" />
 		<script type="text/javascript">
 			$(document).ready(function () {
@@ -18,7 +22,9 @@
                     width: 400,
                         height: 310
             });*/
-
+				/*$('#pan img').Draggable({
+					containment: 'document'
+				});*/
                 $('#pan img').zoom();
 
 				/*$('#pan img').panZoom({
