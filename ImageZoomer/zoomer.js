@@ -33,9 +33,9 @@
 
 		init: function(element, options) {
 			this.setOptions(element, options);
-			this.setCSS();
 			this.buildButtons();
 			this.setDomOptions();
+			this.setCSS();
 			this.bindEvents();
 		},
 
@@ -43,9 +43,9 @@
 			$.extend(true, this.options, options);
 			this.options.element = element;
 			var $elem = this.options.$element = $(element);
-			this.options.initHeight = $elem.height();
+			this.options.initHeight = $elem.height(); // e.target.naturalHeight
 			this.options.initWidth = $elem.width();
-			this.options.$parent = $elem.parent();
+			this.options.$parent = $elem.parent(); // e.target.parentNode // client height width
 			var parentHeight = this.options.$parent.height();
 			var parentWidth = this.options.$parent.width();
 			var alignFactor =  this.options.initHeight > this.options.initWidth ? this.options.initHeight / parentHeight : this.options.initWidth / parentWidth;
@@ -77,7 +77,9 @@
 				'position': 'relative',
 				'overflow': 'hidden'
 			});
-			this.options.$element.css({ 'position': 'absolute' });
+			this.options.$element.css({
+				'position': 'absolute'
+			});
 			this.fitElement();
 			if (this.options.draggable) {
 				this.options.$element.css({
@@ -87,6 +89,9 @@
 		},
 
 		fitElement: function() {
+			this.options.width = this.options.minWidth;
+			this.options.height = this.options.minHeight;
+
 			this.options.$element.css({
 				'width': this.options.minWidth,
 				'height': this.options.minHeight
@@ -214,7 +219,7 @@
 			if (e.type === 'mousemove') {
 				var x = this.options.mouseOffsetX - e.pageX;
 				var y = this.options.mouseOffsetY - e.pageY;
-				//if (x < 1 || y < 1) { return; }
+				//if (Math.abs(x) < 2 && Math.abs(y) < 2) { return; }
 
 				this.options.pos.x = this.options.offset.left - x;
 				this.options.pos.y = this.options.offset.top - y;
@@ -222,27 +227,34 @@
 				var shiftX = this.options.pos.x < 0 ? Math.abs(this.options.pos.x) : this.options.pos.x;
 				var shiftY = this.options.pos.y < 0 ? Math.abs(this.options.pos.y) : this.options.pos.y;
 
-				if (this.options.pos.x + this.options.position.left > this.options.initOffset.left
-					|| shiftX + this.options.position.left + this.options.width < this.options.initOffset.left + this.options.minWidth) {
+				if (this.options.pos.x + this.options.position.left >= this.options.initOffset.left
+					|| this.options.pos.x + this.options.position.left + this.options.width <= this.options.initOffset.left + this.options.minWidth) {
 					console.log(((shiftX + this.options.position.left) > this.options.initOffset.left) + " X " + ((shiftX + this.options.position.left + this.options.width) < (this.options.initOffset.left + this.options.minWidth)));
 					console.log((shiftX + this.options.position.left) + " Xnl | init " + this.options.initOffset.left + ' _ ' + (shiftX + this.options.position.left + this.options.width) + " xnr | init " + (this.options.initOffset.left + this.options.minWidth));
-					this.options.pos.x += x;
-					//return;//this.options.x = this.options.offset.left;
+					this.options.pos.x += this.options.pos.prevX - this.options.pos.x;
+					//return;
+					//this.options.pos.x = this.options.offset.left;
 				}
 
-				if (this.options.pos.y + this.options.position.top > this.options.initOffset.top
-					|| shiftY + this.options.position.top + this.options.height < this.options.initOffset.top + this.options.minHeight) {
+				if (this.options.pos.y + this.options.position.top >= this.options.initOffset.top
+					|| this.options.pos.y + this.options.position.top + this.options.height <= this.options.initOffset.top + this.options.minHeight) {
+
+
 					console.log(((shiftY + this.options.position.top) > this.options.initOffset.top) + " --- " + ((shiftY + this.options.position.top + this.options.height) < (this.options.initOffset.top + this.options.minHeight)));
 					console.log((shiftY + this.options.position.top) + " ---nl | init " + this.options.initOffset.top + ' _ ' + (shiftY + this.options.position.top + this.options.height) + " ynr | init " + (this.options.initOffset.top + this.options.minHeight));
-					this.options.pos.y += y;
-					//return;//this.options.y = this.options.offset.top;
+					this.options.pos.y += this.options.pos.prevY - this.options.pos.y;
+					//return;
+					//this.options.pos.y = this.options.offset.top;
 				}
 
+				console.log(this.options.pos.x + " X " + this.options.pos.y + " Y");
 				this.options.$element.offset({
 					'left': this.options.pos.x,
 					'top': this.options.pos.y
 				});
 
+				this.options.pos.prevX = this.options.pos.x;
+				this.options.pos.prevY = this.options.pos.y;
 				//this.validatePosition();
 				//this.applyPosition();
 			}
