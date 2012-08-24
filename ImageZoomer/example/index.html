@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>jQuery PanZoom Example - by Ben Lumley</title>
-
-	  <script type="text/javascript" src="../jquery-1.7.2.js"></script>
+		<title></title>
+		<script type="text/javascript" src="../jquery-1.7.2.js"></script>
 		<script type="text/javascript" src="../jquery-ui-1.8.11.js"></script>
 		<script type="text/javascript" src="../jquery.mousewheel.js"></script>
 		<script type="text/javascript" src="../jquery-panzoom.js"></script>
 		<script type="text/javascript" src="../jquery-image-zoom.js"></script>
-        <script type="text/javascript" src="../z.js"></script>
-        <script type="text/javascript" src="../zoomer.js"></script>
+		<script type="text/javascript" src="../zoomer.js"></script>
 
 		<script type="text/javascript" src="../iutil.js"></script>
 		<script type="text/javascript" src="../idrag.js"></script>
@@ -17,56 +15,18 @@
 		<link rel="stylesheet" type="text/css" media="screen" href="style.css" />
 		<script type="text/javascript">
 			$(document).ready(function () {
-
-                /*$('div.wrapper > img').z({
-                    width: 400,
-                        height: 310
-            });*/
-				/*$('#pan img').Draggable({
-					containment: 'document'
-				});*/
-                $('#pan img').zoom();
-
-				/*$('#pan img').panZoom({
-					'zoomIn': $('#zoomin'),
-					'zoomOut' : $('#zoomout'),
-					'panUp'	 :$('#panup'),
-					'panDown': $('#pandown'),
-					'panLeft':$('#panleft'),
-					'panRight':$('#panright'),
-					'fit'       :   $('#fit'),
-					'destroy'   :   $('#destroy'),
-					'out_x1'    :   $('#x1'),
-					'out_y1'    :   $('#y1'),
-					'out_x2'    :   $('#x2'),
-					'out_y2'    :   $('#y2'),
-					'directedit':   true,
-					'debug'     :   true
-			  });*/
-				/*$('#pan img').imageZoom({
-					'zoomIn': $('#zoomin'),
-					'zoomOut' : $('#zoomout')
-				});*/
-				/*$('#images img').bind('click', function () {
-					$('#pan img').attr('src', $(this).attr('src'));
-				});
-
-				// init the init button (for testing destroy/recreate)
-				$('#reinit').bind('click', function (event) {
-				  if ($('#pan img').data('panZoom')) {
-					alert('Click destroy before trying to re-initialise panZoom');
+				if (jQuery.browser.safari && document.readyState !== 'complete'){
+					setTimeout(arguments.callee, 10);
 					return;
-				  }
-				  event.preventDefault();
-				});*/
+				}
 
+				$('#pan img').zoom();
 			});
 		</script>
 	</head>
 
 	<body>
 	<div class="wrapper">
-
         <!--<img src="sample2.jpg">-->
 	  <div id="pan">
 		<img src="your_image.jpg">
@@ -78,67 +38,6 @@
 		<img src="sample.jpg" width="100" height="67">
 		<img src="sample2.jpg" width="100" height="67">
 		<img src="sample3.jpg" width="100" height="67">
-	  </div>
-
-	  <div id="controls">
-		<h2>Controls</h2>
-		<h3>Zoom</h3>
-		<a id="zoomin" href="#">
-		  <img src="icons/zoom_in.png"><br />
-		  Zoom In
-		</a>
-		<a id="zoomout" href="#">
-		  <img src="icons/zoom_out.png"><br />
-		  Zoom Out
-		</a>
-
-		<h3>Pan</h3>
-		<a id="panup" href="#">
-		  <img src="icons/arrow_up.png"><br />
-		  Pan Up
-		</a>
-		<a id="pandown" href="#">
-		  <img src="icons/arrow_down.png"><br />
-		  Pan Down
-		</a>
-		<a id="panleft" href="#">
-		  <img src="icons/arrow_left.png"><br />
-		  Pan Left
-		</a>
-		<a id="panright" href="#">
-		  <img src="icons/arrow_right.png"><br />
-		  Pan Right
-		</a>
-
-		<h3>Fit/Destroy</h3>
-		<a id="fit" href="#">
-		  <img src="icons/arrow_out.png"><br />
-		  fit/reset
-		</a>
-		<a id="destroy" href="#">
-		  <img src="icons/cross.png"><br />
-		  destroy
-		</a>
-		<a id="reinit" href="#">
-		  <img src="icons/tick.png"><br />
-		  re-initialise
-		</a>
-
-		<h3>Other Controls</h3>
-		<p>You can also drag the image around or zoom with your mousewheel when hovering. Double click will zoom too.</p>
-	  </div>
-
-	  <div id="output">
-		<h2>Output</h2>
-		<p>View the current co-ordinates live. You will probably want hidden fields, but whilst they are visible, try changing the numbers.</p>
-		<table>
-		  <tr>
-			<td>x1: <input type="text" name="x1" value="0" id="x1"></td><td>x2: <input type="text" name="x2" value="0" id="x2"></td>
-		  </tr>
-		  <tr>
-			<td>y1: <input type="text" name="y1" value="0" id="y1"></td><td>y2: <input type="text" name="y2" value="0" id="y2"></td>
-		  </tr>
-		</table>
 	  </div>
 	</div>
 	</body>
