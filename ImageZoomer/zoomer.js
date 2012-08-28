@@ -238,8 +238,6 @@
 					this.options.pos.y = this.options.initOffset.top - (this.options.height - this.options.minHeight);
 				}
 
-				console.log(this.options.pos.x + " X " + this.options.pos.y + " Y");
-
 				this.options.$element.offset({
 					'left': this.options.pos.x,
 					'top': this.options.pos.y
