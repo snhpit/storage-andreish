@@ -67,15 +67,13 @@
             if (!dataWrapper.values) { return; }
             $('#finance-historical').empty();
 
-            if (dataWrapper.values !== null) {
-                $("#tableTemplate").tmpl(dataWrapper).appendTo("#finance-historical");
-                $("#pager").css("display", "block");
-                $("#finance-historical > table").addClass("tablesorter standart");
-                $("table")
+            $("#tableTemplate").tmpl(dataWrapper).appendTo("#finance-historical");
+            $("#pager").css("display", "block");
+            $("#finance-historical > table").addClass("tablesorter standart");
+            $("table")
                 .tablesorter({ widthFixed: false, widgets: ['zebra'], cssAsc: "headerSortUp", cssDesc: "headerSortDown", cssHeader: "header" })
                 .tablesorterPager({ container: $("#pager"), size: $(".pagesize option:selected").val() });
-                //tableZebra();
-            }
+            //tableZebra();
             //            var angle = 0;
             //            setInterval(function () {
             //                angle += 3;
