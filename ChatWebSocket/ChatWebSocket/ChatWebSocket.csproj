@@ -126,7 +126,16 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
-    <None Include="Service References\ChatWcfService\ChatService.disco" />
+    <None Include="Service References\ChatWcfService\ChatService1.wsdl" />
+    <None Include="Service References\ChatWcfService\ChatService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ChatWcfService\ChatService31.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ChatWcfService\ChatService32.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ChatWcfService\ChatWebSocket.ChatWcfService.CompositeType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -136,6 +145,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\ChatWcfService\ChatService1.disco" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -159,16 +169,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <None Include="Service References\ChatWcfService\ChatService.wsdl" />
-    <None Include="Service References\ChatWcfService\ChatService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ChatWcfService\ChatService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ChatWcfService\ChatService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -202,7 +202,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>8181</DevelopmentServerPort>
+          <DevelopmentServerPort>8000</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/8181</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
