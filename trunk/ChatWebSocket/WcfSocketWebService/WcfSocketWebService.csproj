@@ -60,7 +60,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ChatService.svc" />
-    <Content Include="ChatWebService.asmx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -74,10 +73,6 @@
   <ItemGroup>
     <Compile Include="ChatService.svc.cs">
       <DependentUpon>ChatService.svc</DependentUpon>
-    </Compile>
-    <Compile Include="ChatWebService.asmx.cs">
-      <DependentUpon>ChatWebService.asmx</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="IChatService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -95,10 +90,10 @@
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
-          <AutoAssignPort>False</AutoAssignPort>
+          <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>8001</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:16367/</IISUrl>
+          <IISUrl>http://localhost:8002/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
