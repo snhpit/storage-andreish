@@ -12,7 +12,7 @@ namespace WcfSocketWebService
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in code, svc and config file together.
     public class ChatService : IChatService
     {
-        public string GetData(int value)
+        /*public string GetData(int value)
         {
             return string.Format("You entered: {0}", value);
         }
@@ -28,7 +28,7 @@ namespace WcfSocketWebService
                 composite.StringValue += "Suffix";
             }
             return composite;
-        }
+        }*/
 
         public void StartServer()
         {
