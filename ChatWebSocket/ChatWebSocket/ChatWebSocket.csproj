@@ -74,6 +74,9 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChatWS.ashx.cs">
+      <DependentUpon>ChatWS.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -126,6 +129,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
+    <Content Include="ChatWS.ashx" />
     <None Include="Service References\ChatWcfService\ChatService1.wsdl" />
     <None Include="Service References\ChatWcfService\ChatService3.xsd">
       <SubType>Designer</SubType>
