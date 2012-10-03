@@ -34,6 +34,7 @@ namespace WcfSocketWebService
         {
             var allSockets = new List<IWebSocketConnection>();
             var server = new WebSocketServer("ws://localhost:8181");
+            
             server.Start(socket =>
             {
                 socket.OnOpen = () =>

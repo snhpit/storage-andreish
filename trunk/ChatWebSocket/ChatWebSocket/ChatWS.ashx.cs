@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
-//using System.Web.Mvc;
 
 namespace ChatWebSocket
 {
-    /// <summary>
-    /// Summary description for ChatWS
-    /// </summary>
     public class ChatWs : IHttpAsyncHandler
     {
 
         public void ProcessRequest(HttpContext context)
         {
-            //context.R  
+ 
             context.Response.ContentType = "text/plain";
             context.Response.Write("Hello World");
         }
@@ -37,4 +35,5 @@ namespace ChatWebSocket
             throw new NotImplementedException();
         }
     }
+  
 }
