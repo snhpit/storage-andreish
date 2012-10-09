@@ -25,10 +25,14 @@ namespace ChatWebSocket
             }
         }
 
-        public IAsyncResult BeginProcessRequest(HttpContext context, AsyncCallback cb, object extraData)
+        public IAsyncResult BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
         {
-            throw new NotImplementedException();
+            context.Response.Write("<p>Begin IsThreadPoolThread is " + Thread.CurrentThread.IsThreadPoolThread + "</p>\r\n");
+            AsyncOperation async = new AsyncOperation(cb, context, extraData);
+            async.StartAsyncWork();
+            return async;
         }
+
 
         public void EndProcessRequest(IAsyncResult result)
         {
