@@ -14,11 +14,11 @@ namespace WcfSocketWebService
     public interface IChatService
     {
 
-       /* [OperationContract]
+        [OperationContract]
         string GetData(int value);
 
         [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);*/
+        CompositeType GetDataUsingDataContract(CompositeType composite);
 
         [OperationContract]
         void StartServer();
