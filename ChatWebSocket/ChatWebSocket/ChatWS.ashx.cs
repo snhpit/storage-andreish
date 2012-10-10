@@ -27,6 +27,7 @@ namespace ChatWebSocket
 
         public IAsyncResult BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
         {
+            
             context.Response.Write("<p>Begin IsThreadPoolThread is " + Thread.CurrentThread.IsThreadPoolThread + "</p>\r\n");
             AsyncOperation async = new AsyncOperation(cb, context, extraData);
             async.StartAsyncWork();
