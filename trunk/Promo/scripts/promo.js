@@ -93,8 +93,8 @@
             slideShow.animate({left: -parseInt(slideShow.children().first().css('width')) * counter + 'px'}, 1000); // not good, yep?
             if (counter == numberOfSlides) {
                 counter = 0;
-                //slideShow.animate({left: '0px'}, 0);
-                $("ul.slideshow").css('left', 0); // why it doesn't work?
+                slideShow.animate({left: '0px'}, 0);
+                //$("ul.slideshow").css('left', 0); // why does it don't work?
             }
             slide(numberOfSlides);
         }, 4000);
