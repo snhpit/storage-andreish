@@ -39,13 +39,13 @@
 			this.bindEvents();
 		},
 
-		setOptions: function(element, options) { /* перетаскивание параметров из метода в метод */ /* зачем data ??? */
+		setOptions: function(element, options) {
 			$.extend(true, this.options, options);
 			this.options.element = element;
 			var $elem = this.options.$element = $(element);
-			this.options.initHeight = $elem.height(); // e.target.naturalHeight
+			this.options.initHeight = $elem.height();
 			this.options.initWidth = $elem.width();
-			this.options.$parent = $elem.parent(); // e.target.parentNode // client height width
+			this.options.$parent = $elem.parent();
 			var parentHeight = this.options.$parent.height();
 			var parentWidth = this.options.$parent.width();
 			var alignFactor =  this.options.initHeight > this.options.initWidth ? this.options.initHeight / parentHeight : this.options.initWidth / parentWidth;
@@ -60,10 +60,7 @@
 				top: Math.round(offset.top) + this.options.position.top,
 				left: Math.round(offset.left) + this.options.position.left
 			};
-			this.options.initOffset = {
-				top: Math.round(offset.top) + this.options.position.top,
-				left: Math.round(offset.left) + this.options.position.left
-			}; /* копирнуть */
+			this.options.initOffset = $.extend({}, this.options.offset);
 			this.options.ratio = this.options.minHeight < this.options.minWidth ? this.options.minHeight / this.options.minWidth : this.options.minWidth / this.options.minHeight;
 			/* extend чтобы избавиться от this.options*/
 		},
