@@ -63,8 +63,9 @@
 			this.options.initOffset = {
 				top: Math.round(offset.top) + this.options.position.top,
 				left: Math.round(offset.left) + this.options.position.left
-			};
+			}; /* копирнуть */
 			this.options.ratio = this.options.minHeight < this.options.minWidth ? this.options.minHeight / this.options.minWidth : this.options.minWidth / this.options.minHeight;
+			/* extend чтобы избавиться от this.options*/
 		},
 
 		setDomOptions: function() {
@@ -107,13 +108,14 @@
 
 		buildButtons: function() {
 			this.options.$parent.append($('<div class="noSel" style="position: absolute; right: 3px; bottom: 3px; width: 39px; height: 21px; z-index: 20; opacity: 0.8; background-color: #666666; border-radius: 5px 5px 5px 5px" >' +
-				'<div id="zoomOut" class="noSel" style="float: right; margin: 3px; width: 15px; height: 15px; background: url(' + "./ui-small-icons.png" + ') no-repeat scroll 0 -120px transparent; border-radius: 5px 5px 5px 5px; opacity: 0.5"></div>' +
-				'<div id="zoomIn" class="noSel" style="margin: 3px; width: 15px; height: 15px; background: url(' + "./ui-small-icons.png" + ') no-repeat scroll 0 -90px transparent; border-radius: 5px 5px 5px 5px;"></div>' +
-				'</div>'))
+				'<div id="zoomOut" class="noSel" style="float: right; margin: 3px; width: 15px; height: 15px; background: url(' + "./ui-small-icons.png" + ') no-repeat scroll 0 -120px transparent; border-radius: 5px 5px 5px 5px; opacity: 0.5; cursor: pointer"></div>' +
+				'<div id="zoomIn" class="noSel" style="margin: 3px; width: 15px; height: 15px; background: url(' + "./ui-small-icons.png" + ') no-repeat scroll 0 -90px transparent; border-radius: 5px 5px 5px 5px; cursor: pointer"></div>' +
+				'</div>'));
 		},
 
 		bindEvents: function() {
 			var that = this;
+			/* для избавления от захаркоданных строковых переменных: zoomIn... -> this.enum */
 
 			this.domOptions.$zoomIn.on('mousedown.zoom', function(e) {
 				that.mouseDown("zoomIn", e);
@@ -151,8 +153,8 @@
 				});
 			}
 
-			document.ondragstart = function() { return false }
-			document.body.onselectstart = function() { return false }
+			document.ondragstart = function() { return false; }
+			document.body.onselectstart = function() { return false; }
 		},
 
 		mouseDown: function(action, e) {
@@ -170,8 +172,8 @@
 		},
 
 		zoomIn: function(e) {
-			var xFactor = this.options.width - this.options.width * this.options.ratio;
-			var yFactor = this.options.height - this.options.height * this.options.ratio;
+			var xFactor = this.options.minWidth - this.options.minWidth * this.options.ratio;
+			var yFactor = this.options.minHeight - this.options.minHeight * this.options.ratio;
 
 			if (!this.validateSize(xFactor, 'zoomIn') || !this.validatePosition()) { return; }
 
@@ -184,9 +186,13 @@
 		},
 
 		zoomOut: function(e) {
-			var xFactor = this.options.width * (1 / this.options.ratio) - this.options.width;
-			var yFactor = this.options.height * (1 / this.options.ratio) - this.options.height;
+			var xFactor = this.options.minWidth - this.options.minWidth * this.options.ratio;
+			var yFactor = this.options.minHeight - this.options.minHeight * this.options.ratio;
 
+			/*var xFactor = this.options.width * (1 / this.options.ratio) - this.options.width;
+			var yFactor = this.options.height * (1 / this.options.ratio) - this.options.height;*/
+
+			/* должно быть &&. не проходит в mousewheel*/
 			if (!this.validateSize(xFactor, 'zoomOut') || !this.validatePosition()) { return; }
 
 			this.options.height = Math.round(this.options.height - yFactor);
@@ -255,6 +261,7 @@
 		},
 
 		validateSize: function(xFactor, action) {
+			/* this.enum.zoomIn */
 			if (xFactor + this.options.width > this.options.initWidth && action === "zoomIn") {
 				this.zoomButtonsCss('$' + action, false);
 				return false;
